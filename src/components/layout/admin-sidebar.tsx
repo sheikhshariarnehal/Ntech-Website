@@ -12,6 +12,7 @@ const sidebarItems = [
     { href: "/admin/projects", label: "Projects" },
     { href: "/admin/orders", label: "Orders" },
     { href: "/admin/blog", label: "Blog" },
+    { href: "/admin/team", label: "Team" },
     { href: "/admin/settings", label: "Settings" },
 ];
 
