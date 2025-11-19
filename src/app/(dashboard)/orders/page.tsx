@@ -4,42 +4,39 @@ import { DataTable } from "@/components/shared/data-table";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Admin Orders",
-    description: "Manage customer orders.",
+    title: "My Orders",
+    description: "View your order history.",
 };
 
-// Mock data for orders
 const orders = [
     {
         id: "ORD-001",
-        customer: "John Doe",
+        date: "2023-11-20",
         product: "ChatGPT Pro",
         amount: "$20.00",
         status: "Completed",
-        date: "2023-11-20",
     },
     {
         id: "ORD-002",
-        customer: "Jane Smith",
-        product: "Web Development Service",
-        amount: "$1,500.00",
-        status: "Pending",
-        date: "2023-11-19",
+        date: "2023-10-15",
+        product: "Web Development Consultation",
+        amount: "$150.00",
+        status: "Completed",
     },
 ];
 
-export default function AdminOrdersPage() {
+export default function OrdersPage() {
     const columns = [
         {
             header: "Order ID",
             accessorKey: "id" as const,
         },
         {
-            header: "Customer",
-            accessorKey: "customer" as const,
+            header: "Date",
+            accessorKey: "date" as const,
         },
         {
-            header: "Product/Service",
+            header: "Product",
             accessorKey: "product" as const,
         },
         {
@@ -54,18 +51,16 @@ export default function AdminOrdersPage() {
             header: "Actions",
             accessorKey: "id" as const,
             cell: (row: any) => (
-                <div className="flex gap-2">
-                    <Button variant="outline" size="sm">
-                        View
-                    </Button>
-                </div>
+                <Button variant="outline" size="sm">
+                    Invoice
+                </Button>
             ),
         },
     ];
 
     return (
         <>
-            <PageHeader title="Orders" subtitle="Manage customer orders." />
+            <PageHeader title="Orders" subtitle="View and manage your orders." />
             <DataTable columns={columns} data={orders} />
         </>
     );
