@@ -1,56 +1,99 @@
 import Link from "next/link";
+import {
+    Code2,
+    Smartphone,
+    Bot,
+    Headphones,
+    Cloud,
+    Sparkles,
+    ArrowRight,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const services = [
     {
+        icon: Code2,
         title: "Web Development",
         description:
-            "Custom websites and web applications built with modern technologies like Next.js and React.",
-        slug: "web-development",
+            "Custom websites and web applications built with Next.js, React, and modern technologies.",
+        href: "/services/web-development",
     },
     {
+        icon: Smartphone,
         title: "App Development",
         description:
-            "Native and cross-platform mobile applications for iOS and Android.",
-        slug: "app-development",
+            "Native and cross-platform mobile apps for iOS and Android that deliver seamless user experiences.",
+        href: "/services/app-development",
     },
     {
+        icon: Bot,
         title: "AI Automation",
         description:
-            "Streamline your business processes with custom AI solutions and automation workflows.",
-        slug: "ai-automation",
+            "Streamline your business processes with custom AI chatbots, workflows, and automation tools.",
+        href: "/services/ai-automation",
+    },
+    {
+        icon: Headphones,
+        title: "Technical Support",
+        description:
+            "24/7 maintenance and support to keep your digital infrastructure running smoothly.",
+        href: "/services/technical-support",
+    },
+    {
+        icon: Cloud,
+        title: "SaaS Integration",
+        description:
+            "Seamlessly integrate third-party tools and APIs to enhance your business capabilities.",
+        href: "/services/saas-integration",
+    },
+    {
+        icon: Sparkles,
+        title: "Digital Products",
+        description:
+            "Access premium digital tools and subscriptions like ChatGPT Pro, Gemini Pro, and more.",
+        href: "/products",
     },
 ];
 
 export function HomeServices() {
     return (
-        <section
-            id="services"
-            className="container space-y-6 bg-slate-50 py-8 dark:bg-transparent md:py-12 lg:py-24"
-        >
-            <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-                <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl font-bold">
-                    Services
-                </h2>
-                <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
-                    We offer a wide range of technical services to help your business grow.
-                </p>
+        <section className="container py-20 lg:py-28">
+            <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
+                <div className="max-w-2xl">
+                    <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+                        What we do
+                    </h2>
+                    <p className="text-lg text-muted-foreground">
+                        We combine engineering excellence with AI innovation to deliver
+                        comprehensive digital solutions for startups and enterprises.
+                    </p>
+                </div>
+                <Link
+                    href="/services"
+                    className="group flex items-center font-medium text-primary"
+                >
+                    View all services
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
             </div>
-            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3">
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {services.map((service) => (
-                    <Card key={service.slug} className="flex flex-col justify-between">
-                        <div className="p-6">
-                            <h3 className="font-bold text-xl mb-2">{service.title}</h3>
-                            <p className="text-muted-foreground">{service.description}</p>
+                    <Card
+                        key={service.title}
+                        className="group relative overflow-hidden p-6 transition-all hover:shadow-lg"
+                    >
+                        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                            <service.icon className="h-6 w-6" />
                         </div>
-                        <div className="p-6 pt-0">
-                            <Link href={`/services/${service.slug}`}>
-                                <Button variant="ghost" className="w-full">
-                                    Learn more
-                                </Button>
-                            </Link>
-                        </div>
+                        <h3 className="mb-2 text-xl font-bold">{service.title}</h3>
+                        <p className="mb-4 text-muted-foreground">{service.description}</p>
+                        <Link
+                            href={service.href}
+                            className="inline-flex items-center text-sm font-medium text-primary"
+                        >
+                            Learn more <ArrowRight className="ml-1 h-3 w-3" />
+                        </Link>
                     </Card>
                 ))}
             </div>
