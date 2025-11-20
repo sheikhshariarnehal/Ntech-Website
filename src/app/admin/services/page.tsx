@@ -134,7 +134,7 @@ export default function ServicesPage() {
       accessor: (row: Service) => (
         row.starting_price ? (
           <div>
-            <p className="font-semibold text-sm">${Number(row.starting_price).toFixed(2)}</p>
+            <p className="font-semibold text-sm">৳{Number(row.starting_price).toLocaleString('en-BD')}</p>
           </div>
         ) : (
           <Badge variant="secondary" className="text-xs">Custom Quote</Badge>
@@ -216,7 +216,7 @@ export default function ServicesPage() {
           subtitle={`Manage your service offerings. ${services.length} total services.`} 
         />
         <Button asChild className="sm:w-auto w-full">
-          <Link href="/admin/services/new">
+          <Link href="/admin/services/new" className="flex items-center">
             <Plus className="h-4 w-4 mr-2" />
             Add Service
           </Link>
@@ -254,7 +254,7 @@ export default function ServicesPage() {
             <div>
               <p className="text-sm font-medium text-muted-foreground">Avg. Starting Price</p>
               <h3 className="text-2xl font-bold mt-2">
-                ${isNaN(stats.avgPrice) ? '0.00' : stats.avgPrice.toFixed(2)}
+                ৳{isNaN(stats.avgPrice) ? '0' : Math.round(stats.avgPrice).toLocaleString('en-BD')}
               </h3>
             </div>
             <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">

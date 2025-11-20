@@ -138,17 +138,21 @@ export default function NewProjectPage() {
 
   return (
     <>
-      <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" size="sm" asChild>
-          <Link href="/admin/projects">
+      <div className="flex items-center justify-between mb-6">
+        <PageHeader title="Add New Project" subtitle="Create a new portfolio project." />
+        <Button variant="outline" size="sm" asChild className="flex-shrink-0">
+          <Link href="/admin/projects" className="flex items-center">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
+            <span className="hidden sm:inline">Back to Projects</span>
+            <span className="sm:hidden">Back</span>
           </Link>
         </Button>
-        <PageHeader title="Add New Project" subtitle="Create a new portfolio project." />
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Left Column - Main Fields */}
+          <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
         {/* Basic Information */}
         <Card className="p-6 space-y-4">
           <h3 className="text-lg font-semibold">Basic Information</h3>
@@ -272,12 +276,68 @@ export default function NewProjectPage() {
             )}
           </div>
         </Card>
+      </div>
+
+      {/* Right Column - Sidebar */}
+      <div className="space-y-6 order-1 lg:order-2">
+        {/* Status */}
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Publishing</h3>
+
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="is_featured"
+                checked={formData.is_featured}
+                onChange={(e) => setFormData({ ...formData, is_featured: e.target.checked })}
+                className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+              />
+              <Label htmlFor="is_featured" className="cursor-pointer font-medium">
+                Featured project
+              </Label>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="published_at">Publish Date</Label>
+              <Input
+                id="published_at"
+                type="datetime-local"
+                value={formData.published_at}
+                onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
+              />
+              <p className="text-xs text-muted-foreground">
+                Leave empty to save as draft
+              </p>
+            </div>
+
+            <div className="pt-4 space-y-2">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full"
+                size="lg"
+              >
+                {loading ? "Creating..." : "Create Project"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/admin/projects")}
+                disabled={loading}
+                className="w-full"
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </Card>
 
         {/* Links & Services */}
-        <Card className="p-6 space-y-4">
-          <h3 className="text-lg font-semibold">Links & Services</h3>
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Links & Services</h3>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="live_url">Live URL</Label>
               <Input
@@ -299,65 +359,36 @@ export default function NewProjectPage() {
                 placeholder="https://github.com/..."
               />
             </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="services_used">Services Used</Label>
-            <Input
-              id="services_used"
-              value={formData.services_used}
-              onChange={(e) => setFormData({ ...formData, services_used: e.target.value })}
-              placeholder="web-development, ui-ux-design, seo"
-            />
-            <p className="text-xs text-muted-foreground">
-              Comma-separated service slugs
-            </p>
-          </div>
-        </Card>
-
-        {/* Status */}
-        <Card className="p-6 space-y-4">
-          <h3 className="text-lg font-semibold">Project Status</h3>
-
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="is_featured">Featured Project</Label>
-              <select
-                id="is_featured"
-                value={formData.is_featured ? "true" : "false"}
-                onChange={(e) => setFormData({ ...formData, is_featured: e.target.value === "true" })}
-                className="w-full px-4 py-2 border rounded-md bg-background"
-              >
-                <option value="false">No</option>
-                <option value="true">Yes (Featured)</option>
-              </select>
-            </div>
 
             <div className="space-y-2">
-              <Label htmlFor="published_at">Publish Date</Label>
+              <Label htmlFor="services_used">Services Used</Label>
               <Input
-                id="published_at"
-                type="datetime-local"
-                value={formData.published_at}
-                onChange={(e) => setFormData({ ...formData, published_at: e.target.value })}
+                id="services_used"
+                value={formData.services_used}
+                onChange={(e) => setFormData({ ...formData, services_used: e.target.value })}
+                placeholder="web-development, ui-ux-design, seo"
               />
               <p className="text-xs text-muted-foreground">
-                Leave empty to save as draft
+                Comma-separated service slugs
               </p>
             </div>
           </div>
         </Card>
 
-        {/* Actions */}
-        <div className="flex items-center gap-4 pt-4 border-t">
-          <Button type="submit" disabled={loading}>
-            {loading ? "Creating..." : "Create Project"}
-          </Button>
-          <Button type="button" variant="outline" asChild>
-            <Link href="/admin/projects">Cancel</Link>
-          </Button>
-        </div>
-      </form>
+        {/* Image Preview */}
+        {formData.thumbnail_url && (
+          <Card className="p-6">
+            <h3 className="text-lg font-semibold mb-4">Thumbnail Preview</h3>
+            <img
+              src={formData.thumbnail_url}
+              alt="Project thumbnail"
+              className="w-full h-auto rounded-lg"
+            />
+          </Card>
+        )}
+      </div>
+    </div>
+  </form>
     </>
   );
 }

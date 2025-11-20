@@ -138,7 +138,7 @@ export default function ProductsPage() {
       header: "Price",
       accessor: (row: Product) => (
         <div>
-          <p className="font-semibold text-sm">${Number(row.price).toFixed(2)}</p>
+          <p className="font-semibold text-sm">৳{Number(row.price).toLocaleString('en-BD')}</p>
           <p className="text-xs text-muted-foreground capitalize">
             {row.billing_interval.replace('_', ' ')}
           </p>
@@ -245,7 +245,7 @@ export default function ProductsPage() {
           subtitle={`Manage your digital products and subscriptions. ${products.length} total products.`} 
         />
         <Button asChild className="sm:w-auto w-full">
-          <Link href="/admin/products/new">
+          <Link href="/admin/products/new" className="flex items-center">
             <Plus className="h-4 w-4 mr-2" />
             Add Product
           </Link>
@@ -282,7 +282,7 @@ export default function ProductsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-muted-foreground">Total Value</p>
-              <h3 className="text-2xl font-bold mt-2">${stats.totalValue.toFixed(2)}</h3>
+              <h3 className="text-2xl font-bold mt-2">৳{Math.round(stats.totalValue).toLocaleString('en-BD')}</h3>
             </div>
             <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center">
               <DollarSign className="h-6 w-6 text-blue-500" />

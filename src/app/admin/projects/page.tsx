@@ -111,7 +111,7 @@ export default function ProjectsPage() {
             <div className="flex items-center justify-between mb-6">
                 <PageHeader title="Projects" subtitle="Manage your portfolio projects." />
                 <Button asChild>
-                    <Link href="/admin/projects/new">
+                    <Link href="/admin/projects/new" className="flex items-center">
                         <Plus className="h-4 w-4 mr-2" />
                         Add Project
                     </Link>

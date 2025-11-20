@@ -100,7 +100,14 @@ export default function EditServicePage() {
   if (fetching) {
     return (
       <>
-        <PageHeader title="Edit Service" subtitle="Loading..." />
+        <div className="flex items-center justify-between mb-6 gap-4">
+          <PageHeader title="Edit Service" subtitle="Loading..." />
+          <Button variant="outline" onClick={() => router.push("/admin/services")} className="gap-2 flex-shrink-0">
+            <ArrowLeft className="h-4 w-4" />
+            <span className="hidden sm:inline">Back to Services</span>
+            <span className="sm:hidden">Back</span>
+          </Button>
+        </div>
         <Card className="p-8 text-center">
           <p className="text-muted-foreground">Loading service data...</p>
         </Card>
@@ -110,23 +117,25 @@ export default function EditServicePage() {
 
   return (
     <>
-      <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" size="sm" asChild>
-          <Link href="/admin/services">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Link>
-        </Button>
+      <div className="flex items-center justify-between mb-6 gap-4">
         <PageHeader title="Edit Service" subtitle="Update service information." />
+        <Button variant="outline" onClick={() => router.push("/admin/services")} className="gap-2 flex-shrink-0">
+          <ArrowLeft className="h-4 w-4" />
+          <span className="hidden sm:inline">Back to Services</span>
+          <span className="sm:hidden">Back</span>
+        </Button>
       </div>
 
-      <Card className="p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Basic Information */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Basic Information</h3>
-
-            <div className="grid gap-4 md:grid-cols-2">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Left Column - Main Fields */}
+          <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
+            {/* Basic Information */}
+            <Card className="p-6">
+              <h3 className="text-lg font-semibold mb-4">Basic Information</h3>
+              
+              <div className="space-y-4">
+                <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Service Name *</Label>
                 <Input
@@ -169,62 +178,17 @@ export default function EditServicePage() {
                 value={formData.full_description || ""}
                 onChange={(e) => setFormData({ ...formData, full_description: e.target.value })}
                 placeholder="Detailed description of the service..."
-                rows={6}
+                rows={8}
               />
             </div>
           </div>
+        </Card>
 
-          {/* Pricing & Appearance */}
+        {/* SEO Settings */}
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">SEO Settings</h3>
+          
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Pricing & Appearance</h3>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="starting_price">Starting Price ($)</Label>
-                <Input
-                  id="starting_price"
-                  type="number"
-                  step="0.01"
-                  value={formData.starting_price}
-                  onChange={(e) => setFormData({ ...formData, starting_price: e.target.value })}
-                  placeholder="999.00"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="icon">Icon URL</Label>
-                <Input
-                  id="icon"
-                  type="url"
-                  value={formData.icon || ""}
-                  onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                  placeholder="https://example.com/icon.svg"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Status Options */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Status</h3>
-
-            <div className="space-y-2">
-              <Label htmlFor="is_active">Visibility</Label>
-              <Select
-                id="is_active"
-                value={formData.is_active ? "true" : "false"}
-                onChange={(e) => setFormData({ ...formData, is_active: e.target.value === "true" })}
-              >
-                <option value="true">Active (Visible)</option>
-                <option value="false">Inactive (Hidden)</option>
-              </Select>
-            </div>
-          </div>
-
-          {/* SEO Settings */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">SEO Settings</h3>
-
             <div className="space-y-2">
               <Label htmlFor="seo_title">SEO Title</Label>
               <Input
@@ -247,7 +211,7 @@ export default function EditServicePage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="seo_keywords">SEO Keywords</Label>
+              <Label htmlFor="seo_keywords">SEO Keywords (comma separated)</Label>
               <Input
                 id="seo_keywords"
                 value={formData.seo_keywords}
@@ -256,18 +220,82 @@ export default function EditServicePage() {
               />
             </div>
           </div>
+        </Card>
+      </div>
 
-          {/* Actions */}
-          <div className="flex items-center gap-4 pt-4 border-t">
-            <Button type="submit" disabled={loading}>
-              {loading ? "Updating..." : "Update Service"}
-            </Button>
-            <Button type="button" variant="outline" asChild>
-              <Link href="/admin/services">Cancel</Link>
-            </Button>
+      {/* Right Column - Sidebar */}
+      <div className="space-y-6 order-1 lg:order-2">
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Publishing</h3>
+          
+          <div className="space-y-4">
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="is_active"
+                checked={formData.is_active}
+                onChange={(e) => setFormData({ ...formData, is_active: e.target.checked })}
+                className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+              />
+              <Label htmlFor="is_active" className="cursor-pointer font-medium">
+                Active (visible to customers)
+              </Label>
+            </div>
+
+            <div className="pt-4 space-y-2">
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full"
+                size="lg"
+              >
+                {loading ? "Updating..." : "Update Service"}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => router.push("/admin/services")}
+                disabled={loading}
+                className="w-full"
+              >
+                Cancel
+              </Button>
+            </div>
           </div>
-        </form>
-      </Card>
+        </Card>
+
+        <Card className="p-6">
+          <h3 className="text-lg font-semibold mb-4">Pricing & Icon</h3>
+          
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="starting_price">Starting Price (৳ BDT)</Label>
+              <Input
+                id="starting_price"
+                type="number"
+                step="1"
+                value={formData.starting_price}
+                onChange={(e) => setFormData({ ...formData, starting_price: e.target.value })}
+                placeholder="50000"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="icon">Icon URL</Label>
+              <Input
+                id="icon"
+                type="url"
+                value={formData.icon || ""}
+                onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
+                placeholder="https://example.com/icon.svg"
+                className="font-mono text-sm"
+              />
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </form>
     </>
   );
 }

@@ -46,14 +46,13 @@ export default function NewProductPage() {
 
   return (
     <>
-      <div className="flex items-center gap-4 mb-6">
-        <Button variant="ghost" size="sm" asChild>
-          <Link href="/admin/products">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back
-          </Link>
-        </Button>
+      <div className="flex items-center justify-between mb-6 gap-4">
         <PageHeader title="Add New Product" subtitle="Create a new digital product." />
+        <Button variant="outline" onClick={() => router.push("/admin/products")} className="gap-2 flex-shrink-0">
+          <ArrowLeft className="h-4 w-4" />
+          <span className="hidden sm:inline">Back to Products</span>
+          <span className="sm:hidden">Back</span>
+        </Button>
       </div>
 
       <ProductForm
