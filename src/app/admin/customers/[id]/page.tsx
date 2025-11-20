@@ -25,7 +25,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-type Profile = Database['public']['Tables']['profiles']['Row'];
+type Profile = Database['public']['Tables']['profiles']['Row'] & {
+  email?: string;
+  phone?: string;
+};
 type Order = Database['public']['Tables']['orders']['Row'] & {
   order_items?: Array<{
     id: string;
@@ -83,8 +86,24 @@ export default function CustomerDetailPage() {
       .eq('user_id', customerId)
       .order('created_at', { ascending: false });
 
-    setCustomer(profile);
-    setOrders((orderData as Order[]) || []);
+    // Get email from the first order if available
+    const orders = (orderData as Order[]) || [];
+    const userEmail = orders.length > 0 ? orders[0].email : '';
+
+    // Create customer object with email
+    const profileData = profile as Database['public']['Tables']['profiles']['Row'];
+    const customerWithEmail: Profile = {
+      id: profileData.id,
+      created_at: profileData.created_at,
+      updated_at: profileData.updated_at,
+      full_name: profileData.full_name,
+      role: profileData.role,
+      email: userEmail,
+      phone: null
+    };
+
+    setCustomer(customerWithEmail);
+    setOrders(orders);
     setLoading(false);
   }
 
