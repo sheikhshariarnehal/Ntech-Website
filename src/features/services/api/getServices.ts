@@ -1,24 +1,20 @@
-export const services = [
-    {
-        title: "Web Development",
-        description:
-            "Custom websites and web applications built with modern technologies like Next.js and React.",
-        slug: "web-development",
-    },
-    {
-        title: "App Development",
-        description:
-            "Native and cross-platform mobile applications for iOS and Android.",
-        slug: "app-development",
-    },
-    {
-        title: "AI Automation",
-        description:
-            "Streamline your business processes with custom AI solutions and automation workflows.",
-        slug: "ai-automation",
-    },
-];
+import { createServerClient } from "@/lib/supabase/server-client";
+import { Service } from "../types";
 
-export async function getServices() {
-    return services;
+export async function getServices(): Promise<Service[]> {
+  const supabase = await createServerClient();
+  
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .eq("is_active", true)
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.error("Error fetching services:", error);
+    return [];
+  }
+
+  return data as Service[];
 }
+

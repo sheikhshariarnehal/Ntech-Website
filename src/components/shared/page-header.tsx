@@ -12,10 +12,10 @@ export function PageHeader({
     ...props
 }: PageHeaderProps) {
     return (
-        <div className={cn("space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:pb-16 lg:pt-12", className)} {...props}>
-            <div className="flex flex-col gap-4">
+        <div className={cn("space-y-3 pb-4 pt-4 md:pb-6 md:pt-6 lg:pb-8 lg:pt-8", className)} {...props}>
+            <div className="flex flex-col gap-2">
                 {/* Animated title with gradient */}
-                <h1 className="font-bold tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+                <h1 className="font-bold tracking-tight text-2xl sm:text-3xl md:text-4xl lg:text-5xl animate-in fade-in slide-in-from-bottom-4 duration-700">
                     <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
                         {title}
                     </span>
@@ -23,7 +23,7 @@ export function PageHeader({
                 
                 {/* Animated subtitle */}
                 {subtitle && (
-                    <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-[750px] leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+                    <p className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-[750px] leading-normal animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
                         {subtitle}
                     </p>
                 )}
