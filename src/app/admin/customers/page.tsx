@@ -72,13 +72,15 @@ export default function CustomersPage() {
           .eq('user_id', profileData.id)
           .order('created_at', { ascending: false });
 
-        const paidOrders = orders?.filter(o => o.status === 'paid') || [];
+        type OrderData = { total_amount: number; created_at: string; status: string };
+        const ordersList = (orders as OrderData[]) || [];
+        const paidOrders = ordersList.filter(o => o.status === 'paid');
         const total_spent = paidOrders.reduce((sum, o) => sum + Number(o.total_amount), 0);
-        const lastOrder = orders?.[0];
+        const lastOrder = ordersList[0];
 
         return {
           ...profileData,
-          order_count: orders?.length || 0,
+          order_count: ordersList.length,
           total_spent,
           last_order_date: lastOrder?.created_at || null,
         };
