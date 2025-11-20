@@ -12,13 +12,25 @@ export function PageHeader({
     ...props
 }: PageHeaderProps) {
     return (
-        <div className={cn("grid gap-1 py-4 md:py-8", className)} {...props}>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                {title}
-            </h1>
-            {subtitle && (
-                <p className="text-lg text-muted-foreground">{subtitle}</p>
-            )}
+        <div className={cn("space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:pb-16 lg:pt-12", className)} {...props}>
+            <div className="flex flex-col gap-4">
+                {/* Animated title with gradient */}
+                <h1 className="font-bold tracking-tight text-3xl sm:text-4xl md:text-5xl lg:text-6xl animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/80 bg-clip-text text-transparent">
+                        {title}
+                    </span>
+                </h1>
+                
+                {/* Animated subtitle */}
+                {subtitle && (
+                    <p className="text-muted-foreground text-base sm:text-lg md:text-xl max-w-[750px] leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-150">
+                        {subtitle}
+                    </p>
+                )}
+                
+                {/* Animated underline accent */}
+                <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full animate-in fade-in slide-in-from-left duration-700 delay-300" />
+            </div>
         </div>
     );
 }

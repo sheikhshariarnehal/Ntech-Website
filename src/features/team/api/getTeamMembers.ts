@@ -1,93 +1,24 @@
+import { createServerClient } from "@/lib/supabase/server-client";
 import { TeamMember } from "../types";
 
-export const teamMembers: TeamMember[] = [
-    {
-        id: "1",
-        name: "Sarah Johnson",
-        role: "Founder & CEO",
-        bio: "With over 15 years of experience in software development and business strategy, Sarah leads our team with a vision for innovation and excellence. She specializes in AI integration and digital transformation.",
-        slug: "sarah-johnson",
-        image: "/team/sarah.jpg",
-        email: "sarah@company.com",
-        linkedin: "https://linkedin.com/in/sarahjohnson",
-        twitter: "https://twitter.com/sarahjohnson",
-        expertise: ["AI Strategy", "Business Development", "Digital Transformation", "Leadership"],
-        joinedAt: "2018-01-15",
-        order: 1,
-    },
-    {
-        id: "2",
-        name: "Michael Chen",
-        role: "CTO & Lead Developer",
-        bio: "Michael brings a wealth of technical expertise to our team. He has built scalable systems for Fortune 500 companies and specializes in cloud architecture and full-stack development.",
-        slug: "michael-chen",
-        image: "/team/michael.jpg",
-        email: "michael@company.com",
-        linkedin: "https://linkedin.com/in/michaelchen",
-        github: "https://github.com/michaelchen",
-        expertise: ["Full-Stack Development", "Cloud Architecture", "DevOps", "System Design"],
-        joinedAt: "2018-03-20",
-        order: 2,
-    },
-    {
-        id: "3",
-        name: "Emily Rodriguez",
-        role: "Head of Design",
-        bio: "Emily is a creative force with a keen eye for detail. She has designed award-winning digital products and leads our design team in creating beautiful, user-centric experiences.",
-        slug: "emily-rodriguez",
-        image: "/team/emily.jpg",
-        email: "emily@company.com",
-        linkedin: "https://linkedin.com/in/emilyrodriguez",
-        twitter: "https://twitter.com/emilyrodriguez",
-        expertise: ["UI/UX Design", "Product Design", "Design Systems", "Branding"],
-        joinedAt: "2019-06-10",
-        order: 3,
-    },
-    {
-        id: "4",
-        name: "David Kim",
-        role: "AI Engineer",
-        bio: "David is our AI specialist with a PhD in Machine Learning. He develops cutting-edge AI solutions and integrates them into our clients' products to drive automation and insights.",
-        slug: "david-kim",
-        image: "/team/david.jpg",
-        email: "david@company.com",
-        linkedin: "https://linkedin.com/in/davidkim",
-        github: "https://github.com/davidkim",
-        expertise: ["Machine Learning", "AI Integration", "Data Science", "Python"],
-        joinedAt: "2020-02-15",
-        order: 4,
-    },
-    {
-        id: "5",
-        name: "Jessica Taylor",
-        role: "Product Manager",
-        bio: "Jessica bridges the gap between business needs and technical solutions. She ensures our projects are delivered on time, on budget, and exceed client expectations.",
-        slug: "jessica-taylor",
-        image: "/team/jessica.jpg",
-        email: "jessica@company.com",
-        linkedin: "https://linkedin.com/in/jessicataylor",
-        expertise: ["Product Strategy", "Agile Management", "Stakeholder Communication", "Roadmap Planning"],
-        joinedAt: "2020-08-01",
-        order: 5,
-    },
-    {
-        id: "6",
-        name: "Alex Martinez",
-        role: "Senior Developer",
-        bio: "Alex is a versatile developer who excels in both frontend and backend technologies. He has a passion for clean code and building robust, scalable applications.",
-        slug: "alex-martinez",
-        image: "/team/alex.jpg",
-        email: "alex@company.com",
-        linkedin: "https://linkedin.com/in/alexmartinez",
-        github: "https://github.com/alexmartinez",
-        expertise: ["React", "Node.js", "TypeScript", "Web Performance"],
-        joinedAt: "2021-01-20",
-        order: 6,
-    },
-];
-
 export async function getTeamMembers(): Promise<TeamMember[]> {
-    // TODO: Replace with Supabase query
-    // const { data } = await supabase.from('team_members').select('*').order('order', { ascending: true });
-    return teamMembers.sort((a, b) => (a.order || 0) - (b.order || 0));
+    try {
+        const supabase = await createServerClient();
+        
+        const { data, error } = await supabase
+            .from('team')
+            .select('*')
+            .eq('is_active', true)
+            .order('order_position', { ascending: true });
+
+        if (error) {
+            console.error('Error fetching team members:', error);
+            return [];
+        }
+
+        return data || [];
+    } catch (error) {
+        console.error('Failed to fetch team members:', error);
+        return [];
+    }
 }
