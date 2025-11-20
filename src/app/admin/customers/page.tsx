@@ -30,6 +30,8 @@ interface CustomerWithOrders extends Profile {
   order_count: number;
   total_spent: number;
   last_order_date: string | null;
+  email?: string;
+  phone?: string;
 }
 
 export default function CustomersPage() {
@@ -68,11 +70,11 @@ export default function CustomersPage() {
         const profileData = profile as Database['public']['Tables']['profiles']['Row'];
         const { data: orders } = await supabase
           .from('orders')
-          .select('total_amount, created_at, status')
+          .select('total_amount, created_at, status, email')
           .eq('user_id', profileData.id)
           .order('created_at', { ascending: false });
 
-        type OrderData = { total_amount: number; created_at: string; status: string };
+        type OrderData = { total_amount: number; created_at: string; status: string; email: string };
         const ordersList = (orders as OrderData[]) || [];
         const paidOrders = ordersList.filter(o => o.status === 'paid');
         const total_spent = paidOrders.reduce((sum, o) => sum + Number(o.total_amount), 0);
@@ -83,6 +85,8 @@ export default function CustomersPage() {
           order_count: ordersList.length,
           total_spent,
           last_order_date: lastOrder?.created_at || null,
+          email: lastOrder?.email || '',
+          phone: null,
         };
       })
     );
