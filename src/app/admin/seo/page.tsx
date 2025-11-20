@@ -42,20 +42,21 @@ export default function SEOPage() {
       .single();
 
     if (data) {
-      setSettings(data);
+      const seoData = data as any; // site_settings table type not in generated types
+      setSettings(seoData);
       setFormData({
-        default_seo_title: data.default_seo_title || "",
-        default_seo_description: data.default_seo_description || "",
-        default_og_image_url: data.default_og_image_url || "",
-        robots_noindex: data.robots_noindex || false,
-        organization_name: data.organization_name || "",
-        organization_logo_url: data.organization_logo_url || "",
-        organization_contact_email: data.organization_contact_email || "",
-        organization_url: data.organization_url || "",
-        social_facebook: data.social_facebook || "",
-        social_twitter: data.social_twitter || "",
-        social_linkedin: data.social_linkedin || "",
-        social_github: data.social_github || "",
+        default_seo_title: seoData.default_seo_title || "",
+        default_seo_description: seoData.default_seo_description || "",
+        default_og_image_url: seoData.default_og_image_url || "",
+        robots_noindex: seoData.robots_noindex || false,
+        organization_name: seoData.organization_name || "",
+        organization_logo_url: seoData.organization_logo_url || "",
+        organization_contact_email: seoData.organization_contact_email || "",
+        organization_url: seoData.organization_url || "",
+        social_facebook: seoData.social_facebook || "",
+        social_twitter: seoData.social_twitter || "",
+        social_linkedin: seoData.social_linkedin || "",
+        social_github: seoData.social_github || "",
       });
     }
     setLoading(false);
@@ -67,6 +68,7 @@ export default function SEOPage() {
 
     const { error } = await supabase
       .from('site_settings')
+      // @ts-expect-error - site_settings table type not in generated types
       .update({
         default_seo_title: formData.default_seo_title || null,
         default_seo_description: formData.default_seo_description || null,

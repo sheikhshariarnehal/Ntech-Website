@@ -1,7 +1,11 @@
 {
-  "/admin/page": "app/admin/page.js",
+  "/api/admin/blog/route": "app/api/admin/blog/route.js",
+  "/api/admin/blog/[id]/route": "app/api/admin/blog/[id]/route.js",
   "/admin/services/page": "app/admin/services/page.js",
-  "/admin/customers/page": "app/admin/customers/page.js",
-  "/admin/leads/page": "app/admin/leads/page.js",
-  "/admin/team/page": "app/admin/team/page.js"
+  "/admin/projects/page": "app/admin/projects/page.js",
+  "/admin/blog/page": "app/admin/blog/page.js",
+  "/admin/blog/edit/[id]/page": "app/admin/blog/edit/[id]/page.js",
+  "/admin/projects/[id]/edit/page": "app/admin/projects/[id]/edit/page.js",
+  "/admin/products/page": "app/admin/products/page.js",
+  "/admin/products/[id]/edit/page": "app/admin/products/[id]/edit/page.js"
 }

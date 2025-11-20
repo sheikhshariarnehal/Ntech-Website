@@ -46,6 +46,7 @@ export function RegisterForm() {
                 // Update profile with full name
                 await supabase
                     .from('profiles')
+                    // @ts-expect-error - profiles table type inference issue
                     .update({ full_name: name, email })
                     .eq('id', authData.user.id);
 

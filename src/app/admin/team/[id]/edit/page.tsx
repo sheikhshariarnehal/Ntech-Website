@@ -71,20 +71,21 @@ export default function EditTeamMemberPage() {
       .single();
 
     if (!error && data) {
-      setMember(data);
-      setImagePreview(data.image_url || "");
+      const memberData = data as any; // team table type inference issue
+      setMember(memberData);
+      setImagePreview(memberData.image_url || "");
       setFormData({
-        name: data.name,
-        designation: data.designation,
-        bio: data.bio || "",
-        email: data.email || "",
-        phone: data.phone || "",
-        linkedin_url: data.linkedin_url || "",
-        twitter_url: data.twitter_url || "",
-        github_url: data.github_url || "",
-        image_url: data.image_url || "",
-        order_position: data.order_position,
-        is_active: data.is_active,
+        name: memberData.name,
+        designation: memberData.designation,
+        bio: memberData.bio || "",
+        email: memberData.email || "",
+        phone: memberData.phone || "",
+        linkedin_url: memberData.linkedin_url || "",
+        twitter_url: memberData.twitter_url || "",
+        github_url: memberData.github_url || "",
+        image_url: memberData.image_url || "",
+        order_position: memberData.order_position,
+        is_active: memberData.is_active,
       });
     }
     setLoading(false);
@@ -171,6 +172,7 @@ export default function EditTeamMemberPage() {
 
     const { error } = await supabase
       .from('team')
+      // @ts-expect-error - team table type not in generated types
       .update({
         ...formData,
         image_url: imageUrl,

@@ -37,29 +37,30 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       .single();
 
     if (data) {
+      const themeData = data as any; // site_settings table type not in generated types
       const root = document.documentElement;
       
       // Apply theme colors to CSS variables
-      if (data.theme_background) root.style.setProperty('--background', data.theme_background);
-      if (data.theme_foreground) root.style.setProperty('--foreground', data.theme_foreground);
-      if (data.theme_card) root.style.setProperty('--card', data.theme_card);
-      if (data.theme_card_foreground) root.style.setProperty('--card-foreground', data.theme_card_foreground);
-      if (data.theme_popover) root.style.setProperty('--popover', data.theme_popover);
-      if (data.theme_popover_foreground) root.style.setProperty('--popover-foreground', data.theme_popover_foreground);
-      if (data.theme_primary) root.style.setProperty('--primary', data.theme_primary);
-      if (data.theme_primary_foreground) root.style.setProperty('--primary-foreground', data.theme_primary_foreground);
-      if (data.theme_secondary) root.style.setProperty('--secondary', data.theme_secondary);
-      if (data.theme_secondary_foreground) root.style.setProperty('--secondary-foreground', data.theme_secondary_foreground);
-      if (data.theme_muted) root.style.setProperty('--muted', data.theme_muted);
-      if (data.theme_muted_foreground) root.style.setProperty('--muted-foreground', data.theme_muted_foreground);
-      if (data.theme_accent) root.style.setProperty('--accent', data.theme_accent);
-      if (data.theme_accent_foreground) root.style.setProperty('--accent-foreground', data.theme_accent_foreground);
-      if (data.theme_destructive) root.style.setProperty('--destructive', data.theme_destructive);
-      if (data.theme_destructive_foreground) root.style.setProperty('--destructive-foreground', data.theme_destructive_foreground);
-      if (data.theme_border) root.style.setProperty('--border', data.theme_border);
-      if (data.theme_input) root.style.setProperty('--input', data.theme_input);
-      if (data.theme_ring) root.style.setProperty('--ring', data.theme_ring);
-      if (data.theme_radius) root.style.setProperty('--radius', data.theme_radius);
+      if (themeData.theme_background) root.style.setProperty('--background', themeData.theme_background);
+      if (themeData.theme_foreground) root.style.setProperty('--foreground', themeData.theme_foreground);
+      if (themeData.theme_card) root.style.setProperty('--card', themeData.theme_card);
+      if (themeData.theme_card_foreground) root.style.setProperty('--card-foreground', themeData.theme_card_foreground);
+      if (themeData.theme_popover) root.style.setProperty('--popover', themeData.theme_popover);
+      if (themeData.theme_popover_foreground) root.style.setProperty('--popover-foreground', themeData.theme_popover_foreground);
+      if (themeData.theme_primary) root.style.setProperty('--primary', themeData.theme_primary);
+      if (themeData.theme_primary_foreground) root.style.setProperty('--primary-foreground', themeData.theme_primary_foreground);
+      if (themeData.theme_secondary) root.style.setProperty('--secondary', themeData.theme_secondary);
+      if (themeData.theme_secondary_foreground) root.style.setProperty('--secondary-foreground', themeData.theme_secondary_foreground);
+      if (themeData.theme_muted) root.style.setProperty('--muted', themeData.theme_muted);
+      if (themeData.theme_muted_foreground) root.style.setProperty('--muted-foreground', themeData.theme_muted_foreground);
+      if (themeData.theme_accent) root.style.setProperty('--accent', themeData.theme_accent);
+      if (themeData.theme_accent_foreground) root.style.setProperty('--accent-foreground', themeData.theme_accent_foreground);
+      if (themeData.theme_destructive) root.style.setProperty('--destructive', themeData.theme_destructive);
+      if (themeData.theme_destructive_foreground) root.style.setProperty('--destructive-foreground', themeData.theme_destructive_foreground);
+      if (themeData.theme_border) root.style.setProperty('--border', themeData.theme_border);
+      if (themeData.theme_input) root.style.setProperty('--input', themeData.theme_input);
+      if (themeData.theme_ring) root.style.setProperty('--ring', themeData.theme_ring);
+      if (themeData.theme_radius) root.style.setProperty('--radius', themeData.theme_radius);
     }
   }
 

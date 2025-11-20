@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_submissions: {
+        Row: {
+          id: string
+          name: string
+          email: string
+          phone: string | null
+          company: string | null
+          service_type: string | null
+          budget_range: string | null
+          message: string
+          status: string
+          source_page: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          email: string
+          phone?: string | null
+          company?: string | null
+          service_type?: string | null
+          budget_range?: string | null
+          message: string
+          status?: string
+          source_page?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          email?: string
+          phone?: string | null
+          company?: string | null
+          service_type?: string | null
+          budget_range?: string | null
+          message?: string
+          status?: string
+          source_page?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
       licenses_or_keys: {
         Row: {
           code: string
@@ -180,6 +227,7 @@ export type Database = {
           created_at: string
           id: string
           is_active: boolean
+          is_featured: boolean
           full_description: string | null
           name: string
           price: number
@@ -197,6 +245,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
+          is_featured?: boolean
           full_description?: string | null
           name: string
           price: number
@@ -214,6 +263,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
+          is_featured?: boolean
           full_description?: string | null
           name?: string
           price?: number

@@ -3,6 +3,8 @@ import { PageHeader } from "@/components/shared/page-header";
 import { DataTable } from "@/components/shared/data-table";
 import { Metadata } from "next";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "My Orders",
     description: "View your order history.",
@@ -29,28 +31,27 @@ export default function OrdersPage() {
     const columns = [
         {
             header: "Order ID",
-            accessorKey: "id" as const,
+            accessor: "id" as const,
         },
         {
             header: "Date",
-            accessorKey: "date" as const,
+            accessor: "date" as const,
         },
         {
             header: "Product",
-            accessorKey: "product" as const,
+            accessor: "product" as const,
         },
         {
             header: "Amount",
-            accessorKey: "amount" as const,
+            accessor: "amount" as const,
         },
         {
             header: "Status",
-            accessorKey: "status" as const,
+            accessor: "status" as const,
         },
         {
             header: "Actions",
-            accessorKey: "id" as const,
-            cell: (row: any) => (
+            accessor: (row: any) => (
                 <Button variant="outline" size="sm">
                     Invoice
                 </Button>

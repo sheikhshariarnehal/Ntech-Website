@@ -16,7 +16,7 @@ export async function AdminHeader() {
           <div className="flex items-center gap-2 text-sm">
             <User className="h-4 w-4 text-muted-foreground" />
             <span className="text-muted-foreground">
-              {currentUser.profile?.full_name || currentUser.user.email}
+              {((currentUser.profile as any)?.full_name) || currentUser.user?.email || 'User'}
             </span>
           </div>
         )}

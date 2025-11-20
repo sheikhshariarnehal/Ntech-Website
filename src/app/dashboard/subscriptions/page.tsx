@@ -4,6 +4,8 @@ import { DataTable } from "@/components/shared/data-table";
 import { Badge } from "@/components/shared/badge";
 import { Metadata } from "next";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "My Subscriptions",
     description: "Manage your subscriptions.",
@@ -22,12 +24,11 @@ export default function SubscriptionsPage() {
     const columns = [
         {
             header: "Name",
-            accessorKey: "name" as const,
+            accessor: "name" as const,
         },
         {
             header: "Status",
-            accessorKey: "status" as const,
-            cell: (row: any) => (
+            accessor: (row: any) => (
                 <Badge variant={row.status === "Active" ? "default" : "secondary"}>
                     {row.status}
                 </Badge>
@@ -35,16 +36,15 @@ export default function SubscriptionsPage() {
         },
         {
             header: "Price",
-            accessorKey: "price" as const,
+            accessor: "price" as const,
         },
         {
             header: "Next Billing",
-            accessorKey: "nextBilling" as const,
+            accessor: "nextBilling" as const,
         },
         {
             header: "Actions",
-            accessorKey: "name" as const,
-            cell: (row: any) => (
+            accessor: (row: any) => (
                 <Button variant="outline" size="sm">
                     Manage
                 </Button>

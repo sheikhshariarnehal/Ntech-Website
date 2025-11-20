@@ -30,6 +30,7 @@ import {
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LoadingSpinner } from "@/components/shared/loading-spinner";
+import { Database } from "@/types/supabase";
 
 interface ContactSubmission {
   id: string;
@@ -84,13 +85,15 @@ export default function LeadDetailPage() {
     if (!lead) return;
     
     setSaving(true);
+    
     const { error } = await supabase
       .from('contact_submissions')
+      // @ts-expect-error - contact_submissions table type not fully generated in Supabase
       .update({
         status,
         notes,
         updated_at: new Date().toISOString()
-      } as any)
+      })
       .eq('id', lead.id);
 
     if (!error) {

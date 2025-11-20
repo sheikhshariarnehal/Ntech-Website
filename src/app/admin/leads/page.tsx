@@ -121,6 +121,7 @@ export default function LeadsPage() {
   async function updateLeadStatus(id: string, newStatus: string) {
     const { error } = await supabase
       .from('contact_submissions')
+      // @ts-expect-error - contact_submissions table type not fully generated in Supabase
       .update({ status: newStatus, updated_at: new Date().toISOString() })
       .eq('id', id);
 
