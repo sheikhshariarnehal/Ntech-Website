@@ -84,13 +84,15 @@ export default function LeadDetailPage() {
     if (!lead) return;
     
     setSaving(true);
+    const updateData = {
+      status: status as string,
+      notes: notes as string,
+      updated_at: new Date().toISOString()
+    };
+    
     const { error } = await supabase
       .from('contact_submissions')
-      .update({
-        status,
-        notes,
-        updated_at: new Date().toISOString()
-      })
+      .update(updateData)
       .eq('id', lead.id);
 
     if (!error) {
