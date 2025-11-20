@@ -72,9 +72,10 @@ export default function LeadDetailPage() {
       .single();
 
     if (!error && data) {
-      setLead(data);
-      setNotes(data.notes || "");
-      setStatus(data.status);
+      const leadData = data as ContactSubmission;
+      setLead(leadData);
+      setNotes(leadData.notes || "");
+      setStatus(leadData.status);
     }
     setLoading(false);
   }
