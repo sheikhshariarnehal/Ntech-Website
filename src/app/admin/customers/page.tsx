@@ -65,10 +65,11 @@ export default function CustomersPage() {
     // For each customer, get their order statistics
     const customersWithStats = await Promise.all(
       profiles.map(async (profile) => {
+        const profileData = profile as Database['public']['Tables']['profiles']['Row'];
         const { data: orders } = await supabase
           .from('orders')
           .select('total_amount, created_at, status')
-          .eq('user_id', profile.id)
+          .eq('user_id', profileData.id)
           .order('created_at', { ascending: false });
 
         const paidOrders = orders?.filter(o => o.status === 'paid') || [];
@@ -76,7 +77,7 @@ export default function CustomersPage() {
         const lastOrder = orders?.[0];
 
         return {
-          ...profile,
+          ...profileData,
           order_count: orders?.length || 0,
           total_spent,
           last_order_date: lastOrder?.created_at || null,
