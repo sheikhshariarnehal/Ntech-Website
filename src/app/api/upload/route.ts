@@ -34,15 +34,15 @@ export async function POST(request: NextRequest) {
     const timestamp = Date.now();
     const randomString = Math.random().toString(36).substring(2, 15);
     const fileExt = file.name.split('.').pop();
-    const fileName = `blog/${timestamp}-${randomString}.${fileExt}`;
+    const fileName = `${timestamp}-${randomString}.${fileExt}`;
 
     // Convert File to ArrayBuffer then to Buffer
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    // Upload to Supabase Storage
+    // Upload to Supabase Storage - using 'blog-images' bucket
     const { data, error } = await supabase.storage
-      .from('public')
+      .from('blog-images')
       .upload(fileName, buffer, {
         contentType: file.type,
         cacheControl: '3600',
@@ -50,16 +50,16 @@ export async function POST(request: NextRequest) {
       });
 
     if (error) {
-      console.error('Upload error:', error);
+      console.error('Supabase upload error:', error);
       return NextResponse.json(
-        { error: 'Failed to upload file' },
+        { error: `Failed to upload file: ${error.message}` },
         { status: 500 }
       );
     }
 
     // Get public URL
     const { data: { publicUrl } } = supabase.storage
-      .from('public')
+      .from('blog-images')
       .getPublicUrl(fileName);
 
     return NextResponse.json({ 
@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Upload error:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error instanceof Error ? error.message : 'Internal server error' },
       { status: 500 }
     );
   }

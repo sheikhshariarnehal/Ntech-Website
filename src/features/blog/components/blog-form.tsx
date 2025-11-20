@@ -169,19 +169,21 @@ export function BlogForm({ postId }: BlogFormProps) {
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error('Upload failed');
-      }
-
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Upload failed');
+      }
       
       setFormData((prev) => ({
         ...prev,
         cover_image_url: data.url,
       }));
+      
+      alert('Image uploaded successfully!');
     } catch (error) {
       console.error('Error uploading image:', error);
-      alert('Failed to upload image. Please try again.');
+      alert(error instanceof Error ? error.message : 'Failed to upload image. Please try again.');
     } finally {
       setUploading(false);
     }
