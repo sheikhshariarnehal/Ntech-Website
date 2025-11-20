@@ -10,8 +10,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { createClient } from "@/lib/supabase/client";
+import { Database } from "@/types/supabase";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+
+type Service = Database['public']['Tables']['services']['Row'];
 
 export default function EditServicePage() {
   const router = useRouter();
@@ -26,9 +29,8 @@ export default function EditServicePage() {
     short_description: "",
     full_description: "",
     starting_price: "",
-    delivery_time: "",
+    icon: "",
     is_active: true,
-    is_featured: false,
     seo_title: "",
     seo_description: "",
     seo_keywords: "",
@@ -36,6 +38,7 @@ export default function EditServicePage() {
 
   useEffect(() => {
     fetchService();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serviceId]);
 
   const fetchService = async () => {
@@ -46,18 +49,18 @@ export default function EditServicePage() {
       .single();
 
     if (!error && data) {
+      const service = data as Service;
       setFormData({
-        name: data.name || "",
-        slug: data.slug || "",
-        short_description: data.short_description || "",
-        full_description: data.full_description || "",
-        starting_price: data.starting_price?.toString() || "",
-        delivery_time: data.delivery_time || "",
-        is_active: data.is_active ?? true,
-        is_featured: data.is_featured ?? false,
-        seo_title: data.seo_title || "",
-        seo_description: data.seo_description || "",
-        seo_keywords: data.seo_keywords || "",
+        name: service.name || "",
+        slug: service.slug || "",
+        short_description: service.short_description || "",
+        full_description: service.full_description || "",
+        starting_price: service.starting_price?.toString() || "",
+        icon: service.icon || "",
+        is_active: service.is_active ?? true,
+        seo_title: service.seo_title || "",
+        seo_description: service.seo_description || "",
+        seo_keywords: Array.isArray(service.seo_keywords) ? service.seo_keywords.join(', ') : "",
       });
     }
     setFetching(false);
@@ -67,21 +70,22 @@ export default function EditServicePage() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase
+    const updateData: Database['public']['Tables']['services']['Update'] = {
+      name: formData.name,
+      slug: formData.slug,
+      short_description: formData.short_description,
+      full_description: formData.full_description,
+      starting_price: formData.starting_price ? parseFloat(formData.starting_price) : null,
+      icon: formData.icon || null,
+      is_active: formData.is_active,
+      seo_title: formData.seo_title || null,
+      seo_description: formData.seo_description || null,
+      seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k) : null,
+    };
+
+    const { error } = await (supabase as any)
       .from("services")
-      .update({
-        name: formData.name,
-        slug: formData.slug,
-        short_description: formData.short_description,
-        full_description: formData.full_description,
-        starting_price: formData.starting_price ? parseFloat(formData.starting_price) : null,
-        delivery_time: formData.delivery_time || null,
-        is_active: formData.is_active,
-        is_featured: formData.is_featured,
-        seo_title: formData.seo_title || null,
-        seo_description: formData.seo_description || null,
-        seo_keywords: formData.seo_keywords || null,
-      })
+      .update(updateData)
       .eq("id", serviceId);
 
     setLoading(false);
@@ -170,9 +174,9 @@ export default function EditServicePage() {
             </div>
           </div>
 
-          {/* Pricing & Delivery */}
+          {/* Pricing & Appearance */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Pricing & Delivery</h3>
+            <h3 className="text-lg font-semibold">Pricing & Appearance</h3>
 
             <div className="grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
@@ -188,12 +192,13 @@ export default function EditServicePage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="delivery_time">Delivery Time</Label>
+                <Label htmlFor="icon">Icon URL</Label>
                 <Input
-                  id="delivery_time"
-                  value={formData.delivery_time || ""}
-                  onChange={(e) => setFormData({ ...formData, delivery_time: e.target.value })}
-                  placeholder="e.g., 2-4 weeks"
+                  id="icon"
+                  type="url"
+                  value={formData.icon || ""}
+                  onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
+                  placeholder="https://example.com/icon.svg"
                 />
               </div>
             </div>
@@ -203,30 +208,16 @@ export default function EditServicePage() {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Status</h3>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <Label htmlFor="is_active">Visibility</Label>
-                <Select
-                  id="is_active"
-                  value={formData.is_active ? "true" : "false"}
-                  onChange={(e) => setFormData({ ...formData, is_active: e.target.value === "true" })}
-                >
-                  <option value="true">Active (Visible)</option>
-                  <option value="false">Inactive (Hidden)</option>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="is_featured">Featured</Label>
-                <Select
-                  id="is_featured"
-                  value={formData.is_featured ? "true" : "false"}
-                  onChange={(e) => setFormData({ ...formData, is_featured: e.target.value === "true" })}
-                >
-                  <option value="false">No</option>
-                  <option value="true">Yes</option>
-                </Select>
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="is_active">Visibility</Label>
+              <Select
+                id="is_active"
+                value={formData.is_active ? "true" : "false"}
+                onChange={(e) => setFormData({ ...formData, is_active: e.target.value === "true" })}
+              >
+                <option value="true">Active (Visible)</option>
+                <option value="false">Inactive (Hidden)</option>
+              </Select>
             </div>
           </div>
 

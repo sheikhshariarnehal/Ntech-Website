@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { Button } from "@/components/ui/button";
 import { ProductForm } from "@/components/forms/product-form";
 import { createClient } from "@/lib/supabase/client";
+import { Database } from "@/types/supabase";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -17,25 +18,22 @@ export default function NewProductPage() {
   const handleSubmit = async (formData: any) => {
     setLoading(true);
 
-    const { error } = await supabase.from("products").insert([
-      {
-        name: formData.name,
-        slug: formData.slug,
-        short_description: formData.short_description,
-        full_description: formData.full_description || null,
-        price: parseFloat(formData.price),
-        billing_interval: formData.billing_interval,
-        stock: formData.stock ? parseInt(formData.stock) : null,
-        is_active: formData.is_active,
-        is_featured: formData.is_featured,
-        download_url: formData.download_url || null,
-        thumbnail_url: formData.thumbnail_url || null,
-        demo_url: formData.demo_url || null,
-        seo_title: formData.seo_title || null,
-        seo_description: formData.seo_description || null,
-        seo_keywords: formData.seo_keywords || null,
-      },
-    ]);
+    const insertData: Database['public']['Tables']['products']['Insert'] = {
+      name: formData.name,
+      slug: formData.slug,
+      short_description: formData.short_description,
+      full_description: formData.full_description || null,
+      price: parseFloat(formData.price),
+      billing_interval: formData.billing_interval,
+      stock: formData.stock ? parseInt(formData.stock) : null,
+      is_active: formData.is_active,
+      thumbnail_url: formData.thumbnail_url || null,
+      seo_title: formData.seo_title || null,
+      seo_description: formData.seo_description || null,
+      seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map((k: string) => k.trim()).filter((k: string) => k) : null,
+    };
+
+    const { error } = await (supabase as any).from("products").insert([insertData]);
 
     setLoading(false);
 

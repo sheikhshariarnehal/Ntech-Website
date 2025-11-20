@@ -175,7 +175,7 @@ export type Database = {
           created_at: string
           id: string
           is_active: boolean
-          long_description: string | null
+          full_description: string | null
           name: string
           price: number
           seo_description: string | null
@@ -192,7 +192,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
-          long_description?: string | null
+          full_description?: string | null
           name: string
           price: number
           seo_description?: string | null
@@ -209,7 +209,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
-          long_description?: string | null
+          full_description?: string | null
           name?: string
           price?: number
           seo_description?: string | null
@@ -321,10 +321,10 @@ export type Database = {
       services: {
         Row: {
           created_at: string
+          full_description: string | null
           icon: string | null
           id: string
           is_active: boolean
-          long_description: string | null
           name: string
           seo_description: string | null
           seo_keywords: string[] | null
@@ -336,10 +336,10 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          full_description?: string | null
           icon?: string | null
           id?: string
           is_active?: boolean
-          long_description?: string | null
           name: string
           seo_description?: string | null
           seo_keywords?: string[] | null
@@ -351,10 +351,10 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          full_description?: string | null
           icon?: string | null
           id?: string
           is_active?: boolean
-          long_description?: string | null
           name?: string
           seo_description?: string | null
           seo_keywords?: string[] | null

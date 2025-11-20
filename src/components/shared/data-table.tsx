@@ -56,43 +56,50 @@ export function DataTable<T extends Record<string, any>>({
         </div>
       )}
       
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              {columns.map((column, index) => (
-                <TableHead key={index} className={column.className}>
-                  {column.header}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results found.
-                </TableCell>
+      <div className="rounded-lg border overflow-hidden">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/50">
+                {columns.map((column, index) => (
+                  <TableHead key={index} className={`font-semibold ${column.className}`}>
+                    {column.header}
+                  </TableHead>
+                ))}
               </TableRow>
-            ) : (
-              data.map((row, rowIndex) => (
-                <TableRow key={rowIndex}>
-                  {columns.map((column, colIndex) => (
-                    <TableCell key={colIndex} className={column.className}>
-                      {typeof column.accessor === "function"
-                        ? column.accessor(row)
-                        : row[column.accessor]}
-                    </TableCell>
-                  ))}
+            </TableHeader>
+            <TableBody>
+              {data.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-32 text-center">
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <p className="text-muted-foreground">No results found.</p>
+                    </div>
+                  </TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
+              ) : (
+                data.map((row, rowIndex) => (
+                  <TableRow 
+                    key={rowIndex}
+                    className="hover:bg-muted/50 transition-colors"
+                  >
+                    {columns.map((column, colIndex) => (
+                      <TableCell key={colIndex} className={column.className}>
+                        {typeof column.accessor === "function"
+                          ? column.accessor(row)
+                          : row[column.accessor]}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
           <p className="text-sm text-muted-foreground">
             Page {pagination.currentPage} of {pagination.totalPages}
           </p>
@@ -102,6 +109,7 @@ export function DataTable<T extends Record<string, any>>({
               size="sm"
               onClick={() => pagination.onPageChange(pagination.currentPage - 1)}
               disabled={pagination.currentPage === 1}
+              className="min-w-[100px]"
             >
               <ChevronLeft className="h-4 w-4 mr-1" />
               Previous
@@ -111,6 +119,7 @@ export function DataTable<T extends Record<string, any>>({
               size="sm"
               onClick={() => pagination.onPageChange(pagination.currentPage + 1)}
               disabled={pagination.currentPage === pagination.totalPages}
+              className="min-w-[100px]"
             >
               Next
               <ChevronRight className="h-4 w-4 ml-1" />

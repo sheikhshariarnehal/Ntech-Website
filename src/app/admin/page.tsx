@@ -1,20 +1,29 @@
-import { Card } from "@/components/ui/card";
+
 import { PageHeader } from "@/components/shared/page-header";
 import { Metadata } from "next";
 import { createServerClient } from "@/lib/supabase/server-client";
-import { 
-  DollarSign, 
-  Package, 
-  ShoppingCart, 
-  FileText, 
-  TrendingUp, 
+import {
+  DollarSign,
+  Package,
+  ShoppingCart,
+  FileText,
+  TrendingUp,
   Users,
   Plus,
-  ArrowUpRight
+  ArrowUpRight,
+  Activity,
+  CreditCard
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -28,14 +37,15 @@ async function getDashboardStats() {
   const { data: paidOrders } = await supabase
     .from('orders')
     .select('total_amount, created_at')
-    .eq('status', 'paid');
+    .eq('status', 'paid')
+    .returns<any[]>();
 
   const totalRevenue = paidOrders?.reduce((sum, order) => sum + Number(order.total_amount), 0) || 0;
 
   // Calculate revenue from last month
   const lastMonth = new Date();
   lastMonth.setMonth(lastMonth.getMonth() - 1);
-  const lastMonthRevenue = paidOrders?.filter(order => 
+  const lastMonthRevenue = paidOrders?.filter(order =>
     new Date(order.created_at) >= lastMonth
   ).reduce((sum, order) => sum + Number(order.total_amount), 0) || 0;
 
@@ -144,27 +154,19 @@ export default async function AdminDashboardPage() {
         {statCards.map((stat) => {
           const Icon = stat.icon;
           return (
-            <Card key={stat.title} className="p-6">
-              <div className="flex items-center justify-between space-x-2">
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {stat.title}
-                  </p>
-                  <div className="flex items-baseline gap-2">
-                    <h3 className="text-2xl font-bold">{stat.value}</h3>
-                    <span className="text-xs font-medium text-green-600 flex items-center">
-                      <TrendingUp className="h-3 w-3 mr-1" />
-                      {stat.trend}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {stat.description}
-                  </p>
-                </div>
-                <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Icon className="h-6 w-6 text-primary" />
-                </div>
-              </div>
+            <Card key={stat.title}>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">
+                  {stat.title}
+                </CardTitle>
+                <Icon className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stat.value}</div>
+                <p className="text-xs text-muted-foreground">
+                  {stat.description}
+                </p>
+              </CardContent>
             </Card>
           );
         })}
@@ -172,132 +174,136 @@ export default async function AdminDashboardPage() {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         {/* Recent Orders */}
-        <Card className="col-span-4 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-lg font-semibold">Recent Orders</h3>
-              <p className="text-sm text-muted-foreground">Latest customer orders</p>
+        <Card className="col-span-4">
+          <CardHeader className="flex flex-row items-center justify-between">
+            <div className="grid gap-2">
+              <CardTitle>Recent Orders</CardTitle>
+              <CardDescription>
+                Latest customer orders from your store.
+              </CardDescription>
             </div>
-            <Button variant="outline" size="sm" asChild>
+            <Button asChild size="sm" className="ml-auto gap-1">
               <Link href="/admin/orders">
                 View All
-                <ArrowUpRight className="h-4 w-4 ml-1" />
+                <ArrowUpRight className="h-4 w-4" />
               </Link>
             </Button>
-          </div>
-          <div className="space-y-4">
-            {stats.recentOrders.map((order: any) => (
-              <div key={order.id} className="flex items-center justify-between pb-4 border-b last:border-0">
-                <div className="space-y-1">
-                  <p className="text-sm font-medium">
-                    {order.customer?.full_name || order.customer?.email || 'Unknown Customer'}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {new Date(order.created_at).toLocaleDateString()}
-                  </p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Badge variant={getStatusColor(order.status) as any}>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-8">
+              {stats.recentOrders.map((order: any) => (
+                <div key={order.id} className="flex items-center">
+                  <div className="ml-4 space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      {order.customer?.full_name || order.customer?.email || 'Unknown Customer'}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {order.customer?.email}
+                    </p>
+                  </div>
+                  <div className="ml-auto font-medium">
+                    +${Number(order.total_amount).toFixed(2)}
+                  </div>
+                  <Badge variant={getStatusColor(order.status) as any} className="ml-4">
                     {order.status}
                   </Badge>
-                  <span className="text-sm font-semibold">
-                    ${Number(order.total_amount).toFixed(2)}
-                  </span>
                 </div>
-              </div>
-            ))}
-            {stats.recentOrders.length === 0 && (
-              <p className="text-sm text-muted-foreground text-center py-8">
-                No orders yet
-              </p>
-            )}
-          </div>
+              ))}
+              {stats.recentOrders.length === 0 && (
+                <p className="text-sm text-muted-foreground text-center py-8">
+                  No orders yet
+                </p>
+              )}
+            </div>
+          </CardContent>
         </Card>
 
         {/* Quick Actions */}
-        <Card className="col-span-3 p-6">
-          <div className="mb-4">
-            <h3 className="text-lg font-semibold">Quick Actions</h3>
-            <p className="text-sm text-muted-foreground">Common tasks</p>
-          </div>
-          <div className="space-y-3">
+        <Card className="col-span-3">
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+            <CardDescription>
+              Common tasks to manage your business.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
             <Button variant="outline" className="w-full justify-start" asChild>
               <Link href="/admin/products/new">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 Add New Product
               </Link>
             </Button>
             <Button variant="outline" className="w-full justify-start" asChild>
               <Link href="/admin/services/new">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 Add New Service
               </Link>
             </Button>
             <Button variant="outline" className="w-full justify-start" asChild>
               <Link href="/admin/blog/new">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 Create Blog Post
               </Link>
             </Button>
             <Button variant="outline" className="w-full justify-start" asChild>
               <Link href="/admin/projects/new">
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="mr-2 h-4 w-4" />
                 Add New Project
               </Link>
             </Button>
-            <Button variant="outline" className="w-full justify-start" asChild>
-              <Link href="/admin/orders">
-                <ShoppingCart className="h-4 w-4 mr-2" />
-                View All Orders
-              </Link>
-            </Button>
-          </div>
+          </CardContent>
         </Card>
       </div>
 
       {/* Quick Stats */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card className="p-6">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-              <FileText className="h-6 w-6 text-blue-600" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold">{stats.postsCount}</p>
-              <p className="text-sm text-muted-foreground">Published Posts</p>
-            </div>
-          </div>
-          <Button variant="link" className="mt-4 p-0 h-auto" asChild>
-            <Link href="/admin/blog">Manage Blog →</Link>
-          </Button>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Published Posts
+            </CardTitle>
+            <FileText className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.postsCount}</div>
+            <p className="text-xs text-muted-foreground">
+              <Link href="/admin/blog" className="hover:underline">
+                Manage Blog
+              </Link>
+            </p>
+          </CardContent>
         </Card>
-        <Card className="p-6">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center">
-              <Package className="h-6 w-6 text-purple-600" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold">{stats.productsCount}</p>
-              <p className="text-sm text-muted-foreground">Active Products</p>
-            </div>
-          </div>
-          <Button variant="link" className="mt-4 p-0 h-auto" asChild>
-            <Link href="/admin/products">Manage Products →</Link>
-          </Button>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Active Products
+            </CardTitle>
+            <Package className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.productsCount}</div>
+            <p className="text-xs text-muted-foreground">
+              <Link href="/admin/products" className="hover:underline">
+                Manage Products
+              </Link>
+            </p>
+          </CardContent>
         </Card>
-        <Card className="p-6">
-          <div className="flex items-center gap-4">
-            <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-              <Users className="h-6 w-6 text-green-600" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold">{stats.customersCount}</p>
-              <p className="text-sm text-muted-foreground">Total Customers</p>
-            </div>
-          </div>
-          <Button variant="link" className="mt-4 p-0 h-auto" asChild>
-            <Link href="/admin/customers">View Customers →</Link>
-          </Button>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total Customers
+            </CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.customersCount}</div>
+            <p className="text-xs text-muted-foreground">
+              <Link href="/admin/customers" className="hover:underline">
+                View Customers
+              </Link>
+            </p>
+          </CardContent>
         </Card>
       </div>
     </div>

@@ -30,14 +30,14 @@ export async function login(formData: FormData) {
     .eq('id', data.user.id)
     .single();
 
-  if (profileError) {
+  if (profileError || !profile) {
     return { error: 'Failed to load user profile' };
   }
 
   // Revalidate and redirect
   revalidatePath('/', 'layout');
   
-  if (profile?.role === 'admin') {
+  if (profile.role === 'admin') {
     redirect('/admin');
   } else {
     redirect('/dashboard');

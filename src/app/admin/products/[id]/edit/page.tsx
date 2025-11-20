@@ -7,8 +7,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ProductForm } from "@/components/forms/product-form";
 import { createClient } from "@/lib/supabase/client";
+import { Database } from "@/types/supabase";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+
+type Product = Database['public']['Tables']['products']['Row'];
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -31,22 +34,23 @@ export default function EditProductPage() {
       .single();
 
     if (!error && data) {
+      const product = data as Product;
       setInitialData({
-        name: data.name || "",
-        slug: data.slug || "",
-        short_description: data.short_description || "",
-        full_description: data.full_description || "",
-        price: data.price?.toString() || "",
-        billing_interval: data.billing_interval || "one_time",
-        stock: data.stock?.toString() || "",
-        is_active: data.is_active ?? true,
-        is_featured: data.is_featured ?? false,
-        download_url: data.download_url || "",
-        thumbnail_url: data.thumbnail_url || "",
-        demo_url: data.demo_url || "",
-        seo_title: data.seo_title || "",
-        seo_description: data.seo_description || "",
-        seo_keywords: data.seo_keywords || "",
+        name: product.name || "",
+        slug: product.slug || "",
+        short_description: product.short_description || "",
+        full_description: product.full_description || "",
+        price: product.price?.toString() || "",
+        billing_interval: product.billing_interval || "one_time",
+        stock: product.stock?.toString() || "",
+        is_active: product.is_active ?? true,
+        is_featured: false,
+        download_url: "",
+        thumbnail_url: product.thumbnail_url || "",
+        demo_url: "",
+        seo_title: product.seo_title || "",
+        seo_description: product.seo_description || "",
+        seo_keywords: Array.isArray(product.seo_keywords) ? product.seo_keywords.join(', ') : "",
       });
     }
     setFetching(false);
@@ -55,25 +59,24 @@ export default function EditProductPage() {
   const handleSubmit = async (formData: any) => {
     setLoading(true);
 
-    const { error } = await supabase
+    const updateData: Database['public']['Tables']['products']['Update'] = {
+      name: formData.name,
+      slug: formData.slug,
+      short_description: formData.short_description,
+      full_description: formData.full_description || null,
+      price: parseFloat(formData.price),
+      billing_interval: formData.billing_interval,
+      stock: formData.stock ? parseInt(formData.stock) : null,
+      is_active: formData.is_active,
+      thumbnail_url: formData.thumbnail_url || null,
+      seo_title: formData.seo_title || null,
+      seo_description: formData.seo_description || null,
+      seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map((k: string) => k.trim()).filter((k: string) => k) : null,
+    };
+
+    const { error } = await (supabase as any)
       .from("products")
-      .update({
-        name: formData.name,
-        slug: formData.slug,
-        short_description: formData.short_description,
-        full_description: formData.full_description || null,
-        price: parseFloat(formData.price),
-        billing_interval: formData.billing_interval,
-        stock: formData.stock ? parseInt(formData.stock) : null,
-        is_active: formData.is_active,
-        is_featured: formData.is_featured,
-        download_url: formData.download_url || null,
-        thumbnail_url: formData.thumbnail_url || null,
-        demo_url: formData.demo_url || null,
-        seo_title: formData.seo_title || null,
-        seo_description: formData.seo_description || null,
-        seo_keywords: formData.seo_keywords || null,
-      })
+      .update(updateData)
       .eq("id", productId);
 
     setLoading(false);
