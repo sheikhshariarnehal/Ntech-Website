@@ -1,76 +1,123 @@
-import * as React from "react";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table"; // We need to create table primitive first, or inline it. 
-// Wait, I missed creating table primitive in the plan. I should probably inline it here or create it.
-// The prompt says "data-table.tsx: Generic table shell".
-// I'll implement a simple table structure here directly to avoid creating too many files if not requested, 
-// but usually it's better to have a table primitive. 
-// Given the instructions "Implement small, reusable UI building blocks using Tailwind", I'll stick to a simple implementation here.
+"use client";
 
-interface DataTableProps<T> {
-    columns: {
-        header: string;
-        accessorKey: keyof T | ((row: T) => React.ReactNode);
-        cell?: (row: T) => React.ReactNode;
-    }[];
-    data: T[];
+import * as React from "react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+
+interface Column<T> {
+  header: string;
+  accessor: keyof T | ((row: T) => React.ReactNode);
+  className?: string;
 }
 
-export function DataTable<T>({ columns, data }: DataTableProps<T>) {
-    return (
-        <div className="rounded-md border">
-            <table className="w-full caption-bottom text-sm">
-                <thead className="[&_tr]:border-b">
-                    <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                        {columns.map((col, i) => (
-                            <th
-                                key={i}
-                                className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
-                            >
-                                {col.header}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody className="[&_tr:last-child]:border-0">
-                    {data.length ? (
-                        data.map((row, i) => (
-                            <tr
-                                key={i}
-                                className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
-                            >
-                                {columns.map((col, j) => (
-                                    <td
-                                        key={j}
-                                        className="p-4 align-middle [&:has([role=checkbox])]:pr-0"
-                                    >
-                                        {col.cell
-                                            ? col.cell(row)
-                                            : typeof col.accessorKey === "function"
-                                                ? col.accessorKey(row)
-                                                : (row[col.accessorKey] as React.ReactNode)}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td
-                                colSpan={columns.length}
-                                className="h-24 text-center"
-                            >
-                                No results.
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+interface DataTableProps<T> {
+  data: T[];
+  columns: Column<T>[];
+  searchable?: boolean;
+  searchPlaceholder?: string;
+  onSearch?: (query: string) => void;
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+  };
+}
+
+export function DataTable<T extends Record<string, any>>({
+  data,
+  columns,
+  searchable = false,
+  searchPlaceholder = "Search...",
+  onSearch,
+  pagination,
+}: DataTableProps<T>) {
+  const [searchQuery, setSearchQuery] = React.useState("");
+
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
+    onSearch?.(value);
+  };
+
+  return (
+    <div className="space-y-4">
+      {searchable && (
+        <div className="flex items-center gap-2">
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder={searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="pl-8"
+            />
+          </div>
         </div>
-    );
+      )}
+      
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {columns.map((column, index) => (
+                <TableHead key={index} className={column.className}>
+                  {column.header}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  No results found.
+                </TableCell>
+              </TableRow>
+            ) : (
+              data.map((row, rowIndex) => (
+                <TableRow key={rowIndex}>
+                  {columns.map((column, colIndex) => (
+                    <TableCell key={colIndex} className={column.className}>
+                      {typeof column.accessor === "function"
+                        ? column.accessor(row)
+                        : row[column.accessor]}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {pagination && pagination.totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            Page {pagination.currentPage} of {pagination.totalPages}
+          </p>
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => pagination.onPageChange(pagination.currentPage - 1)}
+              disabled={pagination.currentPage === 1}
+            >
+              <ChevronLeft className="h-4 w-4 mr-1" />
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => pagination.onPageChange(pagination.currentPage + 1)}
+              disabled={pagination.currentPage === pagination.totalPages}
+            >
+              Next
+              <ChevronRight className="h-4 w-4 ml-1" />
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
