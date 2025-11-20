@@ -37,7 +37,8 @@ export async function login(formData: FormData) {
   // Revalidate and redirect
   revalidatePath('/', 'layout');
   
-  if (profile?.role === 'admin') {
+  const userRole = (profile as { role: string }).role;
+  if (userRole === 'admin') {
     redirect('/admin');
   } else {
     redirect('/dashboard');
