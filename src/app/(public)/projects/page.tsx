@@ -27,10 +27,10 @@ export default async function ProjectsPage() {
                 {projects.map((project) => (
                     <Card 
                         key={project.slug} 
-                        className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-card"
+                        className="group overflow-hidden border border-border/50 shadow-md hover:shadow-xl hover:border-primary/30 transition-all duration-300 bg-card"
                     >
                         {/* Project Image */}
-                        <div className="relative h-52 w-full overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5">
+                        <div className="relative h-52 w-full overflow-hidden bg-gradient-to-br from-muted to-background">
                             {project.thumbnail_url ? (
                                 <Image
                                     src={project.thumbnail_url}
@@ -39,28 +39,28 @@ export default async function ProjectsPage() {
                                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                                 />
                             ) : (
-                                <div className="flex h-full items-center justify-center">
-                                    <div className="text-6xl font-bold text-primary/20">
+                                <div className="flex h-full items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
+                                    <div className="text-6xl font-bold text-primary/40">
                                         {project.title.charAt(0)}
                                     </div>
                                 </div>
                             )}
                             {/* Overlay gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             
-                            {/* Tags on Image */}
+                            {/* Tags on Image - Show on hover */}
                             <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                 {project.tags.slice(0, 3).map((tag) => (
                                     <Badge 
                                         key={tag} 
                                         variant="secondary"
-                                        className="text-xs font-medium bg-black/70 text-white border-0 backdrop-blur-sm"
+                                        className="text-xs font-semibold bg-primary dark:bg-primary text-primary-foreground border-0 shadow-lg"
                                     >
                                         {tag}
                                     </Badge>
                                 ))}
                                 {project.tags.length > 3 && (
-                                    <Badge variant="secondary" className="text-xs bg-black/70 text-white border-0 backdrop-blur-sm">
+                                    <Badge variant="secondary" className="text-xs font-semibold bg-primary dark:bg-primary text-primary-foreground border-0 shadow-lg">
                                         +{project.tags.length - 3}
                                     </Badge>
                                 )}
@@ -68,9 +68,9 @@ export default async function ProjectsPage() {
                         </div>
 
                         {/* Content */}
-                        <div className="p-5">
+                        <div className="p-5 border-t border-border/30">
                             {/* Title */}
-                            <h3 className="font-bold text-lg mb-2.5 line-clamp-2 group-hover:text-primary transition-colors">
+                            <h3 className="font-bold text-lg mb-2.5 line-clamp-2 text-foreground group-hover:text-primary transition-colors">
                                 {project.title}
                             </h3>
 
@@ -86,7 +86,7 @@ export default async function ProjectsPage() {
                                         asChild 
                                         variant="default" 
                                         size="sm"
-                                        className="flex-1 group/btn"
+                                        className="flex-1 group/btn bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700"
                                     >
                                         <a 
                                             href={project.live_url} 

@@ -1,6 +1,6 @@
 import { ProductList } from "@/features/products/components/product-list";
 import { Metadata } from "next";
-import { ShoppingBag, Sparkles, Zap } from "lucide-react";
+import { CheckCircle2, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata: Metadata = {
@@ -12,36 +12,40 @@ export default function ProductsPage() {
     return (
         <div className="min-h-screen bg-background">
             {/* Hero Header */}
-            <div className="relative border-b overflow-hidden">
-                <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background -z-10" />
-                
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-                    <div className="flex flex-col items-center text-center space-y-4 max-w-4xl mx-auto">
-                        <Badge variant="outline" className="px-4 py-1.5 text-sm rounded-full border-primary/20 bg-primary/5 text-primary animate-in fade-in slide-in-from-bottom-4 duration-500">
-                            <Sparkles className="w-3.5 h-3.5 mr-2 inline-block" />
-                            Premium Digital Assets
+            <div className="relative border-b overflow-hidden bg-gradient-to-b from-primary/5 via-primary/3 to-background">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
+                    <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4 max-w-4xl mx-auto">
+                        <Badge variant="outline" className="px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm rounded-full border-primary/30 bg-primary/10 text-primary font-medium">
+                            <Sparkles className="w-3 sm:w-3.5 h-3 sm:h-3.5 mr-1.5 sm:mr-2 inline-block" />
+                            Premium Tools Collection
                         </Badge>
                         
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-5 duration-700 delay-100">
-                            Elevate Your Workflow with <br className="hidden sm:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">
-                                Professional Tools
-                            </span>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-tight">
+                            All Premium Tools
                         </h1>
                         
-                        <p className="text-lg text-muted-foreground max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-700 delay-200">
-                            Discover our curated collection of high-quality digital products, AI-powered tools, and subscription services designed to boost your productivity.
+                        <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
+                            Access our complete collection of premium tools at 95% off retail prices. Professional-grade software for creators, marketers, and businesses.
                         </p>
                         
-                        <div className="flex flex-wrap justify-center gap-4 pt-2 animate-in fade-in slide-in-from-bottom-7 duration-700 delay-300">
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full border border-border/50">
-                                <Zap className="w-4 h-4 text-yellow-500" />
-                                <span>Instant Delivery</span>
+                        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 sm:gap-x-5 pt-1 sm:pt-2 w-full px-4">
+                            <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-foreground">
+                                <div className="flex items-center justify-center w-4 sm:w-5 h-4 sm:h-5 rounded-full bg-green-500/20 flex-shrink-0">
+                                    <CheckCircle2 className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 text-green-600 dark:text-green-400" />
+                                </div>
+                                <span>Instant Access</span>
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted/50 px-4 py-2 rounded-full border border-border/50">
-                                <ShoppingBag className="w-4 h-4 text-blue-500" />
-                                <span>Secure Checkout</span>
+                            <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-foreground">
+                                <div className="flex items-center justify-center w-4 sm:w-5 h-4 sm:h-5 rounded-full bg-green-500/20 flex-shrink-0">
+                                    <CheckCircle2 className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 text-green-600 dark:text-green-400" />
+                                </div>
+                                <span className="whitespace-nowrap">100% Satisfaction</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-foreground">
+                                <div className="flex items-center justify-center w-4 sm:w-5 h-4 sm:h-5 rounded-full bg-green-500/20 flex-shrink-0">
+                                    <CheckCircle2 className="w-2.5 sm:w-3.5 h-2.5 sm:h-3.5 text-green-600 dark:text-green-400" />
+                                </div>
+                                <span>Free Updates</span>
                             </div>
                         </div>
                     </div>
@@ -49,7 +53,7 @@ export default function ProductsPage() {
             </div>
 
             {/* Products Section */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
                 <ProductList />
             </div>
         </div>
