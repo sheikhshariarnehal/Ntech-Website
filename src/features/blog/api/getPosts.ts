@@ -27,7 +27,8 @@ export async function getPosts() {
         return [];
     }
 
-    return (data || []).map(post => ({
+    // Use type assertion to handle the complex join result
+    return (data || []).map((post: any) => ({
         id: post.id,
         slug: post.slug,
         title: post.title,
@@ -46,7 +47,7 @@ export async function getPosts() {
                 month: 'short', 
                 day: 'numeric' 
               }),
-        author: (post.profiles as any)?.full_name || 'Ntech Team',
+        author: post.profiles?.full_name || 'Ntech Team',
     }));
 }
 
