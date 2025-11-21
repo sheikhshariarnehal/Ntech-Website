@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Product } from "../types";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, ArrowRight, Check } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 interface ProductCardProps {
   product: Product;
@@ -22,37 +24,41 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Link href={`/products/${product.slug}`}>
-      <Card className="group relative flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg border hover:border-primary/50 cursor-pointer bg-card">
-        <div className="relative aspect-square overflow-hidden bg-muted/30">
-          {product.thumbnail_url ? (
-            <Image
-              src={product.thumbnail_url}
-              alt={product.name}
-              fill
-              className="object-cover transition-all duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 20vw"
-            />
-          ) : (
-            <div className="flex h-full items-center justify-center">
-              <ShoppingCart className="h-20 w-20 text-muted-foreground/20" />
-            </div>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-background/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        </div>
+    <Card className="group relative flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg border-border/50 hover:border-primary/20 bg-card">
+      <Link href={`/products/${product.slug}`} className="block relative aspect-[4/3] overflow-hidden bg-muted">
+        {product.thumbnail_url ? (
+          <Image
+            src={product.thumbnail_url}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          <div className="flex h-full items-center justify-center bg-secondary/50">
+            <ShoppingCart className="h-12 w-12 text-muted-foreground/30" />
+          </div>
+        )}
+      </Link>
 
-        <CardContent className="flex-1 p-4 space-y-2 bg-card">
-          <h3 className="font-medium text-sm line-clamp-2 group-hover:text-primary transition-colors leading-snug min-h-[2.5rem]">
+      <CardHeader className="p-4 pb-2">
+        <Link href={`/products/${product.slug}`} className="block">
+          <h3 className="font-semibold text-base line-clamp-1 group-hover:text-primary transition-colors">
             {product.name}
           </h3>
-          
-          <div className="pt-1">
-            <span className="text-lg font-semibold text-foreground">
-              {formatPrice(product.price, product.billing_interval)}
-            </span>
-          </div>
-        </CardContent>
-      </Card>
-    </Link>
+        </Link>
+      </CardHeader>
+
+      <CardFooter className="p-4 pt-2 flex items-center justify-between gap-4 mt-auto">
+        <span className="text-lg font-bold text-foreground">
+          {formatPrice(product.price, product.billing_interval)}
+        </span>
+        <Button asChild size="sm" className="rounded-md px-4">
+          <Link href={`/products/${product.slug}`}>
+            Buy Now
+          </Link>
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }

@@ -183,40 +183,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         </div>
                     </div>
                 </div>
-
-                {/* Full Description Section */}
-                <div className="mt-20 lg:mt-32 max-w-4xl mx-auto">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
-                            Everything you need to know
-                        </h2>
-                        <p className="text-lg text-muted-foreground">
-                            Detailed breakdown of features and capabilities
-                        </p>
-                    </div>
-                    
-                    <div className="prose prose-lg dark:prose-invert max-w-none">
-                        <div className="bg-card rounded-3xl p-8 md:p-12 border shadow-sm">
-                            <p className="whitespace-pre-wrap leading-relaxed text-muted-foreground">
-                                {product.full_description || product.short_description}
-                            </p>
-                            
-                            {product.features && product.features.length > 0 && (
-                                <div className="mt-12">
-                                    <h3 className="text-xl font-semibold mb-6 text-foreground">Key Features</h3>
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        {product.features.map((feature, i) => (
-                                            <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-background border">
-                                                <Check className="h-5 w-5 text-primary shrink-0" />
-                                                <span className="font-medium">{feature}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );
