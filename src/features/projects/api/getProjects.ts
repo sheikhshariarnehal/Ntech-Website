@@ -25,8 +25,12 @@ export async function getProjects(): Promise<Project[]> {
             return [];
         }
 
+        if (!data) {
+            return [];
+        }
+
         // Transform the data to match the expected format
-        return (data || []).map(project => ({
+        return data.map((project: any) => ({
             ...project,
             tags: project.services_used || [],
             summary: project.short_description || '',
@@ -34,7 +38,7 @@ export async function getProjects(): Promise<Project[]> {
             problem: project.full_description || '',
             solution: project.full_description || '',
             results: project.full_description || '',
-        }));
+        })) as Project[];
     } catch (error) {
         console.error('Failed to fetch projects:', error);
         return [];
