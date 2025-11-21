@@ -38,7 +38,7 @@ const SERVICES = [
 export function HomeServices() {
     return (
         <section className="py-24 bg-slate-950 relative" id="services">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-4">Our Expertise</h2>
                     <p className="text-slate-400 max-w-2xl mx-auto text-lg">

@@ -33,7 +33,7 @@ export function HomeBlog() {
 
     return (
         <section className="py-24 bg-slate-950 border-t border-slate-900">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto">
                 <div className="flex items-end justify-between mb-12">
                     <h2 className="text-3xl md:text-4xl font-bold font-display text-white">Latest Insights</h2>
                     <Button variant="link" className="text-primary hidden md:flex">

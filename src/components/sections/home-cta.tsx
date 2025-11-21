@@ -12,7 +12,7 @@ export function HomeCTA() {
             <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-primary/5 to-slate-950 pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />
 
-            <div className="container mx-auto px-6 relative z-10 text-center">
+            <div className="container mx-auto relative z-10 text-center">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

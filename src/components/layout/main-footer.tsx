@@ -1,93 +1,237 @@
+"use client";
+
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Twitter, Linkedin, Sparkles, Mail, MapPin, Phone, Send, Facebook, Instagram, Youtube } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 export function MainFooter() {
+    const [email, setEmail] = useState("");
+    const [subscribed, setSubscribed] = useState(false);
+
+    const handleNewsletterSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // TODO: Implement newsletter subscription
+        setSubscribed(true);
+        setEmail("");
+        setTimeout(() => setSubscribed(false), 3000);
+    };
+
+    const footerLinks = {
+        company: [
+            { label: "About Us", href: "/about" },
+            { label: "Our Team", href: "/team" },
+            { label: "Projects", href: "/projects" },
+            { label: "Blog", href: "/blog" },
+            { label: "Careers", href: "/careers" },
+        ],
+        services: [
+            { label: "Web Development", href: "/services#web-development" },
+            { label: "App Development", href: "/services#app-development" },
+            { label: "AI Automation", href: "/services#ai-automation" },
+            { label: "API Integration", href: "/services#api-integration" },
+            { label: "Technical Support", href: "/services#support" },
+        ],
+        products: [
+            { label: "ChatGPT Pro", href: "/products#chatgpt" },
+            { label: "Gemini Advanced", href: "/products#gemini" },
+            { label: "Canva Pro", href: "/products#canva" },
+            { label: "All Products", href: "/products" },
+        ],
+        legal: [
+            { label: "Privacy Policy", href: "/privacy" },
+            { label: "Terms of Service", href: "/terms" },
+            { label: "Cookie Policy", href: "/cookies" },
+            { label: "Refund Policy", href: "/refund" },
+        ],
+    };
+
+    const socialLinks = [
+        { icon: Github, href: siteConfig.links.github, label: "GitHub" },
+        { icon: Twitter, href: siteConfig.links.twitter, label: "Twitter" },
+        { icon: Linkedin, href: "#", label: "LinkedIn" },
+        { icon: Facebook, href: "#", label: "Facebook" },
+        { icon: Instagram, href: "#", label: "Instagram" },
+        { icon: Youtube, href: "#", label: "YouTube" },
+    ];
+
     return (
-        <footer className="border-t bg-muted/30">
-            <div className="container py-12 md:py-16 lg:py-20">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-                    {/* Brand Column */}
-                    <div className="flex flex-col gap-4">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <span className="text-xl font-bold tracking-tight">
+        <footer className="border-t border-slate-800/50 bg-slate-950 relative overflow-hidden">
+            {/* Background Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-transparent pointer-events-none" />
+            
+            <div className="container relative z-10">
+                {/* Main Footer Content */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12 py-12 lg:py-16">
+                    {/* Brand & Newsletter - Takes 4 columns on large screens */}
+                    <div className="lg:col-span-4 flex flex-col gap-6">
+                        <Link href="/" className="flex items-center gap-2.5 group w-fit">
+                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50">
+                                <Sparkles className="w-4.5 h-4.5 text-white" />
+                            </div>
+                            <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">
                                 {siteConfig.name}
-                                <span className="text-primary">.</span>
                             </span>
                         </Link>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                            We build smart web, app, and AI solutions for modern businesses.
-                            Helping you automate and scale.
+                        
+                        <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
+                            Building smart web, mobile, and AI solutions for modern businesses. 
+                            Empowering innovation through cutting-edge technology.
                         </p>
+
+                        {/* Newsletter */}
+                        <div className="space-y-3">
+                            <h4 className="text-sm font-semibold text-white">Stay Updated</h4>
+                            <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
+                                <Input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="bg-slate-900 border-slate-800 text-slate-200 placeholder:text-slate-500 focus:border-primary h-10"
+                                />
+                                <Button 
+                                    type="submit" 
+                                    size="sm" 
+                                    className="bg-primary hover:bg-primary/90 shrink-0 h-10 px-4"
+                                >
+                                    <Send className="w-4 h-4" />
+                                </Button>
+                            </form>
+                            {subscribed && (
+                                <p className="text-xs text-green-400">Thanks for subscribing! 🎉</p>
+                            )}
+                        </div>
+
+                        {/* Contact Info */}
+                        <div className="space-y-2 text-sm text-slate-400">
+                            <div className="flex items-center gap-2">
+                                <Mail className="w-4 h-4 text-primary" />
+                                <a href="mailto:contact@ntech.com" className="hover:text-primary transition-colors">
+                                    contact@ntech.com
+                                </a>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Phone className="w-4 h-4 text-primary" />
+                                <a href="tel:+1234567890" className="hover:text-primary transition-colors">
+                                    +1 (234) 567-890
+                                </a>
+                            </div>
+                            <div className="flex items-start gap-2">
+                                <MapPin className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                                <span>123 Tech Street, Silicon Valley, CA 94000</span>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Company Column */}
-                    <div className="flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold">Company</h3>
-                        <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
-                            <Link href="/about" className="hover:text-primary transition-colors">
-                                About Us
-                            </Link>
-                            <Link href="/projects" className="hover:text-primary transition-colors">
-                                Projects
-                            </Link>
-                            <Link href="/blog" className="hover:text-primary transition-colors">
-                                Blog
-                            </Link>
-                            <Link href="/contact" className="hover:text-primary transition-colors">
-                                Contact
-                            </Link>
+                    {/* Company Links - 2 columns */}
+                    <div className="lg:col-span-2 flex flex-col gap-4">
+                        <h3 className="text-sm font-semibold text-white">Company</h3>
+                        <nav className="flex flex-col gap-2.5">
+                            {footerLinks.company.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
                         </nav>
                     </div>
 
-                    {/* Services Column */}
-                    <div className="flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold">Services</h3>
-                        <nav className="flex flex-col gap-2 text-sm text-muted-foreground">
-                            <Link href="/services/web-development" className="hover:text-primary transition-colors">
-                                Web Development
-                            </Link>
-                            <Link href="/services/app-development" className="hover:text-primary transition-colors">
-                                App Development
-                            </Link>
-                            <Link href="/services/ai-automation" className="hover:text-primary transition-colors">
-                                AI Automation
-                            </Link>
-                            <Link href="/services/technical-support" className="hover:text-primary transition-colors">
-                                Technical Support
-                            </Link>
+                    {/* Services Links - 2 columns */}
+                    <div className="lg:col-span-2 flex flex-col gap-4">
+                        <h3 className="text-sm font-semibold text-white">Services</h3>
+                        <nav className="flex flex-col gap-2.5">
+                            {footerLinks.services.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
                         </nav>
                     </div>
 
-                    {/* Social / Contact Column */}
-                    <div className="flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold">Connect</h3>
-                        <div className="flex gap-4">
-                            <Link href={siteConfig.links.github} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                                <Github className="h-5 w-5" />
-                                <span className="sr-only">GitHub</span>
+                    {/* Products Links - 2 columns */}
+                    <div className="lg:col-span-2 flex flex-col gap-4">
+                        <h3 className="text-sm font-semibold text-white">Products</h3>
+                        <nav className="flex flex-col gap-2.5">
+                            {footerLinks.products.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
+
+                    {/* Legal Links - 2 columns */}
+                    <div className="lg:col-span-2 flex flex-col gap-4">
+                        <h3 className="text-sm font-semibold text-white">Legal</h3>
+                        <nav className="flex flex-col gap-2.5">
+                            {footerLinks.legal.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
+                </div>
+
+                {/* Bottom Bar */}
+                <div className="border-t border-slate-800/50 py-6">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        {/* Copyright */}
+                        <p className="text-sm text-slate-500 text-center sm:text-left">
+                            &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+                        </p>
+
+                        {/* Social Links */}
+                        <div className="flex items-center gap-4">
+                            {socialLinks.map((social) => (
+                                <Link
+                                    key={social.label}
+                                    href={social.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-slate-400 hover:text-primary transition-all hover:scale-110"
+                                    aria-label={social.label}
+                                >
+                                    <social.icon className="w-4.5 h-4.5" />
+                                </Link>
+                            ))}
+                        </div>
+
+                        {/* Additional Links */}
+                        <div className="flex items-center gap-4 text-xs text-slate-500">
+                            <Link href="/sitemap.xml" className="hover:text-primary transition-colors">
+                                Sitemap
                             </Link>
-                            <Link href={siteConfig.links.twitter} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                                <Twitter className="h-5 w-5" />
-                                <span className="sr-only">Twitter</span>
-                            </Link>
-                            <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                                <Linkedin className="h-5 w-5" />
-                                <span className="sr-only">LinkedIn</span>
+                            <span>•</span>
+                            <Link href="/rss" className="hover:text-primary transition-colors">
+                                RSS
                             </Link>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-2">
-                            Email: contact@ntech.com
-                        </p>
                     </div>
                 </div>
-
-                <div className="mt-12 border-t pt-8 text-center md:text-left">
-                    <p className="text-sm text-muted-foreground">
-                        &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-                    </p>
-                </div>
             </div>
+
+            {/* Mobile Bottom Padding for Fixed Elements */}
+            <div className="h-20 sm:h-0" />
         </footer>
     );
 }

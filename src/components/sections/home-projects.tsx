@@ -34,7 +34,7 @@ const PROJECTS = [
 export function HomeProjects() {
     return (
         <section className="py-24 bg-slate-950 border-t border-slate-900">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div>
                         <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-4">Featured Projects</h2>

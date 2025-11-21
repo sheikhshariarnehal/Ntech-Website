@@ -12,7 +12,7 @@ const LOGOS = [
 export function HomeClients() {
     return (
         <section className="py-12 bg-slate-950 border-y border-slate-900 overflow-hidden">
-            <div className="container mx-auto px-6 text-center mb-8">
+            <div className="container mx-auto text-center mb-8">
                 <p className="text-sm font-medium text-slate-500 uppercase tracking-widest">Trusted by innovative companies</p>
             </div>
             

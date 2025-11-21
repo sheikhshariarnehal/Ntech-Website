@@ -1,10 +1,37 @@
 export const siteConfig = {
-    name: "Ntech",
-    description: "Technical support, web & app development, and AI automation for modern businesses.",
-    url: "https://ntech.com", // Placeholder
-    ogImage: "https://ntech.com/og.jpg", // Placeholder
+    name: "Ntech Solutions",
+    shortName: "Ntech",
+    description: "Leading provider of web development, mobile apps, AI automation, and premium tech subscriptions. Transform your business with cutting-edge technology solutions.",
+    tagline: "Empowering Business Through Innovation",
+    url: "https://ntechsolutions.com",
+    ogImage: "https://ntechsolutions.com/og-image.jpg",
+    author: "Ntech Solutions Team",
+    keywords: [
+        "web development",
+        "mobile app development",
+        "AI automation",
+        "chatbot development",
+        "ChatGPT Pro",
+        "Gemini Advanced",
+        "custom software development",
+        "API integration",
+        "technical solutions",
+        "business automation",
+        "SaaS development",
+        "Next.js development",
+        "React Native apps",
+    ],
+    contact: {
+        email: "contact@ntechsolutions.com",
+        phone: "+1 (234) 567-890",
+        address: "123 Tech Street, Silicon Valley, CA 94000",
+    },
     links: {
-        twitter: "https://twitter.com/ntech",
-        github: "https://github.com/ntech",
+        twitter: "https://twitter.com/ntechsolutions",
+        github: "https://github.com/ntechsolutions",
+        linkedin: "https://linkedin.com/company/ntechsolutions",
+        facebook: "https://facebook.com/ntechsolutions",
+        instagram: "https://instagram.com/ntechsolutions",
+        youtube: "https://youtube.com/@ntechsolutions",
     },
 };
