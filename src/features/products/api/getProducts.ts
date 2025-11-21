@@ -33,7 +33,8 @@ export async function getProducts(filters?: ProductFilters): Promise<Product[]> 
   }
 
   // Apply price filters in memory (since we can't directly filter on numeric type in text format)
-  let products = data || [];
+  // Use type assertion for the query result
+  let products = (data || []) as any[];
   
   if (filters?.min_price !== undefined) {
     products = products.filter(p => parseFloat(p.price) >= filters.min_price!);
