@@ -29,7 +29,7 @@ export function HomeCTA() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
+                    className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
                 >
                     Join hundreds of innovative companies leveraging our tech to scale faster.
                 </motion.p>
