@@ -1,79 +1,93 @@
-import { CheckCircle2 } from "lucide-react";
+"use client";
 
-const stats = [
-    { label: "Projects Shipped", value: "150+" },
-    { label: "Client Retention", value: "98%" },
-    { label: "Avg. Response Time", value: "< 2h" },
-    { label: "Team Members", value: "12" },
-];
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { CheckCircle2 } from "lucide-react";
 
 export function HomeAbout() {
     return (
-        <section className="container py-20 lg:py-28">
-            <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
-                <div className="flex flex-col justify-center">
-                    <h2 className="mb-6 text-3xl font-bold tracking-tight md:text-4xl">
-                        A digital agency built for software-era businesses.
-                    </h2>
-                    <p className="mb-6 text-lg text-muted-foreground">
-                        We specialize in helping startups and small-to-medium businesses
-                        navigate the complex digital landscape. From building robust web
-                        applications to integrating cutting-edge AI automation, we are your
-                        technical partner for growth.
-                    </p>
-                    <ul className="space-y-4">
-                        <li className="flex items-start gap-3">
-                            <CheckCircle2 className="mt-1 h-5 w-5 text-primary" />
-                            <div>
-                                <span className="font-medium text-foreground">
-                                    End-to-end delivery.
-                                </span>{" "}
-                                <span className="text-muted-foreground">
-                                    We handle everything from design and development to deployment
-                                    and maintenance.
-                                </span>
-                            </div>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <CheckCircle2 className="mt-1 h-5 w-5 text-primary" />
-                            <div>
-                                <span className="font-medium text-foreground">
-                                    AI-First Approach.
-                                </span>{" "}
-                                <span className="text-muted-foreground">
-                                    Leverage the power of OpenAI, Gemini, and custom models to
-                                    automate workflows.
-                                </span>
-                            </div>
-                        </li>
-                        <li className="flex items-start gap-3">
-                            <CheckCircle2 className="mt-1 h-5 w-5 text-primary" />
-                            <div>
-                                <span className="font-medium text-foreground">
-                                    Transparent Communication.
-                                </span>{" "}
-                                <span className="text-muted-foreground">
-                                    Direct access to engineers, clear timelines, and no hidden
-                                    costs.
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div className="grid grid-cols-2 gap-4 sm:gap-8">
-                    {stats.map((stat) => (
-                        <div
-                            key={stat.label}
-                            className="flex flex-col items-center justify-center rounded-xl border bg-muted/30 p-8 text-center transition-colors hover:bg-muted/50"
-                        >
-                            <div className="text-3xl font-bold tracking-tight md:text-4xl">
-                                {stat.value}
-                            </div>
-                            <div className="mt-2 text-sm font-medium text-muted-foreground">
-                                {stat.label}
+        <section className="py-24 bg-slate-950 relative overflow-hidden">
+            <div className="container mx-auto px-6">
+                <div className="flex flex-col lg:flex-row items-center gap-16">
+                    
+                    {/* Text Content */}
+                    <motion.div 
+                        className="lg:w-1/2"
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
+                            Our Mission
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-6 leading-tight">
+                            Bridging the gap between <br />
+                            <span className="text-primary">Complex Tech</span> and <br />
+                            <span className="text-white">Accessible Solutions.</span>
+                        </h2>
+                        <p className="text-slate-400 text-lg mb-8 leading-relaxed">
+                            At NovaTech, we believe that advanced technology shouldn&apos;t be reserved for tech giants. 
+                            Our mission is to democratize access to powerful AI tools and custom development services, 
+                            empowering businesses of all sizes to innovate and grow.
+                        </p>
+                        
+                        <div className="space-y-4 mb-8">
+                            {[
+                                "Enterprise-grade Security",
+                                "Scalable Architecture",
+                                "24/7 Expert Support",
+                                "Custom AI Model Tuning"
+                            ].map((item, i) => (
+                                <div key={i} className="flex items-center gap-3">
+                                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                                    <span className="text-slate-300">{item}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        <Button size="lg" className="bg-white text-slate-950 hover:bg-slate-200 font-medium">
+                            Learn More About Us
+                        </Button>
+                    </motion.div>
+
+                    {/* Image/Visual Content */}
+                    <motion.div 
+                        className="lg:w-1/2 relative"
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <div className="relative aspect-square max-w-md mx-auto">
+                            {/* Abstract glowing orbs */}
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/30 rounded-full blur-[80px] mix-blend-screen animate-pulse" />
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/30 rounded-full blur-[80px] mix-blend-screen animate-pulse" style={{ animationDelay: "2s" }} />
+                            
+                            {/* Image Container */}
+                            <div className="relative z-10 rounded-2xl overflow-hidden border border-slate-800 shadow-2xl bg-slate-900/50 backdrop-blur-sm">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop" 
+                                    alt="Team working on AI" 
+                                    className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                                />
+                                
+                                {/* Overlay Stats Card */}
+                                <div className="absolute bottom-6 left-6 right-6 p-4 bg-slate-950/80 backdrop-blur-md border border-slate-800 rounded-xl flex items-center justify-between">
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider">Clients Served</p>
+                                        <p className="text-2xl font-bold text-white">200+</p>
+                                    </div>
+                                    <div className="h-8 w-[1px] bg-slate-800" />
+                                    <div>
+                                        <p className="text-xs text-slate-400 uppercase tracking-wider">Projects Shipped</p>
+                                        <p className="text-2xl font-bold text-white">500+</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    ))}
+                    </motion.div>
+
                 </div>
             </div>
         </section>

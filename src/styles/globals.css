@@ -3,53 +3,69 @@
 @tailwind utilities;
 
 @layer base {
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+}
+
 :root {
-  /* Pure White Background */
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  /* Dark mode by default variables (Slate 950 base) */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
 
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
- 
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
 
-  /* Vibrant Corporate Blue */
-  --primary: 221.2 83.2% 53.3%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+
+  /* Electric Blue / Purple Accents */
+  --primary: 252 87% 67%; /* Violet-ish Blue */
   --primary-foreground: 210 40% 98%;
 
-  /* Soft Grays for Secondary/Muted */
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
- 
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
- 
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
 
-  --destructive: 0 84.2% 60.2%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
- 
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 252 87% 67%;
+
   --radius: 0.5rem;
-}
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  /* Force dark mode styles since we want dark mode default */
   body {
-    @apply bg-background text-foreground;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.025em;
   }
 }
 
 @layer utilities {
-  .text-shadow {
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  /* Glow effects */
+  .glow-text {
+    text-shadow: 0 0 20px hsla(252, 87%, 67%, 0.5);
+  }
+
+  .glow-box {
+    box-shadow: 0 0 40px -10px hsla(252, 87%, 67%, 0.2);
   }
 }

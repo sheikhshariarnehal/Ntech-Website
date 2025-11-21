@@ -1,90 +1,85 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/shared/badge";
+"use client";
 
-// TODO: Fetch from API
-const projects = [
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+const PROJECTS = [
+    {
+        title: "FinTech Dashboard",
+        category: "Web Development",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
+        description: "A comprehensive dashboard for financial data visualization using Recharts and Next.js."
+    },
+    {
+        title: "AI Customer Support",
+        category: "AI Automation",
+        image: "https://images.unsplash.com/photo-1531746790731-6c087fecd65a?q=80&w=2606&auto=format&fit=crop",
+        description: "Intelligent chatbot system reducing support tickets by 60%."
+    },
     {
         title: "E-Commerce Platform",
-        description:
-            "A full-featured online store with Stripe payments, inventory management, and admin dashboard.",
-        tags: ["Next.js", "Supabase", "Stripe"],
-        slug: "ecommerce-platform",
+        category: "Full Stack",
+        image: "https://images.unsplash.com/photo-1661956602116-aa6865609028?q=80&w=2664&auto=format&fit=crop",
+        description: "Modern e-commerce solution with real-time inventory management."
     },
     {
-        title: "AI Content Generator",
-        description:
-            "SaaS application that uses OpenAI to generate marketing copy and blog posts for businesses.",
-        tags: ["React", "OpenAI", "Tailwind"],
-        slug: "ai-content-generator",
-    },
-    {
-        title: "Healthcare Portal",
-        description:
-            "Secure patient management system with appointment scheduling and telemedicine features.",
-        tags: ["TypeScript", "PostgreSQL", "WebRTC"],
-        slug: "healthcare-portal",
-    },
+        title: "HealthTech App",
+        category: "Mobile App",
+        image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2670&auto=format&fit=crop",
+        description: "Patient monitoring application ensuring real-time health tracking."
+    }
 ];
 
 export function HomeProjects() {
     return (
-        <section className="bg-muted/30 py-20 lg:py-28">
-            <div className="container">
-                <div className="mb-12 flex flex-col items-center text-center">
-                    <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                        Featured projects
-                    </h2>
-                    <p className="max-w-2xl text-lg text-muted-foreground">
-                        Some of our recent work for startups and growing businesses. We build
-                        scalable, secure, and high-performance solutions.
-                    </p>
+        <section className="py-24 bg-slate-950 border-t border-slate-900">
+            <div className="container mx-auto px-6">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div>
+                        <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-4">Featured Projects</h2>
+                        <p className="text-slate-400 max-w-xl text-lg">
+                            See how we&apos;ve transformed ideas into powerful digital solutions.
+                        </p>
+                    </div>
+                    <Button variant="outline" className="border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800">
+                        View All Work
+                    </Button>
                 </div>
 
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {projects.map((project) => (
-                        <Card
-                            key={project.slug}
-                            className="flex flex-col overflow-hidden transition-all hover:border-primary/50 hover:shadow-md"
+                <div className="grid md:grid-cols-2 gap-8">
+                    {PROJECTS.map((project, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="group cursor-pointer"
                         >
-                            <div className="aspect-video w-full bg-muted/50 p-8 flex items-center justify-center">
-                                {/* Placeholder for project thumbnail */}
-                                <span className="text-muted-foreground font-medium">{project.title}</span>
-                            </div>
-                            <div className="flex flex-1 flex-col p-6">
-                                <h3 className="mb-2 text-xl font-bold">{project.title}</h3>
-                                <p className="mb-4 flex-1 text-muted-foreground">
-                                    {project.description}
-                                </p>
-                                <div className="mb-6 flex flex-wrap gap-2">
-                                    {project.tags.map((tag) => (
-                                        <Badge key={tag} variant="secondary" className="text-xs">
-                                            {tag}
-                                        </Badge>
-                                    ))}
+                            <div className="relative overflow-hidden rounded-xl aspect-[16/9] mb-6">
+                                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
+                                <img 
+                                    src={project.image} 
+                                    alt={project.title} 
+                                    className="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+                                
+                                <div className="absolute bottom-0 left-0 p-6 z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <span className="text-primary text-sm font-medium mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                        {project.category}
+                                    </span>
+                                    <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
+                                    <p className="text-slate-300 text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 hidden md:block">
+                                        {project.description}
+                                    </p>
                                 </div>
-                                <Link
-                                    href={`/projects/${project.slug}`}
-                                    className="inline-flex items-center text-sm font-medium text-primary hover:underline"
-                                >
-                                    View case study <ArrowRight className="ml-1 h-3 w-3" />
-                                </Link>
                             </div>
-                        </Card>
+                        </motion.div>
                     ))}
-                </div>
-
-                <div className="mt-12 text-center">
-                    <Link href="/projects">
-                        <Button variant="outline" size="lg">
-                            View all projects
-                        </Button>
-                    </Link>
                 </div>
             </div>
         </section>
     );
 }
-
-import { Button } from "@/components/ui/button";

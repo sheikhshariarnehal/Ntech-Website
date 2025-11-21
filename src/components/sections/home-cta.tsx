@@ -1,33 +1,57 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export function HomeCTA() {
     return (
-        <section className="container py-20 lg:py-28">
-            <div className="relative z-10 mx-auto max-w-2xl text-center">
-                <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    Ready to automate and scale your business?
-                </h2>
-                <p className="mb-8 text-lg text-muted-foreground">
-                    Book a free consultation today and let&apos;s discuss how we can help
-                    you achieve your digital goals.
-                </p>
-                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <section className="py-32 bg-slate-950 relative overflow-hidden">
+            {/* Background Gradients */}
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-primary/5 to-slate-950 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />
+
+            <div className="container mx-auto px-6 relative z-10 text-center">
+                <motion.h2
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="text-4xl md:text-6xl font-bold font-display text-white mb-6 tracking-tight"
+                >
+                    Ready to upgrade your <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">digital presence?</span>
+                </motion.h2>
+                
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="text-xl text-slate-400 max-w-2xl mx-auto mb-10"
+                >
+                    Join hundreds of innovative companies leveraging our tech to scale faster.
+                </motion.p>
+                
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
                     <Link href="/contact">
-                        <Button size="lg" className="w-full sm:w-auto font-semibold">
-                            Let&apos;s talk
+                        <Button size="lg" className="h-14 px-8 text-lg bg-white text-slate-950 hover:bg-slate-200 shadow-lg shadow-white/5">
+                            Book a Consultation
                         </Button>
                     </Link>
-                    <Link href="/services">
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            className="w-full sm:w-auto"
-                        >
-                            View pricing & services
+                    <Link href="/products">
+                        <Button variant="outline" size="lg" className="h-14 px-8 text-lg border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-500">
+                            Visit Store <ArrowRight className="w-5 h-5 ml-2" />
                         </Button>
                     </Link>
-                </div>
+                </motion.div>
             </div>
         </section>
     );

@@ -1,101 +1,93 @@
-import Link from "next/link";
-import {
-    Code2,
-    Smartphone,
-    Bot,
-    Headphones,
-    Cloud,
-    Sparkles,
-    ArrowRight,
-} from "lucide-react";
-import { Card } from "@/components/ui/card";
+"use client";
 
-const services = [
+import { motion } from "framer-motion";
+import { Laptop, Bot, ShoppingCart, ArrowRight, Check } from "lucide-react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
+const SERVICES = [
     {
-        icon: Code2,
-        title: "Web Development",
-        description:
-            "Custom websites and web applications built with Next.js, React, and modern technologies.",
-        href: "/services/web-development",
-    },
-    {
-        icon: Smartphone,
-        title: "App Development",
-        description:
-            "Native and cross-platform mobile apps for iOS and Android that deliver seamless user experiences.",
-        href: "/services/app-development",
+        icon: Laptop,
+        title: "Web & App Development",
+        desc: "Custom scalable solutions using Next.js and React Native. We build performant, secure, and beautiful applications.",
+        features: ["Custom Web Apps", "Mobile Development", "SaaS Platforms", "API Integration"],
+        color: "text-blue-400",
+        gradient: "from-blue-500/20 to-transparent",
+        delay: 0
     },
     {
         icon: Bot,
         title: "AI Automation",
-        description:
-            "Streamline your business processes with custom AI chatbots, workflows, and automation tools.",
-        href: "/services/ai-automation",
+        desc: "Streamline your workflow with custom AI agents and Chatbots. Reduce costs and increase efficiency with intelligent automation.",
+        features: ["Custom Chatbots", "Workflow Automation", "Data Analysis", "AI Integration"],
+        color: "text-purple-400",
+        gradient: "from-purple-500/20 to-transparent",
+        delay: 0.1
     },
     {
-        icon: Headphones,
-        title: "Technical Support",
-        description:
-            "24/7 maintenance and support to keep your digital infrastructure running smoothly.",
-        href: "/services/technical-support",
-    },
-    {
-        icon: Cloud,
-        title: "SaaS Integration",
-        description:
-            "Seamlessly integrate third-party tools and APIs to enhance your business capabilities.",
-        href: "/services/saas-integration",
-    },
-    {
-        icon: Sparkles,
-        title: "Digital Products",
-        description:
-            "Access premium digital tools and subscriptions like ChatGPT Pro, Gemini Pro, and more.",
-        href: "/products",
-    },
+        icon: ShoppingCart,
+        title: "Premium Subscriptions",
+        desc: "Instant access to ChatGPT Pro, Gemini Pro, Veo3, and Canva Pro at competitive rates. Get the tools you need for less.",
+        features: ["Instant Delivery", "24/7 Support", "Competitive Pricing", "Secure Payment"],
+        color: "text-emerald-400",
+        gradient: "from-emerald-500/20 to-transparent",
+        delay: 0.2
+    }
 ];
 
 export function HomeServices() {
     return (
-        <section className="container py-20 lg:py-28">
-            <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-                <div className="max-w-2xl">
-                    <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                        What we do
-                    </h2>
-                    <p className="text-lg text-muted-foreground">
-                        We combine engineering excellence with AI innovation to deliver
-                        comprehensive digital solutions for startups and enterprises.
+        <section className="py-24 bg-slate-950 relative" id="services">
+            <div className="container mx-auto px-6">
+                <div className="text-center mb-16">
+                    <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-4">Our Expertise</h2>
+                    <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                        Bridging the gap between complex technology and accessible solutions.
                     </p>
                 </div>
-                <Link
-                    href="/services"
-                    className="group flex items-center font-medium text-primary"
-                >
-                    View all services
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-            </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {services.map((service) => (
-                    <Card
-                        key={service.title}
-                        className="group relative overflow-hidden p-6 transition-all hover:shadow-lg"
-                    >
-                        <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                            <service.icon className="h-6 w-6" />
-                        </div>
-                        <h3 className="mb-2 text-xl font-bold">{service.title}</h3>
-                        <p className="mb-4 text-muted-foreground">{service.description}</p>
-                        <Link
-                            href={service.href}
-                            className="inline-flex items-center text-sm font-medium text-primary"
+                <div className="grid md:grid-cols-3 gap-8">
+                    {SERVICES.map((service, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: service.delay }}
                         >
-                            Learn more <ArrowRight className="ml-1 h-3 w-3" />
-                        </Link>
-                    </Card>
-                ))}
+                            <Card className="bg-slate-900/50 border-slate-800 h-full hover:border-slate-600 transition-all duration-300 group hover:-translate-y-2 overflow-hidden relative">
+                                <div className={`absolute inset-0 bg-gradient-to-b ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                                
+                                <CardHeader>
+                                    <div className={`w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 ${service.color}`}>
+                                        <service.icon className="w-6 h-6" />
+                                    </div>
+                                    <CardTitle className="text-2xl text-white">{service.title}</CardTitle>
+                                    <CardDescription className="text-slate-400 text-base mt-2">
+                                        {service.desc}
+                                    </CardDescription>
+                                </CardHeader>
+                                
+                                <CardContent>
+                                    <ul className="space-y-3">
+                                        {service.features.map((feature, i) => (
+                                            <li key={i} className="flex items-center gap-2 text-sm text-slate-300">
+                                                <Check className={`w-4 h-4 ${service.color}`} />
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </CardContent>
+
+                                <CardFooter>
+                                    <Button variant="ghost" className="p-0 text-slate-300 hover:text-white group-hover:translate-x-2 transition-transform">
+                                        Learn More <ArrowRight className="w-4 h-4 ml-2" />
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
         </section>
     );

@@ -1,73 +1,95 @@
-import Link from "next/link";
-import { ArrowRight, Calendar, User } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { getPosts } from "@/features/blog/api/getPosts";
-import { Badge } from "@/components/shared/badge";
+"use client";
 
-export async function HomeBlog() {
-    // Fetch the first 3 posts for the homepage
-    const posts = await getPosts();
-    const recentPosts = posts.slice(0, 3);
+import { motion } from "framer-motion";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Calendar } from "lucide-react";
+
+const POSTS = [
+    {
+        title: "How AI is changing Web Dev",
+        excerpt: "The landscape of frontend development is shifting rapidly with the introduction of generative AI tools.",
+        date: "Nov 15, 2025",
+        category: "Technology",
+        image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2832&auto=format&fit=crop"
+    },
+    {
+        title: "Top 5 Features of Gemini Pro",
+        excerpt: "Exploring the capabilities of the latest multimodal models and how they compare to the competition.",
+        date: "Nov 12, 2025",
+        category: "AI Trends",
+        image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2565&auto=format&fit=crop"
+    },
+    {
+        title: "Why you need a custom App",
+        excerpt: "Off-the-shelf solutions might be holding your business back. Here&apos;s why custom software is an investment.",
+        date: "Nov 08, 2025",
+        category: "Business",
+        image: "https://images.unsplash.com/photo-1555421689-491a97ff2040?q=80&w=2670&auto=format&fit=crop"
+    }
+];
+
+export function HomeBlog() {
 
     return (
-        <section className="container py-20 lg:py-28">
-            <div className="mb-12 flex flex-col items-center text-center">
-                <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                    Latest Insights
-                </h2>
-                <p className="max-w-2xl text-lg text-muted-foreground">
-                    Thoughts on technology, design, and the future of digital business.
-                </p>
-            </div>
-
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                {recentPosts.map((post) => (
-                    <Card
-                        key={post.slug}
-                        className="flex flex-col overflow-hidden transition-all hover:border-primary/50 hover:shadow-md group"
-                    >
-                        <div className="aspect-video w-full bg-muted/50 p-8 flex items-center justify-center overflow-hidden relative">
-                            {/* Placeholder for blog thumbnail */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/10 group-hover:scale-105 transition-transform duration-500" />
-                            <span className="text-muted-foreground font-medium relative z-10">
-                                {post.title}
-                            </span>
-                        </div>
-                        <div className="flex flex-1 flex-col p-6">
-                            <div className="mb-4 flex items-center gap-4 text-xs text-muted-foreground">
-                                <div className="flex items-center gap-1">
-                                    <Calendar className="h-3 w-3" />
-                                    <time dateTime={post.publishedAt}>{post.publishedAt}</time>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                    <User className="h-3 w-3" />
-                                    <span>{post.author}</span>
-                                </div>
-                            </div>
-                            <h3 className="mb-2 text-xl font-bold line-clamp-2 group-hover:text-primary transition-colors">
-                                {post.title}
-                            </h3>
-                            <p className="mb-4 flex-1 text-muted-foreground line-clamp-3">
-                                {post.excerpt}
-                            </p>
-                            <Link
-                                href={`/blog/${post.slug}`}
-                                className="inline-flex items-center text-sm font-medium text-primary hover:underline"
-                            >
-                                Read article <ArrowRight className="ml-1 h-3 w-3" />
-                            </Link>
-                        </div>
-                    </Card>
-                ))}
-            </div>
-
-            <div className="mt-12 text-center">
-                <Link href="/blog">
-                    <Button variant="outline" size="lg">
-                        View all articles
+        <section className="py-24 bg-slate-950 border-t border-slate-900">
+            <div className="container mx-auto px-6">
+                <div className="flex items-end justify-between mb-12">
+                    <h2 className="text-3xl md:text-4xl font-bold font-display text-white">Latest Insights</h2>
+                    <Button variant="link" className="text-primary hidden md:flex">
+                        View all articles <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
-                </Link>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {POSTS.map((post, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                        >
+                            <Card className="bg-transparent border-none shadow-none group cursor-pointer">
+                                <div className="relative rounded-xl overflow-hidden mb-4 aspect-[4/3]">
+                                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-slate-950/80 backdrop-blur-sm rounded-full border border-slate-800 text-xs font-medium text-white">
+                                        {post.category}
+                                    </div>
+                                    <img 
+                                        src={post.image} 
+                                        alt={post.title} 
+                                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
+                                    />
+                                </div>
+                                <CardHeader className="p-0 mb-2">
+                                    <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                                        <Calendar className="w-3 h-3" />
+                                        {post.date}
+                                    </div>
+                                    <CardTitle className="text-xl text-white group-hover:text-primary transition-colors line-clamp-2">
+                                        {post.title}
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="p-0">
+                                    <p className="text-slate-400 text-sm line-clamp-2">
+                                        {post.excerpt}
+                                    </p>
+                                </CardContent>
+                                <CardFooter className="p-0 mt-4">
+                                    <span className="text-sm font-medium text-primary flex items-center group-hover:underline">
+                                        Read More <ArrowRight className="w-3 h-3 ml-1" />
+                                    </span>
+                                </CardFooter>
+                            </Card>
+                        </motion.div>
+                    ))}
+                </div>
+
+                <div className="mt-8 md:hidden flex justify-center">
+                    <Button variant="link" className="text-primary">
+                        View all articles <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                </div>
             </div>
         </section>
     );

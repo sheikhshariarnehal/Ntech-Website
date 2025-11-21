@@ -1,72 +1,72 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, Zap, BarChart3 } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Sparkles } from "lucide-react";
 
 export function HomeHero() {
     return (
-        <section className="container flex flex-col gap-10 py-20 md:flex-row md:items-center md:gap-12 lg:py-28">
-            <div className="flex flex-1 flex-col items-start gap-6">
-                <div className="inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium text-muted-foreground backdrop-blur-sm">
-                    <span className="mr-2 flex h-2 w-2 rounded-full bg-primary"></span>
-                    Software & AI-Powered Digital Agency
-                </div>
-                <h1 className="text-4xl font-extrabold tracking-tight lg:text-6xl">
-                    We build smart web, app, and AI solutions for{" "}
-                    <span className="text-primary">modern businesses.</span>
-                </h1>
-                <p className="text-lg text-muted-foreground lg:text-xl">
-                    From custom web & app development to AI automation and digital
-                    products. We help you scale with cutting-edge technology and expert
-                    support.
-                </p>
-                <div className="flex flex-col gap-4 sm:flex-row">
-                    <Link href="/contact">
-                        <Button size="lg" className="w-full sm:w-auto">
-                            Book a free consultation
-                            <ArrowRight className="ml-2 h-4 w-4" />
+        <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-950">
+            {/* Background Glows */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl pointer-events-none">
+                <div className="absolute top-[20%] left-[20%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] mix-blend-screen" />
+                <div className="absolute top-[30%] right-[20%] w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[100px] mix-blend-screen" />
+            </div>
+
+            <div className="container mx-auto px-6 relative z-10 text-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/50 border border-slate-800 backdrop-blur-sm mb-8"
+                >
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span className="text-sm font-medium text-slate-300">The Future of Digital Solutions</span>
+                </motion.div>
+
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="text-5xl md:text-7xl font-bold font-display tracking-tight text-white mb-6 leading-tight"
+                >
+                    Empowering Your Business <br />
+                    with <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 glow-text">Next-Gen Tech & AI</span>
+                </motion.h1>
+
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+                >
+                    We provide full-stack development, custom AI automation, and premium access to the world&apos;s best AI tools.
+                </motion.p>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
+                    <Link href="/services">
+                        <Button size="lg" className="h-12 px-8 text-base bg-primary hover:bg-primary/90 text-white shadow-[0_0_30px_-5px_rgba(139,92,246,0.6)] transition-all hover:scale-105">
+                            Explore Services
                         </Button>
                     </Link>
-                    <Link href="/projects">
-                        <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                            View our projects
+                    <Link href="/products">
+                        <Button variant="outline" size="lg" className="h-12 px-8 text-base border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-500 transition-all">
+                            Get Premium Tools
+                            <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
                     </Link>
-                </div>
-                <div className="mt-4 flex items-center gap-6 text-sm text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        <span>End-to-end delivery</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <CheckCircle2 className="h-4 w-4 text-primary" />
-                        <span>AI Integration</span>
-                    </div>
-                </div>
+                </motion.div>
             </div>
-            <div className="flex-1">
-                <div className="relative mx-auto max-w-[500px] lg:max-w-none">
-                    <div className="relative rounded-xl border bg-background/50 p-2 shadow-2xl backdrop-blur-sm lg:p-4">
-                        <div className="aspect-video rounded-lg bg-muted/50 p-6 flex items-center justify-center border border-dashed">
-                            {/* Placeholder for a dashboard image or illustration */}
-                            <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
-                                <div className="bg-card p-4 rounded-lg border shadow-sm flex flex-col gap-2">
-                                    <Zap className="h-8 w-8 text-yellow-500" />
-                                    <div className="text-2xl font-bold">98%</div>
-                                    <div className="text-xs text-muted-foreground">Automation Rate</div>
-                                </div>
-                                <div className="bg-card p-4 rounded-lg border shadow-sm flex flex-col gap-2">
-                                    <BarChart3 className="h-8 w-8 text-blue-500" />
-                                    <div className="text-2xl font-bold">+240%</div>
-                                    <div className="text-xs text-muted-foreground">Growth Metric</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {/* Decorative elements */}
-                    <div className="absolute -left-4 -top-4 -z-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl"></div>
-                    <div className="absolute -right-4 -bottom-4 -z-10 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl"></div>
-                </div>
-            </div>
+            
+            {/* Grid Pattern Overlay */}
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
         </section>
     );
 }

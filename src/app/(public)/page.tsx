@@ -9,14 +9,14 @@ import { HomeTechnologies } from "@/components/sections/home-technologies";
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col">
+        <main className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden font-sans selection:bg-primary/30 selection:text-white">
             <HomeHero />
             <HomeClients />
             <HomeServices />
             <HomeProjects />
-            <HomeBlog />
-            <HomeAbout />
             <HomeTechnologies />
+            <HomeAbout />
+            <HomeBlog />
             <HomeCTA />
         </main>
     );
