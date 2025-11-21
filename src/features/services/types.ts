@@ -7,6 +7,7 @@ export interface Service {
   icon: string | null;
   starting_price: number | null;
   is_active: boolean;
+  features: string[] | null;
   seo_title: string | null;
   seo_description: string | null;
   seo_keywords: string[] | null;

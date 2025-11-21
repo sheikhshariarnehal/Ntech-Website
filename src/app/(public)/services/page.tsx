@@ -15,7 +15,7 @@ export const revalidate = 3600; // Revalidate every hour
 
 export default function ServicesPage() {
     return (
-        <div className="container py-8 md:py-12 space-y-16">
+        <div className="container pt-16 md:pt-24 pb-8 md:pb-12 space-y-16">
             <PageHeader
                 title="Our Services"
                 subtitle="We deliver cutting-edge technical solutions tailored to your business needs. From web and mobile apps to AI automation, we help you scale."

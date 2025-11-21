@@ -30,6 +30,7 @@ export default function EditServicePage() {
     full_description: "",
     starting_price: "",
     icon: "",
+    features: "",
     is_active: true,
     seo_title: "",
     seo_description: "",
@@ -57,6 +58,7 @@ export default function EditServicePage() {
         full_description: service.full_description || "",
         starting_price: service.starting_price?.toString() || "",
         icon: service.icon || "",
+        features: Array.isArray(service.features) ? service.features.join(', ') : "",
         is_active: service.is_active ?? true,
         seo_title: service.seo_title || "",
         seo_description: service.seo_description || "",
@@ -77,6 +79,7 @@ export default function EditServicePage() {
       full_description: formData.full_description,
       starting_price: formData.starting_price ? parseFloat(formData.starting_price) : null,
       icon: formData.icon || null,
+      features: formData.features ? formData.features.split(',').map(f => f.trim()).filter(f => f) : null,
       is_active: formData.is_active,
       seo_title: formData.seo_title || null,
       seo_description: formData.seo_description || null,
@@ -180,6 +183,18 @@ export default function EditServicePage() {
                 placeholder="Detailed description of the service..."
                 rows={8}
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="features">Features (comma separated)</Label>
+              <Textarea
+                id="features"
+                value={formData.features}
+                onChange={(e) => setFormData({ ...formData, features: e.target.value })}
+                placeholder="Custom Chatbots, Workflow Automation, Data Analysis, AI Integration"
+                rows={3}
+              />
+              <p className="text-xs text-muted-foreground">Enter features separated by commas. These will appear as bullet points on the service card.</p>
             </div>
           </div>
         </Card>
