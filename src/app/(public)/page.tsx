@@ -9,7 +9,7 @@ import { HomeTechnologies } from "@/components/sections/home-technologies";
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-slate-950 text-slate-50 overflow-x-hidden font-sans selection:bg-primary/30 selection:text-white">
+        <main className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/30 selection:text-foreground">
             <HomeHero />
             <HomeClients />
             <HomeServices />

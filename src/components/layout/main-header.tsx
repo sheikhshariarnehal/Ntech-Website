@@ -103,8 +103,8 @@ export function MainHeader() {
                 className={cn(
                     "fixed top-0 z-50 w-full transition-all duration-300",
                     scrolled 
-                        ? "border-b border-slate-800/50 bg-slate-950/95 backdrop-blur-xl shadow-lg shadow-black/10" 
-                        : "border-b border-slate-800/20 bg-slate-950/70 backdrop-blur-md"
+                        ? "border-b border-border/50 bg-background/95 backdrop-blur-xl shadow-lg shadow-black/10" 
+                        : "border-b border-border/20 bg-background/70 backdrop-blur-md"
                 )}
                 onMouseLeave={() => setActiveMenu(null)}
             >
@@ -114,7 +114,7 @@ export function MainHeader() {
                         <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50">
                             <Sparkles className="w-4.5 h-4.5 text-white" />
                         </div>
-                        <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">
+                        <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
                             {siteConfig.name}
                         </span>
                     </Link>
@@ -132,8 +132,8 @@ export function MainHeader() {
                                     className={cn(
                                         "relative px-4 py-2 text-sm font-medium transition-all duration-200 rounded-lg flex items-center gap-1.5",
                                         activeMenu === link.label.toLowerCase() 
-                                            ? "text-white bg-slate-800/50" 
-                                            : "text-slate-300 hover:text-white hover:bg-slate-800/30"
+                                            ? "text-foreground bg-secondary/50" 
+                                            : "text-muted-foreground hover:text-foreground hover:bg-secondary/30"
                                     )}
                                 >
                                     {link.label}
@@ -151,7 +151,7 @@ export function MainHeader() {
                     {/* Desktop CTA */}
                     <div className="hidden lg:flex items-center gap-3">
                         <Link href="/auth/login">
-                            <Button variant="ghost" size="sm" className="text-slate-300 hover:text-white hover:bg-slate-800/50 font-medium">
+                            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:bg-secondary/50 font-medium">
                                 Login
                             </Button>
                         </Link>
@@ -165,14 +165,14 @@ export function MainHeader() {
                     {/* Mobile Menu Toggle */}
                     <motion.button
                         whileTap={{ scale: 0.95 }}
-                        className="flex items-center justify-center p-2 lg:hidden hover:bg-slate-800/50 rounded-lg transition-colors"
+                        className="flex items-center justify-center p-2 lg:hidden hover:bg-secondary/50 rounded-lg transition-colors"
                         onClick={toggleMenu}
                         aria-label="Toggle menu"
                     >
                         {isMenuOpen ? (
-                            <X className="h-5 w-5 text-slate-300" />
+                            <X className="h-5 w-5 text-muted-foreground" />
                         ) : (
-                            <Menu className="h-5 w-5 text-slate-300" />
+                            <Menu className="h-5 w-5 text-muted-foreground" />
                         )}
                     </motion.button>
                 </div>
@@ -185,7 +185,7 @@ export function MainHeader() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
-                            className="absolute top-full left-0 w-full border-t border-slate-800/50 bg-slate-950/95 backdrop-blur-xl shadow-2xl"
+                            className="absolute top-full left-0 w-full border-t border-border/50 bg-background/95 backdrop-blur-xl shadow-2xl"
                         >
                             <div className="container py-8">
                                 <div className="grid grid-cols-3 gap-4 max-w-4xl">
@@ -193,7 +193,7 @@ export function MainHeader() {
                                         <Link
                                             key={index}
                                             href={item.href}
-                                            className="group p-4 rounded-xl hover:bg-slate-800/50 transition-all duration-200 border border-transparent hover:border-slate-700"
+                                            className="group p-4 rounded-xl hover:bg-secondary/50 transition-all duration-200 border border-transparent hover:border-border"
                                             onClick={() => setActiveMenu(null)}
                                         >
                                             <div className="flex items-start gap-3">
@@ -201,10 +201,10 @@ export function MainHeader() {
                                                     <item.icon className="w-5 h-5 text-primary" />
                                                 </div>
                                                 <div className="flex-1">
-                                                    <h3 className="text-sm font-semibold text-white mb-1 group-hover:text-primary transition-colors">
+                                                    <h3 className="text-sm font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
                                                         {item.label}
                                                     </h3>
-                                                    <p className="text-xs text-slate-400 leading-relaxed">
+                                                    <p className="text-xs text-muted-foreground leading-relaxed">
                                                         {item.description}
                                                     </p>
                                                 </div>
@@ -241,7 +241,7 @@ export function MainHeader() {
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed top-16 right-0 bottom-0 z-50 w-80 bg-slate-900/95 backdrop-blur-xl border-l border-slate-800 shadow-2xl lg:hidden"
+                        className="fixed top-16 right-0 bottom-0 z-50 w-80 bg-card/95 backdrop-blur-xl border-l border-border shadow-2xl lg:hidden"
                     >
                         <div className="flex flex-col h-full">
                             {/* Sidebar Navigation */}
@@ -256,7 +256,7 @@ export function MainHeader() {
                                         >
                                             <Link
                                                 href={link.href}
-                                                className="flex items-center justify-between px-5 py-3.5 text-base font-medium text-slate-300 rounded-xl transition-all hover:bg-slate-800/50 hover:text-white active:scale-95 group"
+                                                className="flex items-center justify-between px-5 py-3.5 text-base font-medium text-muted-foreground rounded-xl transition-all hover:bg-secondary/50 hover:text-foreground active:scale-95 group"
                                                 onClick={() => setIsMenuOpen(false)}
                                             >
                                                 <span>{link.label}</span>
@@ -270,9 +270,9 @@ export function MainHeader() {
                             </nav>
 
                             {/* Sidebar Footer - CTA Buttons */}
-                            <div className="p-6 border-t border-slate-800/50 bg-slate-900/50 space-y-3">
+                            <div className="p-6 border-t border-border/50 bg-muted/50 space-y-3">
                                 <Link href="/auth/login" onClick={() => setIsMenuOpen(false)} className="block">
-                                    <Button variant="outline" size="lg" className="w-full border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-600">
+                                    <Button variant="outline" size="lg" className="w-full">
                                         Login
                                     </Button>
                                 </Link>

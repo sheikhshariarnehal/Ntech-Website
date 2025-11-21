@@ -37,11 +37,11 @@ const SERVICES = [
 
 export function HomeServices() {
     return (
-        <section className="py-24 bg-slate-950 relative" id="services">
+        <section className="py-24 bg-background relative" id="services">
             <div className="container mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-3xl md:text-5xl font-bold font-display text-white mb-4">Our Expertise</h2>
-                    <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                    <h2 className="text-3xl md:text-5xl font-bold font-display text-foreground mb-4">Our Expertise</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
                         Bridging the gap between complex technology and accessible solutions.
                     </p>
                 </div>
@@ -55,15 +55,15 @@ export function HomeServices() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.5, delay: service.delay }}
                         >
-                            <Card className="bg-slate-900/50 border-slate-800 h-full hover:border-slate-600 transition-all duration-300 group hover:-translate-y-2 overflow-hidden relative">
+                            <Card className="bg-card/50 border-border h-full hover:border-primary/50 transition-all duration-300 group hover:-translate-y-2 overflow-hidden relative">
                                 <div className={`absolute inset-0 bg-gradient-to-b ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                                 
                                 <CardHeader>
-                                    <div className={`w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 ${service.color}`}>
+                                    <div className={`w-12 h-12 rounded-lg bg-background border border-border flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 ${service.color}`}>
                                         <service.icon className="w-6 h-6" />
                                     </div>
-                                    <CardTitle className="text-2xl text-white">{service.title}</CardTitle>
-                                    <CardDescription className="text-slate-400 text-base mt-2">
+                                    <CardTitle className="text-2xl text-foreground">{service.title}</CardTitle>
+                                    <CardDescription className="text-muted-foreground text-base mt-2">
                                         {service.desc}
                                     </CardDescription>
                                 </CardHeader>
@@ -71,7 +71,7 @@ export function HomeServices() {
                                 <CardContent>
                                     <ul className="space-y-3">
                                         {service.features.map((feature, i) => (
-                                            <li key={i} className="flex items-center gap-2 text-sm text-slate-300">
+                                            <li key={i} className="flex items-center gap-2 text-sm text-foreground">
                                                 <Check className={`w-4 h-4 ${service.color}`} />
                                                 {feature}
                                             </li>

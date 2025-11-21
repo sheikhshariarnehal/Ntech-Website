@@ -33,8 +33,8 @@ const THEME_PRESETS = {
     colors: {} // Will use current custom values
   },
   dark: {
-    name: "Default Dark",
-    description: "Professional dark theme",
+    name: "Default Dark (Electric)",
+    description: "Professional dark theme with electric blue accents",
     isPremium: false,
     colors: {
       theme_background: "222.2 84% 4.9%",
@@ -43,8 +43,8 @@ const THEME_PRESETS = {
       theme_card_foreground: "210 40% 98%",
       theme_popover: "222.2 84% 4.9%",
       theme_popover_foreground: "210 40% 98%",
-      theme_primary: "210 40% 98%",
-      theme_primary_foreground: "222.2 47.4% 11.2%",
+      theme_primary: "252 87% 67%",
+      theme_primary_foreground: "210 40% 98%",
       theme_secondary: "217.2 32.6% 17.5%",
       theme_secondary_foreground: "210 40% 98%",
       theme_muted: "217.2 32.6% 17.5%",
@@ -55,7 +55,7 @@ const THEME_PRESETS = {
       theme_destructive_foreground: "210 40% 98%",
       theme_border: "217.2 32.6% 17.5%",
       theme_input: "217.2 32.6% 17.5%",
-      theme_ring: "212.7 26.8% 83.9%",
+      theme_ring: "252 87% 67%",
       theme_radius: "0.5rem"
     }
   },

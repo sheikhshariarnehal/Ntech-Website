@@ -32,10 +32,10 @@ const POSTS = [
 export function HomeBlog() {
 
     return (
-        <section className="py-24 bg-slate-950 border-t border-slate-900">
+        <section className="py-24 bg-background border-t border-border">
             <div className="container mx-auto">
                 <div className="flex items-end justify-between mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold font-display text-white">Latest Insights</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold font-display text-foreground">Latest Insights</h2>
                     <Button variant="link" className="text-primary hidden md:flex">
                         View all articles <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -52,7 +52,7 @@ export function HomeBlog() {
                         >
                             <Card className="bg-transparent border-none shadow-none group cursor-pointer">
                                 <div className="relative rounded-xl overflow-hidden mb-4 aspect-[4/3]">
-                                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-slate-950/80 backdrop-blur-sm rounded-full border border-slate-800 text-xs font-medium text-white">
+                                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-background/80 backdrop-blur-sm rounded-full border border-border text-xs font-medium text-foreground">
                                         {post.category}
                                     </div>
                                     <img 
@@ -62,16 +62,16 @@ export function HomeBlog() {
                                     />
                                 </div>
                                 <CardHeader className="p-0 mb-2">
-                                    <div className="flex items-center gap-2 text-xs text-slate-500 mb-2">
+                                    <div className="flex items-center gap-2 text-xs text-muted-foreground/70 mb-2">
                                         <Calendar className="w-3 h-3" />
                                         {post.date}
                                     </div>
-                                    <CardTitle className="text-xl text-white group-hover:text-primary transition-colors line-clamp-2">
+                                    <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2">
                                         {post.title}
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="p-0">
-                                    <p className="text-slate-400 text-sm line-clamp-2">
+                                    <p className="text-muted-foreground text-sm line-clamp-2">
                                         {post.excerpt}
                                     </p>
                                 </CardContent>

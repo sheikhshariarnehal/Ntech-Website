@@ -58,9 +58,9 @@ export function MainFooter() {
     ];
 
     return (
-        <footer className="border-t border-slate-800/50 bg-slate-950 relative overflow-hidden">
+        <footer className="border-t border-border/50 bg-background relative overflow-hidden">
             {/* Background Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/50 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-muted/50 to-transparent pointer-events-none" />
             
             <div className="container relative z-10">
                 {/* Main Footer Content */}
@@ -71,19 +71,19 @@ export function MainFooter() {
                             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50">
                                 <Sparkles className="w-4.5 h-4.5 text-white" />
                             </div>
-                            <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-300">
+                            <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
                                 {siteConfig.name}
                             </span>
                         </Link>
                         
-                        <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
+                        <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
                             Building smart web, mobile, and AI solutions for modern businesses. 
                             Empowering innovation through cutting-edge technology.
                         </p>
 
                         {/* Newsletter */}
                         <div className="space-y-3">
-                            <h4 className="text-sm font-semibold text-white">Stay Updated</h4>
+                            <h4 className="text-sm font-semibold text-foreground">Stay Updated</h4>
                             <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
                                 <Input
                                     type="email"
@@ -91,7 +91,7 @@ export function MainFooter() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="bg-slate-900 border-slate-800 text-slate-200 placeholder:text-slate-500 focus:border-primary h-10"
+                                    className="h-10"
                                 />
                                 <Button 
                                     type="submit" 
@@ -107,7 +107,7 @@ export function MainFooter() {
                         </div>
 
                         {/* Contact Info */}
-                        <div className="space-y-2 text-sm text-slate-400">
+                        <div className="space-y-2 text-sm text-muted-foreground">
                             <div className="flex items-center gap-2">
                                 <Mail className="w-4 h-4 text-primary" />
                                 <a href="mailto:contact@ntech.com" className="hover:text-primary transition-colors">
@@ -129,13 +129,13 @@ export function MainFooter() {
 
                     {/* Company Links - 2 columns */}
                     <div className="lg:col-span-2 flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold text-white">Company</h3>
+                        <h3 className="text-sm font-semibold text-foreground">Company</h3>
                         <nav className="flex flex-col gap-2.5">
                             {footerLinks.company.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                    className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit"
                                 >
                                     {link.label}
                                 </Link>
@@ -145,13 +145,13 @@ export function MainFooter() {
 
                     {/* Services Links - 2 columns */}
                     <div className="lg:col-span-2 flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold text-white">Services</h3>
+                        <h3 className="text-sm font-semibold text-foreground">Services</h3>
                         <nav className="flex flex-col gap-2.5">
                             {footerLinks.services.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                    className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit"
                                 >
                                     {link.label}
                                 </Link>
@@ -161,13 +161,13 @@ export function MainFooter() {
 
                     {/* Products Links - 2 columns */}
                     <div className="lg:col-span-2 flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold text-white">Products</h3>
+                        <h3 className="text-sm font-semibold text-foreground">Products</h3>
                         <nav className="flex flex-col gap-2.5">
                             {footerLinks.products.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                    className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit"
                                 >
                                     {link.label}
                                 </Link>
@@ -177,13 +177,13 @@ export function MainFooter() {
 
                     {/* Legal Links - 2 columns */}
                     <div className="lg:col-span-2 flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold text-white">Legal</h3>
+                        <h3 className="text-sm font-semibold text-foreground">Legal</h3>
                         <nav className="flex flex-col gap-2.5">
                             {footerLinks.legal.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="text-sm text-slate-400 hover:text-primary transition-colors w-fit"
+                                    className="text-sm text-muted-foreground hover:text-primary transition-colors w-fit"
                                 >
                                     {link.label}
                                 </Link>
@@ -193,10 +193,10 @@ export function MainFooter() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-slate-800/50 py-6">
+                <div className="border-t border-border/50 py-6">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                         {/* Copyright */}
-                        <p className="text-sm text-slate-500 text-center sm:text-left">
+                        <p className="text-sm text-muted-foreground/70 text-center sm:text-left">
                             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
                         </p>
 
@@ -208,7 +208,7 @@ export function MainFooter() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-slate-400 hover:text-primary transition-all hover:scale-110"
+                                    className="text-muted-foreground hover:text-primary transition-all hover:scale-110"
                                     aria-label={social.label}
                                 >
                                     <social.icon className="w-4.5 h-4.5" />
@@ -217,7 +217,7 @@ export function MainFooter() {
                         </div>
 
                         {/* Additional Links */}
-                        <div className="flex items-center gap-4 text-xs text-slate-500">
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground/70">
                             <Link href="/sitemap.xml" className="hover:text-primary transition-colors">
                                 Sitemap
                             </Link>

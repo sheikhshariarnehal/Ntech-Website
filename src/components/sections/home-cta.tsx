@@ -7,9 +7,9 @@ import { ArrowRight } from "lucide-react";
 
 export function HomeCTA() {
     return (
-        <section className="py-32 bg-slate-950 relative overflow-hidden">
+        <section className="py-32 bg-background relative overflow-hidden">
             {/* Background Gradients */}
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-primary/5 to-slate-950 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />
 
             <div className="container mx-auto relative z-10 text-center">
@@ -18,7 +18,7 @@ export function HomeCTA() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="text-4xl md:text-6xl font-bold font-display text-white mb-6 tracking-tight"
+                    className="text-4xl md:text-6xl font-bold font-display text-foreground mb-6 tracking-tight"
                 >
                     Ready to upgrade your <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">digital presence?</span>
@@ -29,7 +29,7 @@ export function HomeCTA() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.1 }}
-                    className="text-xl text-slate-400 max-w-2xl mx-auto mb-10"
+                    className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
                 >
                     Join hundreds of innovative companies leveraging our tech to scale faster.
                 </motion.p>
@@ -42,12 +42,12 @@ export function HomeCTA() {
                     className="flex flex-col sm:flex-row items-center justify-center gap-4"
                 >
                     <Link href="/contact">
-                        <Button size="lg" className="h-14 px-8 text-lg bg-white text-slate-950 hover:bg-slate-200 shadow-lg shadow-white/5">
+                        <Button size="lg" className="h-14 px-8 text-lg shadow-lg">
                             Book a Consultation
                         </Button>
                     </Link>
                     <Link href="/products">
-                        <Button variant="outline" size="lg" className="h-14 px-8 text-lg border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 hover:border-slate-500">
+                        <Button variant="outline" size="lg" className="h-14 px-8 text-lg">
                             Visit Store <ArrowRight className="w-5 h-5 ml-2" />
                         </Button>
                     </Link>
