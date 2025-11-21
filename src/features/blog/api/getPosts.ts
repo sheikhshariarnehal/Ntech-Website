@@ -82,27 +82,30 @@ export async function getPostBySlug(slug: string) {
 
     if (!data) return null;
 
+    // Type assertion to handle the complex join result
+    const post = data as any;
+
     return {
-        id: data.id,
-        slug: data.slug,
-        title: data.title,
-        excerpt: data.excerpt || '',
-        content: data.content,
-        coverImageUrl: data.cover_image_url,
-        tags: data.tags || [],
-        publishedAt: data.published_at 
-            ? new Date(data.published_at).toLocaleDateString('en-US', { 
+        id: post.id,
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt || '',
+        content: post.content,
+        coverImageUrl: post.cover_image_url,
+        tags: post.tags || [],
+        publishedAt: post.published_at 
+            ? new Date(post.published_at).toLocaleDateString('en-US', { 
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
               })
-            : new Date(data.created_at).toLocaleDateString('en-US', { 
+            : new Date(post.created_at).toLocaleDateString('en-US', { 
                 year: 'numeric', 
                 month: 'long', 
                 day: 'numeric' 
               }),
-        author: (data.profiles as any)?.full_name || 'Ntech Team',
-        seoTitle: data.seo_title,
-        seoDescription: data.seo_description,
+        author: post.profiles?.full_name || 'Ntech Team',
+        seoTitle: post.seo_title,
+        seoDescription: post.seo_description,
     };
 }

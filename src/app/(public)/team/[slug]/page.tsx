@@ -56,9 +56,9 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
 
                             {/* Social links */}
                             <div className="flex gap-3">
-                                {member.linkedin && (
+                                {member.linkedin_url && (
                                     <a
-                                        href={member.linkedin}
+                                        href={member.linkedin_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-muted-foreground hover:text-primary transition-colors"
@@ -66,9 +66,9 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
                                         <Linkedin className="h-5 w-5" />
                                     </a>
                                 )}
-                                {member.twitter && (
+                                {member.twitter_url && (
                                     <a
-                                        href={member.twitter}
+                                        href={member.twitter_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-muted-foreground hover:text-primary transition-colors"
@@ -76,9 +76,9 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
                                         <Twitter className="h-5 w-5" />
                                     </a>
                                 )}
-                                {member.github && (
+                                {member.github_url && (
                                     <a
-                                        href={member.github}
+                                        href={member.github_url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-muted-foreground hover:text-primary transition-colors"
@@ -91,7 +91,7 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
                             {/* Joined date */}
                             <div className="flex items-center gap-2 text-sm text-muted-foreground">
                                 <Calendar className="h-4 w-4" />
-                                Joined {new Date(member.joinedAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                                Joined {new Date(member.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                             </div>
                         </div>
                     </div>
@@ -100,25 +100,15 @@ export default async function TeamMemberPage({ params }: TeamMemberPageProps) {
                 {/* Right column - Details */}
                 <div className="lg:col-span-2">
                     <h1 className="mb-2 text-4xl font-bold tracking-tight">{member.name}</h1>
-                    <p className="mb-6 text-xl text-primary">{member.role}</p>
+                    <p className="mb-6 text-xl text-primary">{member.designation}</p>
 
                     {/* Bio */}
-                    <div className="mb-8">
-                        <h2 className="mb-4 text-2xl font-bold">About</h2>
-                        <p className="text-lg leading-relaxed text-muted-foreground">{member.bio}</p>
-                    </div>
-
-                    {/* Expertise */}
-                    <div className="mb-8">
-                        <h2 className="mb-4 text-2xl font-bold">Expertise</h2>
-                        <div className="flex flex-wrap gap-2">
-                            {member.expertise.map((skill) => (
-                                <Badge key={skill} variant="secondary" className="text-sm">
-                                    {skill}
-                                </Badge>
-                            ))}
+                    {member.bio && (
+                        <div className="mb-8">
+                            <h2 className="mb-4 text-2xl font-bold">About</h2>
+                            <p className="text-lg leading-relaxed text-muted-foreground">{member.bio}</p>
                         </div>
-                    </div>
+                    )}
 
                     {/* CTA */}
                     <div className="mt-12 rounded-lg border bg-muted/30 p-6">

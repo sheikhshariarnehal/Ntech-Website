@@ -17,14 +17,17 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
         }
 
         // Transform the data to match the expected format
+        // Use type assertion to handle the Supabase query result
+        const project = data as any;
+        
         return {
-            ...data,
-            tags: data.services_used || [],
-            summary: data.short_description || '',
-            client: data.client_name || '',
-            problem: data.full_description || '',
-            solution: data.full_description || '',
-            results: data.full_description || '',
+            ...project,
+            tags: project.services_used || [],
+            summary: project.short_description || '',
+            client: project.client_name || '',
+            problem: project.full_description || '',
+            solution: project.full_description || '',
+            results: project.full_description || '',
         };
     } catch (error) {
         console.error('Failed to fetch project:', error);

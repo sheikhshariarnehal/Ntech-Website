@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import { Database } from "@/types/supabase";
 
 interface ContactSubmission {
     name: string;
@@ -33,7 +32,7 @@ export async function POST(request: Request) {
         }
 
         // Create Supabase client with anon key (RLS is disabled for contact_submissions)
-        const supabase = createClient<Database>(
+        const supabase = createClient(
             process.env.NEXT_PUBLIC_SUPABASE_URL!,
             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
         );
@@ -41,7 +40,7 @@ export async function POST(request: Request) {
         // Insert contact submission into database
         const { data, error } = await supabase
             .from("contact_submissions")
-            .insert({
+            .insert([{
                 name: body.name.trim(),
                 email: body.email.trim().toLowerCase(),
                 phone: body.phone?.trim() || null,
@@ -49,7 +48,7 @@ export async function POST(request: Request) {
                 message: body.message.trim(),
                 source_page: body.source_page || "contact",
                 status: "new",
-            })
+            }])
             .select()
             .single();
 

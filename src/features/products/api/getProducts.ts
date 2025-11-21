@@ -78,7 +78,7 @@ export async function getProductCategories(): Promise<string[]> {
     return [];
   }
 
-  // Get unique categories
-  const categories = [...new Set(data.map(p => p.category).filter(Boolean))];
+  // Get unique categories - use type assertion for the complex query result
+  const categories = Array.from(new Set((data as any[]).map(p => p.category).filter(Boolean)));
   return categories as string[];
 }
