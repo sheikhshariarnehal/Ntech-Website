@@ -47,3 +47,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+}

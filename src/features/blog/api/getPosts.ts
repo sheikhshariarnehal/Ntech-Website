@@ -1,30 +1,108 @@
-export const posts = [
-    {
-        title: "The Future of AI in Business",
-        excerpt: "How artificial intelligence is transforming industries and creating new opportunities.",
-        content: "Artificial intelligence is no longer just a buzzword. It's a powerful tool that is reshaping the way businesses operate. From automating routine tasks to providing deep insights into customer behavior, AI is driving efficiency and innovation across all sectors...",
-        slug: "future-of-ai-in-business",
-        publishedAt: "2023-10-25",
-        author: "John Doe",
-    },
-    {
-        title: "Why You Need a Custom Website",
-        excerpt: "The benefits of having a tailored web presence for your brand.",
-        content: "In today's digital age, your website is often the first point of contact for potential customers. While templates can be a good starting point, a custom website offers the flexibility and scalability you need to stand out from the competition...",
-        slug: "why-you-need-custom-website",
-        publishedAt: "2023-11-02",
-        author: "Jane Smith",
-    },
-    {
-        title: "Top 5 Tools for Remote Teams",
-        excerpt: "Essential software to keep your distributed team productive and connected.",
-        content: "Remote work is here to stay. To ensure your team remains productive and connected, you need the right set of tools. Here are our top 5 recommendations for communication, project management, and collaboration...",
-        slug: "top-5-tools-remote-teams",
-        publishedAt: "2023-11-10",
-        author: "Mike Johnson",
-    },
-];
+import { createServerClient } from '@/lib/supabase/server-client';
 
 export async function getPosts() {
-    return posts;
+    const supabase = await createServerClient();
+    
+    const { data, error } = await supabase
+        .from('posts')
+        .select(`
+            id,
+            slug,
+            title,
+            excerpt,
+            content,
+            cover_image_url,
+            tags,
+            published_at,
+            is_published,
+            created_at,
+            author_id,
+            profiles:author_id(full_name)
+        `)
+        .eq('is_published', true)
+        .order('published_at', { ascending: false, nullsFirst: false });
+
+    if (error) {
+        console.error('Error fetching posts:', error);
+        return [];
+    }
+
+    return (data || []).map(post => ({
+        id: post.id,
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt || '',
+        content: post.content,
+        coverImageUrl: post.cover_image_url,
+        tags: post.tags || [],
+        publishedAt: post.published_at 
+            ? new Date(post.published_at).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+              })
+            : new Date(post.created_at).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+              }),
+        author: (post.profiles as any)?.full_name || 'Ntech Team',
+    }));
+}
+
+export async function getPostBySlug(slug: string) {
+    const supabase = await createServerClient();
+    
+    const { data, error } = await supabase
+        .from('posts')
+        .select(`
+            id,
+            slug,
+            title,
+            excerpt,
+            content,
+            cover_image_url,
+            tags,
+            published_at,
+            is_published,
+            created_at,
+            seo_title,
+            seo_description,
+            author_id,
+            profiles:author_id(full_name)
+        `)
+        .eq('slug', slug)
+        .eq('is_published', true)
+        .single();
+
+    if (error) {
+        console.error('Error fetching post:', error);
+        return null;
+    }
+
+    if (!data) return null;
+
+    return {
+        id: data.id,
+        slug: data.slug,
+        title: data.title,
+        excerpt: data.excerpt || '',
+        content: data.content,
+        coverImageUrl: data.cover_image_url,
+        tags: data.tags || [],
+        publishedAt: data.published_at 
+            ? new Date(data.published_at).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              })
+            : new Date(data.created_at).toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+              }),
+        author: (data.profiles as any)?.full_name || 'Ntech Team',
+        seoTitle: data.seo_title,
+        seoDescription: data.seo_description,
+    };
 }

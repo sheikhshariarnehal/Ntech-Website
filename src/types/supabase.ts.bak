@@ -84,33 +84,6 @@ export type Database = {
           status?: string
         }
       }
-      newsletter_subscribers: {
-        Row: {
-          created_at: string | null
-          email: string
-          id: string
-          status: string | null
-          subscribed_at: string | null
-          unsubscribed_at: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          email: string
-          id?: string
-          status?: string | null
-          subscribed_at?: string | null
-          unsubscribed_at?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          email?: string
-          id?: string
-          status?: string | null
-          subscribed_at?: string | null
-          unsubscribed_at?: string | null
-        }
-        Relationships: []
-      }
       order_items: {
         Row: {
           id: string

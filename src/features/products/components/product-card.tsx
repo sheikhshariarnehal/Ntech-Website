@@ -30,7 +30,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {product.category && (
           <Badge 
             variant="secondary" 
-            className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10 text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md bg-green-600 dark:bg-green-600 text-white font-semibold border-0 shadow-lg"
+            className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10 text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md bg-primary dark:bg-primary text-primary-foreground font-semibold border-0 shadow-lg"
           >
             {product.category}
           </Badge>
@@ -74,7 +74,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <Button 
           asChild 
           size="lg"
-          className="w-full text-sm sm:text-base h-9 sm:h-10 md:h-11 bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 font-semibold shadow-sm"
+          className="w-full text-sm sm:text-base h-9 sm:h-10 md:h-11 bg-primary hover:bg-primary/90 dark:bg-primary dark:hover:bg-primary/90 font-semibold shadow-sm"
         >
           <Link href={`/products/${product.slug}`} className="flex items-center justify-center gap-2">
             <ShoppingBag className="h-3.5 sm:h-4 w-3.5 sm:w-4" />

@@ -2,11 +2,12 @@ import Link from "next/link";
 import { ArrowRight, Calendar, User } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { posts } from "@/features/blog/api/getPosts";
+import { getPosts } from "@/features/blog/api/getPosts";
 import { Badge } from "@/components/shared/badge";
 
-export function HomeBlog() {
-    // Use the first 3 posts for the homepage
+export async function HomeBlog() {
+    // Fetch the first 3 posts for the homepage
+    const posts = await getPosts();
     const recentPosts = posts.slice(0, 3);
 
     return (

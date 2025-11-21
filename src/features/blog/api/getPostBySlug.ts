@@ -1,5 +1,3 @@
-import { posts } from "./getPosts";
+import { getPostBySlug } from "./getPosts";
 
-export async function getPostBySlug(slug: string) {
-    return posts.find((post) => post.slug === slug);
-}
+export { getPostBySlug };
