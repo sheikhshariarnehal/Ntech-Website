@@ -4,15 +4,19 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
+import { ProductActions } from "@/features/products/components/product-actions";
 import { 
   ShoppingCart, 
-  CheckCircle2, 
-  Clock, 
+  Check, 
   Shield, 
   Zap,
-  ArrowLeft
+  BarChart,
+  Globe,
+  Clock,
+  Star,
+  CheckCircle2
 } from "lucide-react";
-import Link from "next/link";
 import { Metadata } from "next";
 
 interface ProductPageProps {
@@ -35,6 +39,7 @@ export async function generateMetadata({
     return {
         title: product.seo_title || product.name,
         description: product.seo_description || product.short_description || undefined,
+        keywords: product.seo_keywords || undefined,
     };
 }
 
@@ -59,147 +64,158 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
     const { price: displayPrice, suffix } = formatPrice(product.price, product.billing_interval);
 
-    const getBillingText = (interval: string) => {
-        if (interval === 'one_time') return 'One-time purchase';
-        if (interval === 'monthly') return 'Billed monthly';
-        return 'Billed annually';
-    };
+    const breadcrumbItems = [
+        { label: "Home", href: "/" },
+        { label: "Products", href: "/products" },
+        { label: product.name },
+    ];
 
     return (
-        <div className="container py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-            {/* Back Button */}
-            <Link 
-                href="/products" 
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 md:mb-8 transition-colors"
-            >
-                <ArrowLeft className="h-4 w-4" />
-                Back to Products
-            </Link>
+        <div className="min-h-screen bg-background">
+            <div className="container py-8 px-4 sm:px-6 lg:px-8">
+                <Breadcrumbs items={breadcrumbItems} className="mb-8" />
 
-            <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
-                {/* Product Image */}
-                <div className="space-y-4">
-                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5 border">
-                        {product.thumbnail_url ? (
-                            <Image
-                                src={product.thumbnail_url}
-                                alt={product.name}
-                                fill
-                                className="object-cover"
-                                priority
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                            />
-                        ) : (
-                            <div className="flex h-full items-center justify-center">
-                                <ShoppingCart className="h-32 w-32 text-muted-foreground/20" />
+                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+                    {/* Left Column: Image & Gallery */}
+                    <div className="space-y-6">
+                        <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-muted border shadow-sm">
+                            {product.thumbnail_url ? (
+                                <Image
+                                    src={product.thumbnail_url}
+                                    alt={product.name}
+                                    fill
+                                    className="object-cover hover:scale-105 transition-transform duration-500"
+                                    priority
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
+                                />
+                            ) : (
+                                <div className="flex h-full items-center justify-center bg-secondary/30">
+                                    <ShoppingCart className="h-24 w-24 text-muted-foreground/20" />
+                                </div>
+                            )}
+                            {product.stock !== null && product.stock < 10 && (
+                                <div className="absolute top-4 left-4">
+                                    <Badge variant="destructive" className="px-3 py-1 text-sm">
+                                        Only {product.stock} left
+                                    </Badge>
+                                </div>
+                            )}
+                        </div>
+                        
+                        {/* Value Props Grid */}
+                        <div className="grid grid-cols-3 gap-4">
+                            <div className="flex flex-col items-center text-center p-4 rounded-xl bg-card border shadow-sm">
+                                <Zap className="h-6 w-6 text-primary mb-2" />
+                                <span className="text-xs font-medium text-muted-foreground">Instant Access</span>
                             </div>
-                        )}
+                            <div className="flex flex-col items-center text-center p-4 rounded-xl bg-card border shadow-sm">
+                                <Shield className="h-6 w-6 text-primary mb-2" />
+                                <span className="text-xs font-medium text-muted-foreground">Secure Payment</span>
+                            </div>
+                            <div className="flex flex-col items-center text-center p-4 rounded-xl bg-card border shadow-sm">
+                                <Clock className="h-6 w-6 text-primary mb-2" />
+                                <span className="text-xs font-medium text-muted-foreground">24/7 Support</span>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Trust Badges */}
-                    <div className="grid grid-cols-3 gap-2 sm:gap-4">
-                        <Card className="border-border/50">
-                            <CardContent className="flex flex-col items-center justify-center p-3 sm:p-4 text-center">
-                                <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-primary mb-1 sm:mb-2" />
-                                <p className="text-[10px] sm:text-xs font-medium">Secure Payment</p>
-                            </CardContent>
+                    {/* Right Column: Product Details */}
+                    <div className="flex flex-col space-y-8">
+                        <div className="space-y-4">
+                            <div className="flex items-center gap-2">
+                                {product.category && (
+                                    <Badge variant="secondary" className="text-primary bg-primary/10 hover:bg-primary/20 border-0">
+                                        {product.category}
+                                    </Badge>
+                                )}
+                                <div className="flex items-center gap-1 text-amber-500 text-sm font-medium">
+                                    <Star className="h-4 w-4 fill-current" />
+                                    <span>4.9</span>
+                                    <span className="text-muted-foreground font-normal">(120+ reviews)</span>
+                                </div>
+                            </div>
+                            
+                            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+                                {product.name}
+                            </h1>
+                            
+                            <p className="text-lg text-muted-foreground leading-relaxed">
+                                {product.short_description}
+                            </p>
+                        </div>
+
+                        <Card className="p-6 bg-card/50 backdrop-blur border-primary/10 shadow-lg">
+                            <div className="flex items-baseline gap-2 mb-6">
+                                <span className="text-4xl font-bold text-primary">{displayPrice}</span>
+                                {suffix && <span className="text-lg text-muted-foreground font-medium">{suffix}</span>}
+                            </div>
+
+                            <div className="mb-8">
+                                <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                                    {product.full_description || product.short_description}
+                                </p>
+                            </div>
+
+                            <ProductActions product={product} />
                         </Card>
-                        <Card className="border-border/50">
-                            <CardContent className="flex flex-col items-center justify-center p-3 sm:p-4 text-center">
-                                <Zap className="h-6 w-6 sm:h-8 sm:w-8 text-primary mb-1 sm:mb-2" />
-                                <p className="text-[10px] sm:text-xs font-medium">Instant Delivery</p>
-                            </CardContent>
-                        </Card>
-                        <Card className="border-border/50">
-                            <CardContent className="flex flex-col items-center justify-center p-3 sm:p-4 text-center">
-                                <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-primary mb-1 sm:mb-2" />
-                                <p className="text-[10px] sm:text-xs font-medium">24/7 Support</p>
-                            </CardContent>
-                        </Card>
+
+                        {/* Quick Specs / Additional Info */}
+                        <div className="border-t pt-8">
+                            <h3 className="font-semibold mb-4">Product Highlights</h3>
+                            <div className="grid sm:grid-cols-2 gap-4">
+                                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                    <Globe className="h-4 w-4" />
+                                    <span>Global Availability</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                    <BarChart className="h-4 w-4" />
+                                    <span>Advanced Analytics Included</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                    <Zap className="h-4 w-4" />
+                                    <span>Instant Activation</span>
+                                </div>
+                                <div className="flex items-center gap-3 text-sm text-muted-foreground">
+                                    <Shield className="h-4 w-4" />
+                                    <span>Enterprise Grade Security</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                {/* Product Details */}
-                <div className="space-y-6">
-                    <div className="space-y-3">
-                        <div className="flex items-center gap-2 flex-wrap">
-                            {product.category && (
-                                <Badge variant="secondary" className="text-xs sm:text-sm">
-                                    {product.category}
-                                </Badge>
-                            )}
-                            <Badge 
-                                variant={product.billing_interval === 'one_time' ? 'default' : 'outline'}
-                                className="text-xs sm:text-sm"
-                            >
-                                {product.billing_interval === 'one_time' 
-                                    ? 'One-Time Purchase' 
-                                    : product.billing_interval === 'monthly' 
-                                    ? 'Subscription' 
-                                    : 'Annual Plan'}
-                            </Badge>
-                        </div>
-
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-                            {product.name}
-                        </h1>
-
-                        <p className="text-lg sm:text-xl text-muted-foreground">
-                            {product.short_description}
+                {/* Full Description Section */}
+                <div className="mt-20 lg:mt-32 max-w-4xl mx-auto">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+                            Everything you need to know
+                        </h2>
+                        <p className="text-lg text-muted-foreground">
+                            Detailed breakdown of features and capabilities
                         </p>
                     </div>
-
-                    {/* Pricing */}
-                    <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-4 sm:p-6 border border-primary/20">
-                        <div className="flex items-baseline gap-2 mb-2">
-                            <span className="text-4xl sm:text-5xl font-bold text-primary">
-                                {displayPrice}
-                            </span>
-                            {suffix && (
-                                <span className="text-xl sm:text-2xl text-muted-foreground">
-                                    {suffix}
-                                </span>
-                            )}
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-4">
-                            {getBillingText(product.billing_interval)}
-                        </p>
-                        
-                        <Button size="lg" className="w-full gap-2 text-base sm:text-lg h-12 sm:h-14">
-                            <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5" />
-                            Add to Cart
-                        </Button>
-                    </div>
-
-                    {/* Features */}
-                    {product.features && product.features.length > 0 && (
-                        <div className="space-y-4">
-                            <h2 className="text-2xl font-bold">What's Included</h2>
-                            <div className="space-y-3">
-                                {product.features.map((feature, index) => (
-                                    <div 
-                                        key={index} 
-                                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors"
-                                    >
-                                        <CheckCircle2 className="h-6 w-6 text-primary flex-shrink-0 mt-0.5" />
-                                        <span className="text-base">{feature}</span>
+                    
+                    <div className="prose prose-lg dark:prose-invert max-w-none">
+                        <div className="bg-card rounded-3xl p-8 md:p-12 border shadow-sm">
+                            <p className="whitespace-pre-wrap leading-relaxed text-muted-foreground">
+                                {product.full_description || product.short_description}
+                            </p>
+                            
+                            {product.features && product.features.length > 0 && (
+                                <div className="mt-12">
+                                    <h3 className="text-xl font-semibold mb-6 text-foreground">Key Features</h3>
+                                    <div className="grid sm:grid-cols-2 gap-6">
+                                        {product.features.map((feature, i) => (
+                                            <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-background border">
+                                                <Check className="h-5 w-5 text-primary shrink-0" />
+                                                <span className="font-medium">{feature}</span>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
+                                </div>
+                            )}
                         </div>
-                    )}
-
-                    {/* Description */}
-                    {product.full_description && (
-                        <div className="space-y-4 pt-6 border-t">
-                            <h2 className="text-2xl font-bold">Description</h2>
-                            <div className="prose prose-neutral dark:prose-invert max-w-none">
-                                <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-                                    {product.full_description}
-                                </p>
-                            </div>
-                        </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>

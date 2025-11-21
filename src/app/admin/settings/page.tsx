@@ -193,7 +193,218 @@ const THEME_PRESETS = {
       theme_ring: "271 81% 56%",
       theme_radius: "0.75rem"
     }
+  },
+  emerald: {
+    name: "Emerald Dark",
+    description: "Dark theme with emerald accents",
+    isPremium: false,
+    colors: {
+      theme_background: "240 10% 3.9%",
+      theme_foreground: "0 0% 98%",
+      theme_card: "240 10% 3.9%",
+      theme_card_foreground: "0 0% 98%",
+      theme_popover: "240 10% 3.9%",
+      theme_popover_foreground: "0 0% 98%",
+      theme_primary: "142.1 76.2% 36.3%",
+      theme_primary_foreground: "355.7 100% 97.3%",
+      theme_secondary: "240 3.7% 15.9%",
+      theme_secondary_foreground: "0 0% 98%",
+      theme_muted: "240 3.7% 15.9%",
+      theme_muted_foreground: "240 5% 64.9%",
+      theme_accent: "240 3.7% 15.9%",
+      theme_accent_foreground: "0 0% 98%",
+      theme_destructive: "0 62.8% 30.6%",
+      theme_destructive_foreground: "0 0% 98%",
+      theme_border: "240 3.7% 15.9%",
+      theme_input: "240 3.7% 15.9%",
+      theme_ring: "142.4 71.8% 29.2%",
+      theme_radius: "0.5rem"
+    }
+  },
+  slate: {
+    name: "Slate Gray",
+    description: "Neutral slate theme",
+    isPremium: false,
+    colors: {
+      theme_background: "222.2 84% 4.9%",
+      theme_foreground: "210 40% 98%",
+      theme_card: "222.2 84% 4.9%",
+      theme_card_foreground: "210 40% 98%",
+      theme_popover: "222.2 84% 4.9%",
+      theme_popover_foreground: "210 40% 98%",
+      theme_primary: "217.2 91.2% 59.8%",
+      theme_primary_foreground: "222.2 47.4% 11.2%",
+      theme_secondary: "217.2 32.6% 17.5%",
+      theme_secondary_foreground: "210 40% 98%",
+      theme_muted: "217.2 32.6% 17.5%",
+      theme_muted_foreground: "215 20.2% 65.1%",
+      theme_accent: "217.2 32.6% 17.5%",
+      theme_accent_foreground: "210 40% 98%",
+      theme_destructive: "0 62.8% 30.6%",
+      theme_destructive_foreground: "210 40% 98%",
+      theme_border: "217.2 32.6% 17.5%",
+      theme_input: "217.2 32.6% 17.5%",
+      theme_ring: "224.3 76.3% 48%",
+      theme_radius: "0.5rem"
+    }
+  },
+  corporate: {
+    name: "Corporate Blue",
+    description: "Professional corporate theme",
+    isPremium: false,
+    colors: {
+      theme_background: "0 0% 100%",
+      theme_foreground: "222.2 84% 4.9%",
+      theme_card: "0 0% 100%",
+      theme_card_foreground: "222.2 84% 4.9%",
+      theme_popover: "0 0% 100%",
+      theme_popover_foreground: "222.2 84% 4.9%",
+      theme_primary: "221.2 83.2% 53.3%",
+      theme_primary_foreground: "210 40% 98%",
+      theme_secondary: "210 40% 96.1%",
+      theme_secondary_foreground: "222.2 47.4% 11.2%",
+      theme_muted: "210 40% 96.1%",
+      theme_muted_foreground: "215.4 16.3% 46.9%",
+      theme_accent: "210 40% 96.1%",
+      theme_accent_foreground: "222.2 47.4% 11.2%",
+      theme_destructive: "0 84.2% 60.2%",
+      theme_destructive_foreground: "210 40% 98%",
+      theme_border: "214.3 31.8% 91.4%",
+      theme_input: "214.3 31.8% 91.4%",
+      theme_ring: "221.2 83.2% 53.3%",
+      theme_radius: "0.5rem"
+    }
+  },
+  neon: {
+    name: "Neon Cyberpunk",
+    description: "Vibrant dark cyberpunk theme",
+    isPremium: true,
+    colors: {
+      theme_background: "280 60% 5%",
+      theme_foreground: "280 20% 98%",
+      theme_card: "280 50% 10%",
+      theme_card_foreground: "280 20% 98%",
+      theme_popover: "280 50% 10%",
+      theme_popover_foreground: "280 20% 98%",
+      theme_primary: "290 100% 50%",
+      theme_primary_foreground: "0 0% 100%",
+      theme_secondary: "260 50% 20%",
+      theme_secondary_foreground: "280 20% 98%",
+      theme_muted: "260 30% 20%",
+      theme_muted_foreground: "260 20% 70%",
+      theme_accent: "180 100% 50%",
+      theme_accent_foreground: "280 60% 5%",
+      theme_destructive: "0 100% 50%",
+      theme_destructive_foreground: "0 0% 100%",
+      theme_border: "260 30% 20%",
+      theme_input: "260 30% 20%",
+      theme_ring: "290 100% 50%",
+      theme_radius: "0rem"
+    }
+  },
+  pastel: {
+    name: "Soft Pastel",
+    description: "Gentle light pastel theme",
+    isPremium: true,
+    colors: {
+      theme_background: "30 30% 98%",
+      theme_foreground: "240 10% 30%",
+      theme_card: "0 0% 100%",
+      theme_card_foreground: "240 10% 30%",
+      theme_popover: "0 0% 100%",
+      theme_popover_foreground: "240 10% 30%",
+      theme_primary: "260 60% 75%",
+      theme_primary_foreground: "260 40% 20%",
+      theme_secondary: "160 50% 90%",
+      theme_secondary_foreground: "160 40% 30%",
+      theme_muted: "240 10% 95%",
+      theme_muted_foreground: "240 10% 60%",
+      theme_accent: "330 60% 90%",
+      theme_accent_foreground: "330 40% 30%",
+      theme_destructive: "0 60% 90%",
+      theme_destructive_foreground: "0 40% 40%",
+      theme_border: "240 10% 90%",
+      theme_input: "240 10% 90%",
+      theme_ring: "260 60% 75%",
+      theme_radius: "1rem"
+    }
   }
+};
+
+// Helper component for color inputs
+const ColorInput = ({ label, id, value, onChange }: { label: string; id: string; value: string; onChange: (field: string, value: any) => void }) => {
+  const hslToHex = (hsl: string): string => {
+    const parts = hsl.trim().split(/\s+/);
+    if (parts.length !== 3) return '#000000';
+    
+    const h = parseFloat(parts[0]);
+    const s = parseFloat(parts[1]) / 100;
+    const l = parseFloat(parts[2]) / 100;
+    
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const m = l - c / 2;
+    
+    let r = 0, g = 0, b = 0;
+    if (h >= 0 && h < 60) { r = c; g = x; b = 0; }
+    else if (h >= 60 && h < 120) { r = x; g = c; b = 0; }
+    else if (h >= 120 && h < 180) { r = 0; g = c; b = x; }
+    else if (h >= 180 && h < 240) { r = 0; g = x; b = c; }
+    else if (h >= 240 && h < 300) { r = x; g = 0; b = c; }
+    else if (h >= 300 && h < 360) { r = c; g = 0; b = x; }
+    
+    const toHex = (n: number) => {
+      const hex = Math.round((n + m) * 255).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    };
+    
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  };
+  
+  const hexToHsl = (hex: string): string => {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h = 0, s = 0, l = (max + min) / 2;
+    
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      
+      switch (max) {
+        case r: h = ((g - b) / d + (g < b ? 6 : 0)) * 60; break;
+        case g: h = ((b - r) / d + 2) * 60; break;
+        case b: h = ((r - g) / d + 4) * 60; break;
+      }
+    }
+    
+    return `${h.toFixed(1)} ${(s * 100).toFixed(1)}% ${(l * 100).toFixed(1)}%`;
+  };
+
+  return (
+    <div className="space-y-1.5">
+      <Label htmlFor={id} className="text-xs font-medium text-muted-foreground">{label}</Label>
+      <div className="flex gap-2">
+        <input
+          type="color"
+          value={hslToHex(value)}
+          onChange={(e) => onChange(id, hexToHsl(e.target.value))}
+          className="h-9 w-12 rounded cursor-pointer border-2 border-input"
+          title={`Pick ${label.toLowerCase()} color`}
+        />
+        <Input
+          id={id}
+          value={value}
+          onChange={(e) => onChange(id, e.target.value)}
+          placeholder="H S% L%"
+          className="flex-1 h-9 text-xs font-mono"
+        />
+      </div>
+    </div>
+  );
 };
 
 export default function SettingsPage() {
@@ -356,6 +567,58 @@ export default function SettingsPage() {
       root.style.removeProperty('--ring');
       root.style.removeProperty('--radius');
     }
+  }
+
+  // Helper functions for color conversion
+  function hslToHex(hsl: string): string {
+    const parts = hsl.trim().split(/\s+/);
+    if (parts.length !== 3) return '#000000';
+    
+    const h = parseFloat(parts[0]);
+    const s = parseFloat(parts[1]) / 100;
+    const l = parseFloat(parts[2]) / 100;
+    
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const m = l - c / 2;
+    
+    let r = 0, g = 0, b = 0;
+    if (h >= 0 && h < 60) { r = c; g = x; b = 0; }
+    else if (h >= 60 && h < 120) { r = x; g = c; b = 0; }
+    else if (h >= 120 && h < 180) { r = 0; g = c; b = x; }
+    else if (h >= 180 && h < 240) { r = 0; g = x; b = c; }
+    else if (h >= 240 && h < 300) { r = x; g = 0; b = c; }
+    else if (h >= 300 && h < 360) { r = c; g = 0; b = x; }
+    
+    const toHex = (n: number) => {
+      const hex = Math.round((n + m) * 255).toString(16);
+      return hex.length === 1 ? '0' + hex : hex;
+    };
+    
+    return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+  }
+  
+  function hexToHsl(hex: string): string {
+    const r = parseInt(hex.slice(1, 3), 16) / 255;
+    const g = parseInt(hex.slice(3, 5), 16) / 255;
+    const b = parseInt(hex.slice(5, 7), 16) / 255;
+    
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h = 0, s = 0, l = (max + min) / 2;
+    
+    if (max !== min) {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      
+      switch (max) {
+        case r: h = ((g - b) / d + (g < b ? 6 : 0)) * 60; break;
+        case g: h = ((b - r) / d + 2) * 60; break;
+        case b: h = ((r - g) / d + 4) * 60; break;
+      }
+    }
+    
+    return `${h.toFixed(1)} ${(s * 100).toFixed(1)}% ${(l * 100).toFixed(1)}%`;
   }
 
   function applyPreset(presetKey: string) {
@@ -697,38 +960,58 @@ export default function SettingsPage() {
         {/* Theme Colors Settings */}
         {activeTab === "theme" && (
           <div className="space-y-6">
-            {/* Theme Preset Selector */}
-            <Card className={`p-6 ${!formData.enable_custom_theme ? 'opacity-50 pointer-events-none' : ''}`}>
-              <div className="flex items-center gap-2 mb-4">
-                <Palette className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold">Choose Theme Preset</h3>
+            {/* Theme Toggle Header */}
+            <Card className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Palette className="h-4 w-4 text-primary" />
+                  <h3 className="font-semibold">Theme Presets</h3>
+                </div>
+                
+                {/* Clean Simple Toggle Button */}
+                <button
+                  type="button"
+                  onClick={() => handleChange('enable_custom_theme', !formData.enable_custom_theme)}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+                    formData.enable_custom_theme ? 'bg-primary' : 'bg-muted-foreground/30'
+                  }`}
+                  title={formData.enable_custom_theme ? 'Custom theme enabled' : 'Custom theme disabled'}
+                >
+                  <span
+                    className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                      formData.enable_custom_theme ? 'translate-x-6' : 'translate-x-1'
+                    }`}
+                  />
+                </button>
               </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            </Card>
+
+            {/* Theme Preset Selector */}
+            <Card className={`p-4 ${!formData.enable_custom_theme ? 'opacity-50 pointer-events-none' : ''}`}>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
                 {Object.entries(THEME_PRESETS).map(([key, preset]) => (
                   <button
                     key={key}
                     onClick={() => applyPreset(key)}
                     disabled={!formData.enable_custom_theme}
-                    className={`p-4 rounded-lg border-2 transition-all text-left ${
+                    className={`p-3 rounded-lg border-2 transition-all text-left hover:shadow-md ${
                       selectedPreset === key
-                        ? 'border-primary bg-primary/10'
+                        ? 'border-primary bg-primary/10 shadow-sm'
                         : 'border-border hover:border-primary/50'
                     }`}
                   >
-                    <div className="flex items-start justify-between mb-2">
-                      <h4 className="font-semibold">{preset.name}</h4>
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-sm truncate">{preset.name}</h4>
                       {preset.isPremium && (
-                        <Badge variant="secondary" className="text-xs">Premium</Badge>
+                        <Badge variant="secondary" className="text-[10px] h-4 px-1.5">Pro</Badge>
                       )}
                     </div>
-                    <p className="text-xs text-muted-foreground mb-3">{preset.description}</p>
                     {preset.colors && 'theme_background' in preset.colors && (
                       <div className="flex gap-1">
-                        <div className="w-6 h-6 rounded" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_background})` }}></div>
-                        <div className="w-6 h-6 rounded" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_primary})` }}></div>
-                        <div className="w-6 h-6 rounded" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_secondary})` }}></div>
-                        <div className="w-6 h-6 rounded" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_accent})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_background})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_primary})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_secondary})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_accent})` }}></div>
                       </div>
                     )}
                   </button>
@@ -736,360 +1019,181 @@ export default function SettingsPage() {
               </div>
             </Card>
 
-            <Card className="p-6 space-y-4">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <Paintbrush className="h-5 w-5 text-primary" />
+            <Card className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
                   <h3 className="text-lg font-semibold">Custom Theme Colors</h3>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    {formData.enable_custom_theme 
+                      ? 'Customize your theme colors with live preview' 
+                      : 'Enable custom theme above to start customizing'}
+                  </p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Badge variant="secondary" className="gap-1">
-                    <Eye className="h-3 w-3" />
+                {formData.enable_custom_theme && (
+                  <Badge variant="outline" className="gap-1.5 px-3 py-1">
+                    <Eye className="h-3.5 w-3.5" />
                     Live Preview
                   </Badge>
-                </div>
+                )}
               </div>
 
-              {/* Enable/Disable Custom Theme Toggle */}
-              <Card className="p-4 bg-muted/30 border-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${
-                      formData.enable_custom_theme 
-                        ? 'bg-primary/20 text-primary' 
-                        : 'bg-muted text-muted-foreground'
-                    }`}>
-                      <Palette className="h-5 w-5" />
+              <div className={`space-y-6 ${!formData.enable_custom_theme ? 'opacity-40 pointer-events-none' : ''}`}>
+                {/* Color Sections Grid */}
+                <div className="grid gap-6 lg:grid-cols-2">
+                  {/* Background Colors */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_background})` }}></div>
+                      <h4 className="font-semibold text-sm">Background</h4>
                     </div>
-                    <div>
-                      <h4 className="font-semibold">Custom Theme Colors</h4>
-                      <p className="text-sm text-muted-foreground">
-                        {formData.enable_custom_theme 
-                          ? 'Using custom theme colors from settings below' 
-                          : 'Using default theme from globals.css'}
-                      </p>
+                    
+                    <div className="space-y-3">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="theme_background" className="text-xs font-medium text-muted-foreground">Background</Label>
+                        <div className="flex gap-2">
+                          <input
+                            type="color"
+                            value={hslToHex(formData.theme_background)}
+                            onChange={(e) => handleChange('theme_background', hexToHsl(e.target.value))}
+                            className="h-9 w-12 rounded cursor-pointer border-2 border-input"
+                            title="Pick background color"
+                          />
+                          <Input
+                            id="theme_background"
+                            value={formData.theme_background}
+                            onChange={(e) => handleChange('theme_background', e.target.value)}
+                            placeholder="222.2 84% 4.9%"
+                            className="flex-1 h-9 text-xs font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <Label htmlFor="theme_foreground" className="text-xs font-medium text-muted-foreground">Foreground</Label>
+                        <div className="flex gap-2">
+                          <input
+                            type="color"
+                            value={hslToHex(formData.theme_foreground)}
+                            onChange={(e) => handleChange('theme_foreground', hexToHsl(e.target.value))}
+                            className="h-9 w-12 rounded cursor-pointer border-2 border-input"
+                            title="Pick foreground color"
+                          />
+                          <Input
+                            id="theme_foreground"
+                            value={formData.theme_foreground}
+                            onChange={(e) => handleChange('theme_foreground', e.target.value)}
+                            placeholder="210 40% 98%"
+                            className="flex-1 h-9 text-xs font-mono"
+                          />
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Label htmlFor="enable_custom_theme" className="text-sm font-medium cursor-pointer">
-                      {formData.enable_custom_theme ? 'Enabled' : 'Disabled'}
-                    </Label>
-                    <button
-                      type="button"
-                      id="enable_custom_theme"
-                      onClick={() => handleChange('enable_custom_theme', !formData.enable_custom_theme)}
-                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-                        formData.enable_custom_theme ? 'bg-primary' : 'bg-muted-foreground/30'
-                      }`}
-                    >
-                      <span
-                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                          formData.enable_custom_theme ? 'translate-x-6' : 'translate-x-1'
-                        }`}
+
+                  {/* Card */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_card})` }}></div>
+                      <h4 className="font-semibold text-sm">Card</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <ColorInput label="Background" id="theme_card" value={formData.theme_card} onChange={handleChange} />
+                      <ColorInput label="Foreground" id="theme_card_foreground" value={formData.theme_card_foreground} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  {/* Primary */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_primary})` }}></div>
+                      <h4 className="font-semibold text-sm">Primary</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <ColorInput label="Primary" id="theme_primary" value={formData.theme_primary} onChange={handleChange} />
+                      <ColorInput label="Foreground" id="theme_primary_foreground" value={formData.theme_primary_foreground} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  {/* Secondary */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_secondary})` }}></div>
+                      <h4 className="font-semibold text-sm">Secondary</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <ColorInput label="Secondary" id="theme_secondary" value={formData.theme_secondary} onChange={handleChange} />
+                      <ColorInput label="Foreground" id="theme_secondary_foreground" value={formData.theme_secondary_foreground} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  {/* Muted */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_muted})` }}></div>
+                      <h4 className="font-semibold text-sm">Muted</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <ColorInput label="Muted" id="theme_muted" value={formData.theme_muted} onChange={handleChange} />
+                      <ColorInput label="Foreground" id="theme_muted_foreground" value={formData.theme_muted_foreground} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  {/* Accent */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_accent})` }}></div>
+                      <h4 className="font-semibold text-sm">Accent</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <ColorInput label="Accent" id="theme_accent" value={formData.theme_accent} onChange={handleChange} />
+                      <ColorInput label="Foreground" id="theme_accent_foreground" value={formData.theme_accent_foreground} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  {/* Destructive */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_destructive})` }}></div>
+                      <h4 className="font-semibold text-sm">Destructive</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <ColorInput label="Destructive" id="theme_destructive" value={formData.theme_destructive} onChange={handleChange} />
+                      <ColorInput label="Foreground" id="theme_destructive_foreground" value={formData.theme_destructive_foreground} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  {/* Border & Input */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded border-2" style={{ borderColor: `hsl(${formData.theme_border})` }}></div>
+                      <h4 className="font-semibold text-sm">UI Elements</h4>
+                    </div>
+                    <div className="space-y-3">
+                      <ColorInput label="Border" id="theme_border" value={formData.theme_border} onChange={handleChange} />
+                      <ColorInput label="Input" id="theme_input" value={formData.theme_input} onChange={handleChange} />
+                      <ColorInput label="Ring" id="theme_ring" value={formData.theme_ring} onChange={handleChange} />
+                    </div>
+                  </div>
+
+                  {/* Border Radius */}
+                  <div className="space-y-4 p-4 rounded-lg border bg-card lg:col-span-2">
+                    <div className="flex items-center gap-2 pb-2 border-b">
+                      <div className="w-4 h-4 rounded border-2 border-current"></div>
+                      <h4 className="font-semibold text-sm">Border Radius</h4>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="theme_radius" className="text-xs font-medium text-muted-foreground">Radius Value</Label>
+                      <Input
+                        id="theme_radius"
+                        value={formData.theme_radius}
+                        onChange={(e) => handleChange('theme_radius', e.target.value)}
+                        placeholder="0.5rem"
+                        className="h-9 text-xs font-mono"
                       />
-                    </button>
-                  </div>
-                </div>
-                {!formData.enable_custom_theme && (
-                  <div className="mt-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                    <div className="flex items-start gap-2">
-                      <AlertCircle className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
-                      <p className="text-sm text-blue-500">
-                        Custom theme is disabled. The site is using the default theme colors defined in <code className="px-1 py-0.5 bg-blue-500/20 rounded text-xs">globals.css</code>. Enable this option to customize theme colors.
-                      </p>
+                      <p className="text-xs text-muted-foreground">CSS value (e.g., 0.5rem, 8px, 4px)</p>
                     </div>
                   </div>
-                )}
-                {formData.enable_custom_theme && (
-                  <div className="mt-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                      <p className="text-sm text-green-500">
-                        Custom theme is active. Changes to the colors below will be applied immediately with live preview.
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </Card>
-
-              <div className="p-4 bg-muted/50 rounded-lg mb-4">
-                <p className="text-sm text-muted-foreground">
-                  {selectedPreset === 'custom' 
-                    ? 'Create your custom theme by editing the color values below. Use HSL format like "210 40% 98%".'
-                    : `You're using the "${THEME_PRESETS[selectedPreset as keyof typeof THEME_PRESETS].name}" preset. You can further customize these colors below.`
-                  }
-                </p>
-              </div>
-
-              <div className={`grid gap-6 md:grid-cols-2 ${!formData.enable_custom_theme ? 'opacity-50 pointer-events-none' : ''}`}>
-                {/* Background Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_background})` }}></div>
-                    Background Colors
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_background">Background</Label>
-                    <Input
-                      id="theme_background"
-                      value={formData.theme_background}
-                      onChange={(e) => handleChange('theme_background', e.target.value)}
-                      placeholder="222.2 84% 4.9%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_foreground">Foreground</Label>
-                    <Input
-                      id="theme_foreground"
-                      value={formData.theme_foreground}
-                      onChange={(e) => handleChange('theme_foreground', e.target.value)}
-                      placeholder="210 40% 98%"
-                    />
-                  </div>
                 </div>
-
-                {/* Card Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_card})` }}></div>
-                    Card Colors
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_card">Card Background</Label>
-                    <Input
-                      id="theme_card"
-                      value={formData.theme_card}
-                      onChange={(e) => handleChange('theme_card', e.target.value)}
-                      placeholder="222.2 84% 4.9%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_card_foreground">Card Foreground</Label>
-                    <Input
-                      id="theme_card_foreground"
-                      value={formData.theme_card_foreground}
-                      onChange={(e) => handleChange('theme_card_foreground', e.target.value)}
-                      placeholder="210 40% 98%"
-                    />
-                  </div>
-                </div>
-
-                {/* Primary Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_primary})` }}></div>
-                    Primary Colors
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_primary">Primary</Label>
-                    <Input
-                      id="theme_primary"
-                      value={formData.theme_primary}
-                      onChange={(e) => handleChange('theme_primary', e.target.value)}
-                      placeholder="210 40% 98%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_primary_foreground">Primary Foreground</Label>
-                    <Input
-                      id="theme_primary_foreground"
-                      value={formData.theme_primary_foreground}
-                      onChange={(e) => handleChange('theme_primary_foreground', e.target.value)}
-                      placeholder="222.2 47.4% 11.2%"
-                    />
-                  </div>
-                </div>
-
-                {/* Secondary Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_secondary})` }}></div>
-                    Secondary Colors
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_secondary">Secondary</Label>
-                    <Input
-                      id="theme_secondary"
-                      value={formData.theme_secondary}
-                      onChange={(e) => handleChange('theme_secondary', e.target.value)}
-                      placeholder="217.2 32.6% 17.5%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_secondary_foreground">Secondary Foreground</Label>
-                    <Input
-                      id="theme_secondary_foreground"
-                      value={formData.theme_secondary_foreground}
-                      onChange={(e) => handleChange('theme_secondary_foreground', e.target.value)}
-                      placeholder="210 40% 98%"
-                    />
-                  </div>
-                </div>
-
-                {/* Muted Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_muted})` }}></div>
-                    Muted Colors
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_muted">Muted</Label>
-                    <Input
-                      id="theme_muted"
-                      value={formData.theme_muted}
-                      onChange={(e) => handleChange('theme_muted', e.target.value)}
-                      placeholder="217.2 32.6% 17.5%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_muted_foreground">Muted Foreground</Label>
-                    <Input
-                      id="theme_muted_foreground"
-                      value={formData.theme_muted_foreground}
-                      onChange={(e) => handleChange('theme_muted_foreground', e.target.value)}
-                      placeholder="215 20.2% 65.1%"
-                    />
-                  </div>
-                </div>
-
-                {/* Accent Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_accent})` }}></div>
-                    Accent Colors
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_accent">Accent</Label>
-                    <Input
-                      id="theme_accent"
-                      value={formData.theme_accent}
-                      onChange={(e) => handleChange('theme_accent', e.target.value)}
-                      placeholder="217.2 32.6% 17.5%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_accent_foreground">Accent Foreground</Label>
-                    <Input
-                      id="theme_accent_foreground"
-                      value={formData.theme_accent_foreground}
-                      onChange={(e) => handleChange('theme_accent_foreground', e.target.value)}
-                      placeholder="210 40% 98%"
-                    />
-                  </div>
-                </div>
-
-                {/* Destructive Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: `hsl(${formData.theme_destructive})` }}></div>
-                    Destructive Colors
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_destructive">Destructive</Label>
-                    <Input
-                      id="theme_destructive"
-                      value={formData.theme_destructive}
-                      onChange={(e) => handleChange('theme_destructive', e.target.value)}
-                      placeholder="0 62.8% 30.6%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_destructive_foreground">Destructive Foreground</Label>
-                    <Input
-                      id="theme_destructive_foreground"
-                      value={formData.theme_destructive_foreground}
-                      onChange={(e) => handleChange('theme_destructive_foreground', e.target.value)}
-                      placeholder="210 40% 98%"
-                    />
-                  </div>
-                </div>
-
-                {/* Border & Input Colors */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full border-2" style={{ borderColor: `hsl(${formData.theme_border})` }}></div>
-                    Border & Input
-                  </h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_border">Border</Label>
-                    <Input
-                      id="theme_border"
-                      value={formData.theme_border}
-                      onChange={(e) => handleChange('theme_border', e.target.value)}
-                      placeholder="217.2 32.6% 17.5%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_input">Input</Label>
-                    <Input
-                      id="theme_input"
-                      value={formData.theme_input}
-                      onChange={(e) => handleChange('theme_input', e.target.value)}
-                      placeholder="217.2 32.6% 17.5%"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_ring">Ring (Focus)</Label>
-                    <Input
-                      id="theme_ring"
-                      value={formData.theme_ring}
-                      onChange={(e) => handleChange('theme_ring', e.target.value)}
-                      placeholder="212.7 26.8% 83.9%"
-                    />
-                  </div>
-                </div>
-
-                {/* Border Radius */}
-                <div className="space-y-4">
-                  <h4 className="font-medium text-sm">Border Radius</h4>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="theme_radius">Radius</Label>
-                    <Input
-                      id="theme_radius"
-                      value={formData.theme_radius}
-                      onChange={(e) => handleChange('theme_radius', e.target.value)}
-                      placeholder="0.5rem"
-                    />
-                    <p className="text-xs text-muted-foreground">
-                      CSS value like "0.5rem" or "8px"
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Preview Card */}
-            <Card className="p-6">
-              <h4 className="font-semibold mb-4">Live Preview</h4>
-              <div className="space-y-4">
-                <div className="flex gap-2">
-                  <Button>Primary Button</Button>
-                  <Button variant="secondary">Secondary</Button>
-                  <Button variant="outline">Outline</Button>
-                  <Button variant="destructive">Destructive</Button>
-                </div>
-                <Card className="p-4">
-                  <p className="text-muted-foreground">This is a preview card with muted text</p>
-                </Card>
-                <Input placeholder="Input field preview" />
               </div>
             </Card>
           </div>
