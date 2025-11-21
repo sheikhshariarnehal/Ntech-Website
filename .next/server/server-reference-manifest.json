@@ -1,5 +1,14 @@
 {
-  "node": {},
+  "node": {
+    "e71a9c2dce03a3201f92a5e5649353057c22b6d9": {
+      "workers": {
+        "app/(public)/auth/login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22D%3A%5C%5CPoject%5C%5CNtech%5C%5Csrc%5C%5Capp%5C%5C(public)%5C%5Cauth%5C%5Clogin%5C%5Cactions.ts%22%2C%5B%22login%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/(public)/auth/login/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
-  "encryptionKey": "igXzVRWp8wiw2kvgkH7ITIV3nsQK1V1ArgX/yVnMYwE="
+  "encryptionKey": "0MrOPUHf/uX1tX1MuITfUnQt3++wIbcwcUu/pCE7yF4="
 }

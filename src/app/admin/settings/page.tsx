@@ -218,6 +218,9 @@ export default function SettingsPage() {
     primary_color: "",
     theme_mode: "dark",
     
+    // Theme Settings
+    enable_custom_theme: false,
+    
     // Theme Colors (HSL format)
     theme_background: "222.2 84% 4.9%",
     theme_foreground: "210 40% 98%",
@@ -282,6 +285,7 @@ export default function SettingsPage() {
   useEffect(() => {
     applyThemeColors();
   }, [
+    formData.enable_custom_theme,
     formData.theme_background,
     formData.theme_foreground,
     formData.theme_card,
@@ -306,26 +310,52 @@ export default function SettingsPage() {
 
   function applyThemeColors() {
     const root = document.documentElement;
-    root.style.setProperty('--background', formData.theme_background);
-    root.style.setProperty('--foreground', formData.theme_foreground);
-    root.style.setProperty('--card', formData.theme_card);
-    root.style.setProperty('--card-foreground', formData.theme_card_foreground);
-    root.style.setProperty('--popover', formData.theme_popover);
-    root.style.setProperty('--popover-foreground', formData.theme_popover_foreground);
-    root.style.setProperty('--primary', formData.theme_primary);
-    root.style.setProperty('--primary-foreground', formData.theme_primary_foreground);
-    root.style.setProperty('--secondary', formData.theme_secondary);
-    root.style.setProperty('--secondary-foreground', formData.theme_secondary_foreground);
-    root.style.setProperty('--muted', formData.theme_muted);
-    root.style.setProperty('--muted-foreground', formData.theme_muted_foreground);
-    root.style.setProperty('--accent', formData.theme_accent);
-    root.style.setProperty('--accent-foreground', formData.theme_accent_foreground);
-    root.style.setProperty('--destructive', formData.theme_destructive);
-    root.style.setProperty('--destructive-foreground', formData.theme_destructive_foreground);
-    root.style.setProperty('--border', formData.theme_border);
-    root.style.setProperty('--input', formData.theme_input);
-    root.style.setProperty('--ring', formData.theme_ring);
-    root.style.setProperty('--radius', formData.theme_radius);
+    
+    // Only apply custom theme if enabled, otherwise remove custom properties to use globals.css defaults
+    if (formData.enable_custom_theme) {
+      root.style.setProperty('--background', formData.theme_background);
+      root.style.setProperty('--foreground', formData.theme_foreground);
+      root.style.setProperty('--card', formData.theme_card);
+      root.style.setProperty('--card-foreground', formData.theme_card_foreground);
+      root.style.setProperty('--popover', formData.theme_popover);
+      root.style.setProperty('--popover-foreground', formData.theme_popover_foreground);
+      root.style.setProperty('--primary', formData.theme_primary);
+      root.style.setProperty('--primary-foreground', formData.theme_primary_foreground);
+      root.style.setProperty('--secondary', formData.theme_secondary);
+      root.style.setProperty('--secondary-foreground', formData.theme_secondary_foreground);
+      root.style.setProperty('--muted', formData.theme_muted);
+      root.style.setProperty('--muted-foreground', formData.theme_muted_foreground);
+      root.style.setProperty('--accent', formData.theme_accent);
+      root.style.setProperty('--accent-foreground', formData.theme_accent_foreground);
+      root.style.setProperty('--destructive', formData.theme_destructive);
+      root.style.setProperty('--destructive-foreground', formData.theme_destructive_foreground);
+      root.style.setProperty('--border', formData.theme_border);
+      root.style.setProperty('--input', formData.theme_input);
+      root.style.setProperty('--ring', formData.theme_ring);
+      root.style.setProperty('--radius', formData.theme_radius);
+    } else {
+      // Remove custom properties to revert to globals.css defaults
+      root.style.removeProperty('--background');
+      root.style.removeProperty('--foreground');
+      root.style.removeProperty('--card');
+      root.style.removeProperty('--card-foreground');
+      root.style.removeProperty('--popover');
+      root.style.removeProperty('--popover-foreground');
+      root.style.removeProperty('--primary');
+      root.style.removeProperty('--primary-foreground');
+      root.style.removeProperty('--secondary');
+      root.style.removeProperty('--secondary-foreground');
+      root.style.removeProperty('--muted');
+      root.style.removeProperty('--muted-foreground');
+      root.style.removeProperty('--accent');
+      root.style.removeProperty('--accent-foreground');
+      root.style.removeProperty('--destructive');
+      root.style.removeProperty('--destructive-foreground');
+      root.style.removeProperty('--border');
+      root.style.removeProperty('--input');
+      root.style.removeProperty('--ring');
+      root.style.removeProperty('--radius');
+    }
   }
 
   function applyPreset(presetKey: string) {
@@ -363,6 +393,7 @@ export default function SettingsPage() {
         favicon_url: settingsData.favicon_url || "",
         primary_color: settingsData.primary_color || "",
         theme_mode: settingsData.theme_mode || "dark",
+        enable_custom_theme: settingsData.enable_custom_theme ?? false,
         theme_background: settingsData.theme_background || "222.2 84% 4.9%",
         theme_foreground: settingsData.theme_foreground || "210 40% 98%",
         theme_card: settingsData.theme_card || "222.2 84% 4.9%",
@@ -667,7 +698,7 @@ export default function SettingsPage() {
         {activeTab === "theme" && (
           <div className="space-y-6">
             {/* Theme Preset Selector */}
-            <Card className="p-6">
+            <Card className={`p-6 ${!formData.enable_custom_theme ? 'opacity-50 pointer-events-none' : ''}`}>
               <div className="flex items-center gap-2 mb-4">
                 <Palette className="h-5 w-5 text-primary" />
                 <h3 className="text-lg font-semibold">Choose Theme Preset</h3>
@@ -678,6 +709,7 @@ export default function SettingsPage() {
                   <button
                     key={key}
                     onClick={() => applyPreset(key)}
+                    disabled={!formData.enable_custom_theme}
                     className={`p-4 rounded-lg border-2 transition-all text-left ${
                       selectedPreset === key
                         ? 'border-primary bg-primary/10'
@@ -710,11 +742,75 @@ export default function SettingsPage() {
                   <Paintbrush className="h-5 w-5 text-primary" />
                   <h3 className="text-lg font-semibold">Custom Theme Colors</h3>
                 </div>
-                <Badge variant="secondary" className="gap-1">
-                  <Eye className="h-3 w-3" />
-                  Live Preview
-                </Badge>
+                <div className="flex items-center gap-3">
+                  <Badge variant="secondary" className="gap-1">
+                    <Eye className="h-3 w-3" />
+                    Live Preview
+                  </Badge>
+                </div>
               </div>
+
+              {/* Enable/Disable Custom Theme Toggle */}
+              <Card className="p-4 bg-muted/30 border-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${
+                      formData.enable_custom_theme 
+                        ? 'bg-primary/20 text-primary' 
+                        : 'bg-muted text-muted-foreground'
+                    }`}>
+                      <Palette className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold">Custom Theme Colors</h4>
+                      <p className="text-sm text-muted-foreground">
+                        {formData.enable_custom_theme 
+                          ? 'Using custom theme colors from settings below' 
+                          : 'Using default theme from globals.css'}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Label htmlFor="enable_custom_theme" className="text-sm font-medium cursor-pointer">
+                      {formData.enable_custom_theme ? 'Enabled' : 'Disabled'}
+                    </Label>
+                    <button
+                      type="button"
+                      id="enable_custom_theme"
+                      onClick={() => handleChange('enable_custom_theme', !formData.enable_custom_theme)}
+                      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
+                        formData.enable_custom_theme ? 'bg-primary' : 'bg-muted-foreground/30'
+                      }`}
+                    >
+                      <span
+                        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                          formData.enable_custom_theme ? 'translate-x-6' : 'translate-x-1'
+                        }`}
+                      />
+                    </button>
+                  </div>
+                </div>
+                {!formData.enable_custom_theme && (
+                  <div className="mt-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <AlertCircle className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm text-blue-500">
+                        Custom theme is disabled. The site is using the default theme colors defined in <code className="px-1 py-0.5 bg-blue-500/20 rounded text-xs">globals.css</code>. Enable this option to customize theme colors.
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {formData.enable_custom_theme && (
+                  <div className="mt-3 p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                    <div className="flex items-start gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-sm text-green-500">
+                        Custom theme is active. Changes to the colors below will be applied immediately with live preview.
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </Card>
 
               <div className="p-4 bg-muted/50 rounded-lg mb-4">
                 <p className="text-sm text-muted-foreground">
@@ -725,7 +821,7 @@ export default function SettingsPage() {
                 </p>
               </div>
 
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className={`grid gap-6 md:grid-cols-2 ${!formData.enable_custom_theme ? 'opacity-50 pointer-events-none' : ''}`}>
                 {/* Background Colors */}
                 <div className="space-y-4">
                   <h4 className="font-medium text-sm flex items-center gap-2">

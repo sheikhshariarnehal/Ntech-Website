@@ -1,27 +1,84 @@
-export const products = [
-    {
-        title: "ChatGPT Pro",
-        price: "$20/mo",
-        description: "Access to GPT-4, faster response times, and priority access.",
-        slug: "chatgpt-pro",
-        features: ["GPT-4 Access", "Faster response speed", "Priority access to new features"],
-    },
-    {
-        title: "Gemini Pro",
-        price: "$19.99/mo",
-        description: "Google's most capable AI model for complex tasks.",
-        slug: "gemini-pro",
-        features: ["Gemini Ultra 1.0", "2TB Storage", "Advanced reasoning"],
-    },
-    {
-        title: "Canva Pro",
-        price: "$12.99/mo",
-        description: "Design anything with premium content and tools.",
-        slug: "canva-pro",
-        features: ["Unlimited premium content", "Brand Kit", "Magic Resize"],
-    },
-];
+import { createServerClient } from "@/lib/supabase/server-client";
+import { Product, ProductFilters } from "../types";
 
-export async function getProducts() {
-    return products;
+export async function getProducts(filters?: ProductFilters): Promise<Product[]> {
+  const supabase = await createServerClient();
+  
+  let query = supabase
+    .from('products')
+    .select('*')
+    .eq('is_active', true)
+    .order('created_at', { ascending: false });
+
+  // Apply category filter
+  if (filters?.category && filters.category !== 'All') {
+    query = query.eq('category', filters.category);
+  }
+
+  // Apply billing interval filter
+  if (filters?.billing_interval && filters.billing_interval !== 'all') {
+    query = query.eq('billing_interval', filters.billing_interval);
+  }
+
+  // Apply search filter
+  if (filters?.search) {
+    query = query.or(`name.ilike.%${filters.search}%,short_description.ilike.%${filters.search}%`);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
+
+  // Apply price filters in memory (since we can't directly filter on numeric type in text format)
+  let products = data || [];
+  
+  if (filters?.min_price !== undefined) {
+    products = products.filter(p => parseFloat(p.price) >= filters.min_price!);
+  }
+  
+  if (filters?.max_price !== undefined) {
+    products = products.filter(p => parseFloat(p.price) <= filters.max_price!);
+  }
+
+  return products;
+}
+
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  const supabase = await createServerClient();
+  
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', slug)
+    .eq('is_active', true)
+    .single();
+
+  if (error) {
+    console.error('Error fetching product:', error);
+    return null;
+  }
+
+  return data;
+}
+
+export async function getProductCategories(): Promise<string[]> {
+  const supabase = await createServerClient();
+  
+  const { data, error } = await supabase
+    .from('products')
+    .select('category')
+    .eq('is_active', true)
+    .not('category', 'is', null);
+
+  if (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
+
+  // Get unique categories
+  const categories = [...new Set(data.map(p => p.category).filter(Boolean))];
+  return categories as string[];
 }

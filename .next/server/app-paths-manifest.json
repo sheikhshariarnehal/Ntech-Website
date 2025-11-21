@@ -1,8 +1,6 @@
 {
-  "/(public)/services/page": "app/(public)/services/page.js",
-  "/(public)/services/[slug]/page": "app/(public)/services/[slug]/page.js",
-  "/admin/services/page": "app/admin/services/page.js",
-  "/(public)/products/page": "app/(public)/products/page.js",
-  "/(public)/contact/page": "app/(public)/contact/page.js",
-  "/(public)/page": "app/(public)/page.js"
+  "/(public)/page": "app/(public)/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/(public)/auth/login/page": "app/(public)/auth/login/page.js",
+  "/admin/settings/page": "app/admin/settings/page.js"
 }
