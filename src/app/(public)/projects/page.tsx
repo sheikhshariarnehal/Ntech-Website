@@ -1,10 +1,12 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/shared/badge";
 import { PageHeader } from "@/components/shared/page-header";
 import { getProjects } from "@/features/projects/api/getProjects";
 import { Metadata } from "next";
+import { ExternalLink, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Projects",
@@ -15,35 +17,118 @@ export default async function ProjectsPage() {
     const projects = await getProjects();
 
     return (
-        <div className="container py-8 md:py-12">
+        <div className="container py-12 md:py-16">
             <PageHeader
                 title="Our Projects"
-                subtitle="Check out some of our recent work and success stories."
+                subtitle="Explore our portfolio of innovative solutions and successful collaborations with clients worldwide."
             />
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {projects.map((project) => (
-                    <Card key={project.slug} className="flex flex-col justify-between">
-                        <div className="p-6">
-                            <h3 className="font-bold text-xl mb-2">{project.title}</h3>
-                            <p className="text-muted-foreground mb-4">{project.summary}</p>
-                            <div className="flex flex-wrap gap-2">
-                                {project.tags.map((tag) => (
-                                    <Badge key={tag} variant="secondary">
+                    <Card 
+                        key={project.slug} 
+                        className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-card"
+                    >
+                        {/* Project Image */}
+                        <div className="relative h-52 w-full overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5">
+                            {project.thumbnail_url ? (
+                                <Image
+                                    src={project.thumbnail_url}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+                            ) : (
+                                <div className="flex h-full items-center justify-center">
+                                    <div className="text-6xl font-bold text-primary/20">
+                                        {project.title.charAt(0)}
+                                    </div>
+                                </div>
+                            )}
+                            {/* Overlay gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            
+                            {/* Tags on Image */}
+                            <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                {project.tags.slice(0, 3).map((tag) => (
+                                    <Badge 
+                                        key={tag} 
+                                        variant="secondary"
+                                        className="text-xs font-medium bg-black/70 text-white border-0 backdrop-blur-sm"
+                                    >
                                         {tag}
                                     </Badge>
                                 ))}
+                                {project.tags.length > 3 && (
+                                    <Badge variant="secondary" className="text-xs bg-black/70 text-white border-0 backdrop-blur-sm">
+                                        +{project.tags.length - 3}
+                                    </Badge>
+                                )}
                             </div>
                         </div>
-                        <div className="p-6 pt-0">
-                            <Link href={`/projects/${project.slug}`}>
-                                <Button variant="outline" className="w-full">
-                                    View Details
+
+                        {/* Content */}
+                        <div className="p-5">
+                            {/* Title */}
+                            <h3 className="font-bold text-lg mb-2.5 line-clamp-2 group-hover:text-primary transition-colors">
+                                {project.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="text-muted-foreground text-sm leading-relaxed mb-5 line-clamp-2">
+                                {project.summary}
+                            </p>
+
+                            {/* Action Buttons */}
+                            <div className="flex gap-2.5">
+                                {project.live_url && (
+                                    <Button 
+                                        asChild 
+                                        variant="default" 
+                                        size="sm"
+                                        className="flex-1 group/btn"
+                                    >
+                                        <a 
+                                            href={project.live_url} 
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="flex items-center justify-center gap-2"
+                                        >
+                                            <ExternalLink className="w-4 h-4" />
+                                            <span>Live Demo</span>
+                                        </a>
+                                    </Button>
+                                )}
+                                <Button 
+                                    asChild 
+                                    variant={project.live_url ? "outline" : "default"}
+                                    size="sm"
+                                    className={project.live_url ? "flex-1" : "w-full group/btn"}
+                                >
+                                    <Link 
+                                        href={`/projects/${project.slug}`}
+                                        className="flex items-center justify-center gap-2"
+                                    >
+                                        <span>View Details</span>
+                                        <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
+                                    </Link>
                                 </Button>
-                            </Link>
+                            </div>
                         </div>
                     </Card>
                 ))}
             </div>
+
+            {/* Empty State */}
+            {projects.length === 0 && (
+                <div className="text-center py-16">
+                    <div className="text-6xl mb-4">🚀</div>
+                    <h3 className="text-2xl font-bold mb-2">No Projects Yet</h3>
+                    <p className="text-muted-foreground">
+                        Check back soon to see our amazing work!
+                    </p>
+                </div>
+            )}
         </div>
     );
 }
