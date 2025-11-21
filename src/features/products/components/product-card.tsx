@@ -23,14 +23,14 @@ export function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Card className="group relative flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-xl border-border hover:border-primary/30 bg-card">
+    <Card className="group relative flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-2xl border border-border/60 hover:border-primary/50 bg-card shadow-md hover:-translate-y-1">
       {/* Product Image/Logo with Badge Overlay */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-muted dark:to-background">
+      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-white to-gray-50 dark:from-muted dark:to-background border-b border-border/40">
         {/* Category Badge - Top Left */}
         {product.category && (
           <Badge 
             variant="secondary" 
-            className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10 text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md bg-primary dark:bg-primary text-primary-foreground font-semibold border-0 shadow-lg"
+            className="absolute top-2 sm:top-3 left-2 sm:left-3 z-10 text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md bg-green-600 dark:bg-green-600 text-white font-semibold border-0 shadow-lg"
           >
             {product.category}
           </Badge>
@@ -52,15 +52,15 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Content Section */}
-      <div className="p-3 sm:p-4 md:p-5 flex flex-col gap-2.5 sm:gap-3 md:gap-4 flex-1">
+      <div className="p-3 sm:p-3.5 md:p-4 flex flex-col gap-2 sm:gap-2.5 md:gap-3 flex-1 bg-card">
         {/* Product Name */}
-        <h3 className="font-semibold text-sm sm:text-base md:text-lg leading-tight line-clamp-2 min-h-[2.5rem] sm:min-h-[3rem] md:min-h-[3.5rem] group-hover:text-primary transition-colors">
+        <h3 className="font-bold text-sm sm:text-base md:text-lg leading-tight line-clamp-2 min-h-[2.5rem] sm:min-h-[2.8rem] md:min-h-[3.2rem] text-foreground group-hover:text-primary transition-colors">
           {product.name}
         </h3>
 
         {/* Pricing */}
         <div className="flex items-baseline gap-1.5 sm:gap-2 mt-auto">
-          <span className="text-xl sm:text-2xl font-bold text-foreground">
+          <span className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
             ৳{formatPrice(product.price)}
           </span>
           <span className="text-xs sm:text-sm text-muted-foreground font-medium">
@@ -74,7 +74,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <Button 
           asChild 
           size="lg"
-          className="w-full text-sm sm:text-base"
+          className="w-full text-sm sm:text-base h-9 sm:h-10 md:h-11 bg-green-600 hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700 font-semibold shadow-sm"
         >
           <Link href={`/products/${product.slug}`} className="flex items-center justify-center gap-2">
             <ShoppingBag className="h-3.5 sm:h-4 w-3.5 sm:w-4" />
