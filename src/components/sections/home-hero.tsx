@@ -27,7 +27,7 @@ const AnimatedBackground = () => {
       {/* Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
       
-      {/* Moving Orbs */}
+      {/* Moving Orbs - Optimized with will-change-transform */}
       <motion.div 
         animate={{ 
           scale: [1, 1.2, 1],
@@ -35,7 +35,7 @@ const AnimatedBackground = () => {
           rotate: [0, 45, 0]
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[100px]" 
+        className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/30 rounded-full blur-[100px] will-change-transform" 
       />
       <motion.div 
         animate={{ 
@@ -44,7 +44,7 @@ const AnimatedBackground = () => {
           x: [0, 100, 0] 
         }}
         transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[20%] right-[-5%] w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[120px]" 
+        className="absolute top-[20%] right-[-5%] w-[400px] h-[400px] bg-blue-600/20 rounded-full blur-[120px] will-change-transform" 
       />
       <motion.div 
         animate={{ 
@@ -53,7 +53,7 @@ const AnimatedBackground = () => {
           y: [0, -50, 0]
         }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-[-10%] left-[20%] w-[600px] h-[400px] bg-indigo-600/20 rounded-full blur-[100px]" 
+        className="absolute bottom-[-10%] left-[20%] w-[600px] h-[400px] bg-indigo-600/20 rounded-full blur-[100px] will-change-transform" 
       />
     </div>
   );
@@ -112,7 +112,7 @@ export function HomeHero() {
   // const y1 = useTransform(scrollY, [0, 300], [0, 100]);
 
   return (
-    <section className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-16 sm:pt-20 pb-8 sm:pb-10 overflow-hidden bg-background">
+    <section className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-24 sm:pt-32 pb-12 sm:pb-20 overflow-hidden bg-background">
       
       {/* Replaced <style jsx global> with standard <style> tag.
         'jsx' and 'global' are not valid DOM attributes for the style tag in standard React,
@@ -134,10 +134,10 @@ export function HomeHero() {
       {/* Floating Elements (Parallax feel) */}
       <div className="absolute inset-0 w-full pointer-events-none overflow-hidden">
         <div className="relative h-full w-full max-w-7xl mx-auto">
-          <FloatingBadge icon={Bot} label="AI Automation" color="bg-emerald-500" delay={0.5} x="-left-8 lg:-left-12 xl:-left-8" y="top-[22%] lg:top-[20%]" />
-          <FloatingBadge icon={Code2} label="Full Stack" color="bg-violet-500" delay={0.7} x="-right-8 lg:-right-12 xl:-right-8" y="top-[22%] lg:top-[20%]" />
-          <FloatingBadge icon={ShoppingCart} label="Digital Products" color="bg-pink-500" delay={0.6} x="left-0 lg:left-8 xl:left-12" y="top-[38%] lg:top-[36%]" />
-          <FloatingBadge icon={Smartphone} label="Android App" color="bg-green-500" delay={0.8} x="right-0 lg:right-8 xl:right-12" y="top-[38%] lg:top-[36%]" />
+          <FloatingBadge icon={Bot} label="AI Automation" color="bg-emerald-500" delay={0.5} x="-left-4 lg:-left-8 xl:-left-12" y="top-[15%] lg:top-[18%]" />
+          <FloatingBadge icon={Code2} label="Full Stack" color="bg-violet-500" delay={0.7} x="-right-4 lg:-right-8 xl:-right-12" y="top-[15%] lg:top-[18%]" />
+          <FloatingBadge icon={ShoppingCart} label="Digital Products" color="bg-pink-500" delay={0.6} x="left-2 lg:left-12 xl:left-16" y="top-[30%] lg:top-[32%]" />
+          <FloatingBadge icon={Smartphone} label="Android App" color="bg-green-500" delay={0.8} x="right-2 lg:right-12 xl:right-16" y="top-[30%] lg:top-[32%]" />
         </div>
       </div>
 
@@ -159,12 +159,12 @@ export function HomeHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-foreground mb-4 sm:mb-6 leading-[1.15] px-2"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 sm:mb-8 leading-[1.1] px-2"
         >
           Empowering Your Business <br className="hidden sm:block" />
           <span className="sm:inline block mt-2"></span>
-          <span className="relative inline-block mt-2">
-            <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-indigo-400 animate-gradient-x">
+          <span className="relative inline-block mt-1 sm:mt-2">
+            <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-indigo-400 animate-gradient-x pb-2">
               with NTech Solutions
             </span>
             {/* Text Glow Effect */}
@@ -177,7 +177,7 @@ export function HomeHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4"
+          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 sm:mb-12 leading-relaxed px-4"
         >
           We provide full-stack development, custom AI automation, and premium access to the world&apos;s best AI tools to scale your operations.
         </motion.p>
@@ -187,17 +187,17 @@ export function HomeHero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 w-full sm:w-auto"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 px-4 w-full sm:w-auto"
         >
           {/* You can wrap these buttons in Next.js <Link> if needed */}
-          <button className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-violet-600 text-white font-semibold shadow-lg shadow-violet-600/25 overflow-hidden transition-all hover:scale-105 active:scale-95 text-sm sm:text-base">
+          <button className="group relative w-full sm:w-auto px-8 py-4 rounded-full bg-violet-600 text-white font-semibold shadow-lg shadow-violet-600/25 overflow-hidden transition-all hover:scale-105 active:scale-95 text-base sm:text-lg">
             <div className="absolute inset-0 bg-gradient-to-r from-violet-600 to-fuchsia-600 opacity-0 group-hover:opacity-100 transition-opacity" />
             <span className="relative flex items-center justify-center gap-2">
-              Explore Services <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Explore Services <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </button>
           
-          <button className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-muted/20 text-foreground font-medium border border-border hover:bg-muted/30 transition-all text-sm sm:text-base">
+          <button className="w-full sm:w-auto px-8 py-4 rounded-full bg-background/50 backdrop-blur-sm text-foreground font-medium border border-border hover:bg-muted/50 hover:border-violet-500/30 transition-all text-base sm:text-lg shadow-sm hover:shadow-md">
             Get Premium Tools
           </button>
         </motion.div>
@@ -207,7 +207,7 @@ export function HomeHero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="mt-12 sm:mt-16 md:mt-20 pt-8 sm:pt-10 border-t border-border/60 grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-3xl mx-auto px-4"
+          className="mt-16 sm:mt-20 md:mt-24 pt-8 sm:pt-10 border-t border-border/60 grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 max-w-4xl mx-auto px-4"
         >
           <StatItem icon={Users} value="20+" label="Happy Clients" />
           <StatItem icon={Bot} value="AI-Powered" label="Automation" />

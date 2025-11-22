@@ -4,6 +4,7 @@ export const siteConfig = {
     description: "Leading provider of web development, mobile apps, AI automation, and premium tech subscriptions. Transform your business with cutting-edge technology solutions.",
     tagline: "Empowering Business Through Innovation",
     url: "https://ntechsolutions.com",
+    logo: "/icons/LOGO.webp",
     ogImage: "https://ntechsolutions.com/og-image.jpg",
     author: "Ntech Solutions Team",
     keywords: [

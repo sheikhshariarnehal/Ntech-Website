@@ -24,7 +24,7 @@ export default function RootLayout({
         "@type": "Organization",
         "name": siteConfig.name,
         "url": siteConfig.url,
-        "logo": `${siteConfig.url}/logo.png`,
+        "logo": `${siteConfig.url}${siteConfig.logo}`,
         "description": siteConfig.description,
         "contactPoint": {
             "@type": "ContactPoint",

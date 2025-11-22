@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { 
     Menu, X, Sparkles, ChevronDown, Code, Bot, ShoppingBag, 
     Briefcase, Users, Info, Mail, Zap, Rocket, CreditCard 
@@ -147,11 +148,16 @@ export function MainHeader() {
             >
                 <div className="container flex h-16 items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-2.5 group relative z-50" onClick={() => setIsMenuOpen(false)}>
-                        <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50">
-                            <Sparkles className="w-4.5 h-4.5 text-white" />
+                    <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group relative z-50" onClick={() => setIsMenuOpen(false)}>
+                        <div className="relative w-7 h-7 sm:w-9 sm:h-9 transition-all duration-300 group-hover:scale-110">
+                            <Image 
+                                src="/icons/LOGO.webp" 
+                                alt="Ntech Solutions Logo" 
+                                fill
+                                className="object-contain"
+                            />
                         </div>
-                        <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
+                        <span className="text-base sm:text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
                             Ntech Solutions
                         </span>
                     </Link>

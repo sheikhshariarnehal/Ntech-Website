@@ -53,9 +53,9 @@ export const defaultSEO: Metadata = {
         },
     },
     icons: {
-        icon: "/favicon.ico",
-        shortcut: "/favicon-16x16.png",
-        apple: "/apple-touch-icon.png",
+        icon: "/icons/favicon.webp",
+        shortcut: "/icons/favicon.webp",
+        apple: "/icons/favicon.webp",
     },
     manifest: "/site.webmanifest",
     verification: {
