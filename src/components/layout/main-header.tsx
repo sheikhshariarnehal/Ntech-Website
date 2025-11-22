@@ -149,17 +149,59 @@ export function MainHeader() {
                 <div className="container flex h-16 items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group relative z-50" onClick={() => setIsMenuOpen(false)}>
-                        <div className="relative w-7 h-7 sm:w-9 sm:h-9 transition-all duration-300 group-hover:scale-110">
+                        <motion.div 
+                            className="relative w-7 h-7 sm:w-9 sm:h-9"
+                            whileHover={{ 
+                                scale: 1.1,
+                                rotate: [0, -10, 10, -10, 0],
+                                transition: { duration: 0.5 }
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                        >
                             <Image 
                                 src="/icons/LOGO.webp" 
                                 alt="Ntech Solutions Logo" 
                                 fill
-                                className="object-contain"
+                                className="object-contain drop-shadow-lg"
+                                priority
                             />
-                        </div>
-                        <span className="text-base sm:text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
+                            {/* Animated glow effect */}
+                            <motion.div
+                                className="absolute inset-0 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                style={{
+                                    background: 'radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%)'
+                                }}
+                                animate={{
+                                    scale: [1, 1.2, 1],
+                                }}
+                                transition={{
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                }}
+                            />
+                        </motion.div>
+                        <motion.span 
+                            className="text-sm sm:text-base md:text-lg font-bold font-display tracking-tight whitespace-nowrap"
+                            initial={{ backgroundSize: '200% 100%' }}
+                            animate={{ 
+                                backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+                            }}
+                            transition={{
+                                duration: 5,
+                                repeat: Infinity,
+                                ease: "linear"
+                            }}
+                            style={{
+                                backgroundImage: 'linear-gradient(90deg, #8b5cf6 0%, #d946ef 25%, #6366f1 50%, #8b5cf6 75%, #d946ef 100%)',
+                                backgroundClip: 'text',
+                                WebkitBackgroundClip: 'text',
+                                color: 'transparent',
+                                backgroundSize: '200% 100%'
+                            }}
+                        >
                             Ntech Solutions
-                        </span>
+                        </motion.span>
                     </Link>
 
                     {/* Desktop Nav with Mega Menu */}
