@@ -33,21 +33,21 @@ const PROJECTS = [
 
 export function HomeProjects() {
     return (
-        <section className="py-24 bg-background border-t border-border">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background border-t border-border px-4 sm:px-6">
             <div className="container mx-auto">
-                <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 md:mb-16 gap-4 sm:gap-6">
                     <div>
-                        <h2 className="text-3xl md:text-5xl font-bold font-display text-foreground mb-4">Featured Projects</h2>
-                        <p className="text-muted-foreground max-w-xl text-lg">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground mb-3 sm:mb-4">Featured Projects</h2>
+                        <p className="text-muted-foreground max-w-xl text-sm sm:text-base md:text-lg">
                             See how we&apos;ve transformed ideas into powerful digital solutions.
                         </p>
                     </div>
-                    <Button variant="outline">
+                    <Button variant="outline" className="w-full sm:w-auto">
                         View All Work
                     </Button>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                     {PROJECTS.map((project, index) => (
                         <motion.div
                             key={index}
@@ -57,7 +57,7 @@ export function HomeProjects() {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                             className="group cursor-pointer"
                         >
-                            <div className="relative overflow-hidden rounded-xl aspect-[16/9] mb-6">
+                            <div className="relative overflow-hidden rounded-lg sm:rounded-xl aspect-[16/9] mb-4 sm:mb-6">
                                 <div className="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
                                 <img 
                                     src={project.image} 
@@ -66,12 +66,12 @@ export function HomeProjects() {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
                                 
-                                <div className="absolute bottom-0 left-0 p-6 z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                    <span className="text-primary text-sm font-medium mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                <div className="absolute bottom-0 left-0 p-4 sm:p-6 z-20 translate-y-2 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                    <span className="text-primary text-xs sm:text-sm font-medium mb-1 sm:mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                                         {project.category}
                                     </span>
-                                    <h3 className="text-2xl font-bold text-foreground mb-2">{project.title}</h3>
-                                    <p className="text-muted-foreground text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 hidden md:block">
+                                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2">{project.title}</h3>
+                                    <p className="text-muted-foreground text-xs sm:text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 hidden md:block">
                                         {project.description}
                                     </p>
                                 </div>

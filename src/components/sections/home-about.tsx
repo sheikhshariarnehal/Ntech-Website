@@ -6,54 +6,54 @@ import { CheckCircle2 } from "lucide-react";
 
 export function HomeAbout() {
     return (
-        <section className="py-24 bg-background relative overflow-hidden">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background relative overflow-hidden px-4 sm:px-6">
             <div className="container mx-auto">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
+                <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
                     
                     {/* Text Content */}
                     <motion.div 
-                        className="lg:w-1/2"
+                        className="lg:w-1/2 w-full"
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
                     >
-                        <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
+                        <div className="inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs sm:text-sm font-medium mb-4 sm:mb-6">
                             Our Mission
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-bold font-display text-foreground mb-6 leading-tight">
-                            Bridging the gap between <br />
-                            <span className="text-primary">Complex Tech</span> and <br />
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground mb-4 sm:mb-6 leading-tight">
+                            Bridging the gap between <br className="hidden sm:block" />
+                            <span className="text-primary">Complex Tech</span> and <br className="hidden sm:block" />
                             <span className="text-foreground">Accessible Solutions.</span>
                         </h2>
-                        <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+                        <p className="text-muted-foreground text-sm sm:text-base md:text-lg mb-6 sm:mb-8 leading-relaxed">
                             At NovaTech, we believe that advanced technology shouldn&apos;t be reserved for tech giants. 
                             Our mission is to democratize access to powerful AI tools and custom development services, 
                             empowering businesses of all sizes to innovate and grow.
                         </p>
                         
-                        <div className="space-y-4 mb-8">
+                        <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
                             {[
                                 "Enterprise-grade Security",
                                 "Scalable Architecture",
                                 "24/7 Expert Support",
                                 "Custom AI Model Tuning"
                             ].map((item, i) => (
-                                <div key={i} className="flex items-center gap-3">
-                                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                                    <span className="text-foreground">{item}</span>
+                                <div key={i} className="flex items-center gap-2 sm:gap-3">
+                                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                                    <span className="text-foreground text-sm sm:text-base">{item}</span>
                                 </div>
                             ))}
                         </div>
 
-                        <Button size="lg" className="font-medium">
+                        <Button size="lg" className="font-medium w-full sm:w-auto">
                             Learn More About Us
                         </Button>
                     </motion.div>
 
                     {/* Image/Visual Content */}
                     <motion.div 
-                        className="lg:w-1/2 relative"
+                        className="lg:w-1/2 w-full relative"
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}

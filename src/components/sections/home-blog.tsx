@@ -32,16 +32,16 @@ const POSTS = [
 export function HomeBlog() {
 
     return (
-        <section className="py-24 bg-background border-t border-border">
-            <div className="container mx-auto">
-                <div className="flex items-end justify-between mb-12">
-                    <h2 className="text-3xl md:text-4xl font-bold font-display text-foreground">Latest Insights</h2>
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background border-t border-border">
+            <div className="container mx-auto px-4 sm:px-6">
+                <div className="flex items-end justify-between mb-8 sm:mb-10 md:mb-12">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground">Latest Insights</h2>
                     <Button variant="link" className="text-primary hidden md:flex">
                         View all articles <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {POSTS.map((post, index) => (
                         <motion.div
                             key={index}
@@ -66,7 +66,7 @@ export function HomeBlog() {
                                         <Calendar className="w-3 h-3" />
                                         {post.date}
                                     </div>
-                                    <CardTitle className="text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2">
+                                    <CardTitle className="text-lg sm:text-xl text-foreground group-hover:text-primary transition-colors line-clamp-2">
                                         {post.title}
                                     </CardTitle>
                                 </CardHeader>

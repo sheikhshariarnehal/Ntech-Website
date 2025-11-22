@@ -25,26 +25,26 @@ const products = [
 
 export function HomeProducts() {
     return (
-        <section id="products" className="container py-8 md:py-12 lg:py-24">
-            <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-                <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-6xl font-bold">
+        <section id="products" className="container py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6">
+            <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-3 sm:space-y-4 text-center">
+                <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.1] font-bold">
                     Digital Products
                 </h2>
-                <p className="max-w-[85%] leading-normal text-muted-foreground sm:text-lg sm:leading-7">
+                <p className="max-w-[85%] leading-normal text-muted-foreground text-base sm:text-lg sm:leading-7">
                     Premium subscriptions and digital tools at competitive prices.
                 </p>
             </div>
-            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-2 md:max-w-[64rem] md:grid-cols-3 mt-8">
+            <div className="mx-auto grid justify-center gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 md:max-w-[64rem] mt-6 sm:mt-8">
                 {products.map((product) => (
                     <Card key={product.slug} className="flex flex-col justify-between">
-                        <div className="p-6">
-                            <h3 className="font-bold text-xl mb-1">{product.title}</h3>
-                            <p className="text-lg font-semibold text-primary mb-2">
+                        <div className="p-4 sm:p-6">
+                            <h3 className="font-bold text-lg sm:text-xl mb-1">{product.title}</h3>
+                            <p className="text-base sm:text-lg font-semibold text-primary mb-2">
                                 {product.price}
                             </p>
                             <p className="text-muted-foreground">{product.description}</p>
                         </div>
-                        <div className="p-6 pt-0">
+                        <div className="p-4 sm:p-6 pt-0">
                             <Link href={`/products/${product.slug}`}>
                                 <Button className="w-full">View Product</Button>
                             </Link>
