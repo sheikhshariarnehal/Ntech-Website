@@ -5,7 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { 
     Menu, X, Sparkles, ChevronDown, Code, Bot, ShoppingBag, 
-    Briefcase, Users, Info, Mail, Zap, Rocket, CreditCard 
+    Briefcase, Users, Info, Mail, Zap, Rocket, CreditCard,
+    Smartphone, Palette, LineChart, Globe, Wand2, Shield,
+    Video, Image as ImageIcon, FileText, Star, ArrowRight
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { clsx, type ClassValue } from "clsx";
@@ -14,6 +16,35 @@ import { twMerge } from "tailwind-merge";
 // --- Utility Functions ---
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+// --- Types ---
+interface MegaMenuItem {
+    icon: any;
+    label: string;
+    href: string;
+    description: string;
+    featured?: boolean;
+    badge?: string;
+}
+
+interface MegaMenuSection {
+    title: string;
+    items: MegaMenuItem[];
+}
+
+interface MegaMenuCTA {
+    title: string;
+    description: string;
+    buttonText: string;
+    buttonHref: string;
+    icon: any;
+}
+
+interface MegaMenuData {
+    title: string;
+    sections: MegaMenuSection[];
+    cta: MegaMenuCTA;
 }
 
 // --- Components ---
@@ -74,52 +105,127 @@ export function MainHeader() {
         };
     }, [isMenuOpen]);
 
-    const megaMenuData = {
+    const megaMenuData: Record<string, MegaMenuData> = {
         services: {
             title: "Services",
-            items: [
-                { 
-                    icon: Code, 
-                    label: "Web Development", 
-                    href: "/services#web-development",
-                    description: "Custom web applications" 
+            sections: [
+                {
+                    title: "Development",
+                    items: [
+                        { 
+                            icon: Code, 
+                            label: "Web Development", 
+                            href: "/services#web-development",
+                            description: "Modern web apps & SaaS platforms",
+                            featured: true
+                        },
+                        { 
+                            icon: Smartphone, 
+                            label: "Mobile Apps", 
+                            href: "/services#mobile-app-development",
+                            description: "iOS & Android native apps" 
+                        },
+                        { 
+                            icon: Zap, 
+                            label: "API Integration", 
+                            href: "/services#api-integration",
+                            description: "Seamless third-party integrations" 
+                        },
+                    ]
                 },
-                { 
-                    icon: Bot, 
-                    label: "AI Automation", 
-                    href: "/services#ai-automation",
-                    description: "Intelligent automation solutions" 
-                },
-                { 
-                    icon: Zap, 
-                    label: "API Integration", 
-                    href: "/services#api-integration",
-                    description: "Seamless third-party integrations" 
-                },
-            ]
+                {
+                    title: "Digital Solutions",
+                    items: [
+                        { 
+                            icon: Bot, 
+                            label: "AI Automation", 
+                            href: "/services#ai-automation",
+                            description: "Intelligent workflow automation",
+                            featured: true
+                        },
+                        { 
+                            icon: Palette, 
+                            label: "UI/UX Design", 
+                            href: "/services#ui-ux-design",
+                            description: "Beautiful, user-friendly interfaces" 
+                        },
+                        { 
+                            icon: LineChart, 
+                            label: "SEO Optimization", 
+                            href: "/services#seo-optimization",
+                            description: "Rank higher on search engines" 
+                        },
+                    ]
+                }
+            ],
+            cta: {
+                title: "Need a Custom Solution?",
+                description: "Let's discuss your unique project requirements",
+                buttonText: "Get a Quote",
+                buttonHref: "/contact",
+                icon: Briefcase
+            }
         },
         shop: {
             title: "Shop",
-            items: [
-                { 
-                    icon: Rocket, 
-                    label: "ChatGPT Pro", 
-                    href: "/products#chatgpt",
-                    description: "Premium AI subscriptions" 
+            sections: [
+                {
+                    title: "AI Tools",
+                    items: [
+                        { 
+                            icon: Sparkles, 
+                            label: "ChatGPT Pro", 
+                            href: "/products#chatgpt",
+                            description: "$20/mo - Advanced AI assistant",
+                            badge: "Popular",
+                            featured: true
+                        },
+                        { 
+                            icon: Rocket, 
+                            label: "Gemini Advanced", 
+                            href: "/products#gemini",
+                            description: "$20/mo - Google's powerful AI" 
+                        },
+                        { 
+                            icon: Bot, 
+                            label: "Claude Pro", 
+                            href: "/products#claude",
+                            description: "$20/mo - Anthropic's AI model" 
+                        },
+                    ]
                 },
-                { 
-                    icon: Sparkles, 
-                    label: "Gemini Advanced", 
-                    href: "/products#gemini",
-                    description: "Google's latest AI model" 
-                },
-                { 
-                    icon: CreditCard, 
-                    label: "All Products", 
-                    href: "/products",
-                    description: "Browse our full catalog" 
-                },
-            ]
+                {
+                    title: "Creative Suite",
+                    items: [
+                        { 
+                            icon: Wand2, 
+                            label: "Canva Pro", 
+                            href: "/products#canva",
+                            description: "Design tool for all creators",
+                            badge: "Best Value"
+                        },
+                        { 
+                            icon: Video, 
+                            label: "Adobe Creative Cloud", 
+                            href: "/products#adobe",
+                            description: "Professional design software" 
+                        },
+                        { 
+                            icon: ImageIcon, 
+                            label: "Midjourney", 
+                            href: "/products#midjourney",
+                            description: "AI-powered image generation" 
+                        },
+                    ]
+                }
+            ],
+            cta: {
+                title: "Save Up to 95%",
+                description: "Premium tools at unbeatable prices",
+                buttonText: "View All Products",
+                buttonHref: "/products",
+                icon: ShoppingBag
+            }
         }
     };
 
@@ -283,34 +389,116 @@ export function MainHeader() {
                             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                             exit={{ opacity: 0, y: -10, filter: "blur(10px)" }}
                             transition={{ duration: 0.2 }}
-                            className="absolute top-full left-0 w-full border-t border-border/50 bg-background/80 backdrop-blur-2xl shadow-2xl"
+                            className="absolute top-full left-0 w-full border-t border-border/50 bg-background/95 backdrop-blur-2xl shadow-2xl shadow-black/10"
                             onMouseEnter={() => setActiveMenu(activeMenu)}
                             onMouseLeave={() => setActiveMenu(null)}
                         >
-                            <div className="container py-8">
-                                <div className="grid grid-cols-3 gap-4 max-w-4xl mx-auto">
-                                    {megaMenuData[activeMenu as keyof typeof megaMenuData].items.map((item, index) => (
-                                        <Link
-                                            key={index}
-                                            href={item.href}
-                                            className="group p-4 rounded-2xl hover:bg-secondary/50 transition-all duration-200 border border-transparent hover:border-border/50"
-                                            onClick={() => setActiveMenu(null)}
-                                        >
-                                            <div className="flex items-start gap-4">
-                                                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/10 to-purple-600/10 flex items-center justify-center group-hover:from-primary/20 group-hover:to-purple-600/20 transition-all">
-                                                    <item.icon className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-                                                </div>
-                                                <div className="flex-1">
-                                                    <h3 className="text-sm font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                                                        {item.label}
+                            <div className="container py-10">
+                                <div className="grid grid-cols-12 gap-8 max-w-7xl mx-auto">
+                                    {/* Services/Products Sections */}
+                                    <div className="col-span-9">
+                                        <div className="grid grid-cols-2 gap-8">
+                                            {megaMenuData[activeMenu as keyof typeof megaMenuData].sections.map((section, sectionIndex) => (
+                                                <div key={sectionIndex}>
+                                                    <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4 px-4">
+                                                        {section.title}
                                                     </h3>
-                                                    <p className="text-xs text-muted-foreground leading-relaxed">
-                                                        {item.description}
-                                                    </p>
+                                                    <div className="space-y-1">
+                                                        {section.items.map((item, index) => {
+                                                            const ItemIcon = item.icon;
+                                                            return (
+                                                                <Link
+                                                                    key={index}
+                                                                    href={item.href}
+                                                                    className="group relative flex items-start gap-4 p-4 rounded-xl hover:bg-secondary/80 transition-all duration-200 border border-transparent hover:border-border/50 hover:shadow-md"
+                                                                    onClick={() => setActiveMenu(null)}
+                                                                >
+                                                                    {/* Featured indicator */}
+                                                                    {item.featured && (
+                                                                        <div className="absolute -top-1.5 -right-1.5">
+                                                                            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                                                                        </div>
+                                                                    )}
+                                                                    
+                                                                    {/* Icon */}
+                                                                    <div className="relative flex-shrink-0">
+                                                                        <div className="w-11 h-11 rounded-lg bg-gradient-to-br from-primary/10 to-purple-600/10 flex items-center justify-center group-hover:from-primary/20 group-hover:to-purple-600/20 transition-all group-hover:scale-110">
+                                                                            <ItemIcon className="w-5 h-5 text-primary" />
+                                                                        </div>
+                                                                    </div>
+                                                                    
+                                                                    {/* Content */}
+                                                                    <div className="flex-1 min-w-0">
+                                                                        <div className="flex items-center gap-2 mb-1">
+                                                                            <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                                                                                {item.label}
+                                                                            </h4>
+                                                                            {item.badge && (
+                                                                                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary/10 text-primary border border-primary/20">
+                                                                                    {item.badge}
+                                                                                </span>
+                                                                            )}
+                                                                        </div>
+                                                                        <p className="text-xs text-muted-foreground leading-relaxed">
+                                                                            {item.description}
+                                                                        </p>
+                                                                    </div>
+                                                                    
+                                                                    {/* Arrow indicator */}
+                                                                    <ArrowRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-primary group-hover:translate-x-1 transition-all opacity-0 group-hover:opacity-100 flex-shrink-0" />
+                                                                </Link>
+                                                            );
+                                                        })}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    ))}
+                                            ))}
+                                        </div>
+                                    </div>
+                                    
+                                    {/* CTA Card */}
+                                    <div className="col-span-3">
+                                        <div className="sticky top-4">
+                                            {(() => {
+                                                const CTAIcon = megaMenuData[activeMenu as keyof typeof megaMenuData].cta.icon;
+                                                return (
+                                                    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-purple-500/10 to-pink-500/10 border border-primary/20 p-6">
+                                                        {/* Animated background gradient */}
+                                                        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                                        
+                                                        <div className="relative z-10 space-y-4">
+                                                            {/* Icon */}
+                                                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-purple-600/20 flex items-center justify-center">
+                                                                <CTAIcon className="w-6 h-6 text-primary" />
+                                                            </div>
+                                                            
+                                                            {/* Content */}
+                                                            <div>
+                                                                <h3 className="text-lg font-bold text-foreground mb-2">
+                                                                    {megaMenuData[activeMenu as keyof typeof megaMenuData].cta.title}
+                                                                </h3>
+                                                                <p className="text-sm text-muted-foreground leading-relaxed">
+                                                                    {megaMenuData[activeMenu as keyof typeof megaMenuData].cta.description}
+                                                                </p>
+                                                            </div>
+                                                            
+                                                            {/* CTA Button */}
+                                                            <Link
+                                                                href={megaMenuData[activeMenu as keyof typeof megaMenuData].cta.buttonHref}
+                                                                onClick={() => setActiveMenu(null)}
+                                                            >
+                                                                <Button 
+                                                                    className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-medium shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all group"
+                                                                >
+                                                                    {megaMenuData[activeMenu as keyof typeof megaMenuData].cta.buttonText}
+                                                                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                                                </Button>
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })()}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>

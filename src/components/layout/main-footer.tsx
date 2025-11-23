@@ -6,6 +6,7 @@ import { Github, Twitter, Linkedin, Sparkles, Mail, MapPin, Phone, Send, Faceboo
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import Image from "next/image";
 
 export function MainFooter() {
     const [email, setEmail] = useState("");
@@ -68,8 +69,14 @@ export function MainFooter() {
                     {/* Brand & Newsletter - Takes 4 columns on large screens */}
                     <div className="lg:col-span-4 flex flex-col gap-6">
                         <Link href="/" className="flex items-center gap-2.5 group w-fit">
-                            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50">
-                                <Sparkles className="w-4.5 h-4.5 text-white" />
+                            <div className="relative w-9 h-9">
+                                <Image 
+                                    src={siteConfig.logo} 
+                                    alt="Ntech Solutions Logo" 
+                                    fill 
+                                    className="object-contain rounded-lg" 
+                                    priority 
+                                />
                             </div>
                             <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
                                 {siteConfig.name}

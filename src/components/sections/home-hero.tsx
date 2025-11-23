@@ -84,23 +84,23 @@ const FloatingBadge = ({ icon: Icon, label, color, delay, x, y }) => (
       y: -8,
       transition: { duration: 0.3, ease: "easeOut" }
     }}
-    className={`absolute hidden lg:flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700/50 backdrop-blur-lg shadow-2xl hover:shadow-purple-500/20 transition-shadow duration-300 ${x} ${y} z-20`}
+    className={`absolute hidden lg:flex items-center gap-3 px-5 py-3 rounded-2xl bg-card/95 backdrop-blur-md border border-white/10 shadow-xl shadow-black/20 hover:shadow-primary/20 hover:border-primary/40 transition-all duration-300 ${x} ${y} z-20`}
   >
-    <div className={`p-2 rounded-lg ${color} bg-opacity-20 backdrop-blur-sm`}>
-      <Icon className={`w-5 h-5 ${color.replace('bg-', 'text-')}`} />
+    <div className={`p-2.5 rounded-xl ${color} shadow-lg ring-1 ring-white/20`}>
+      <Icon className="w-5 h-5 text-white" />
     </div>
-    <span className="text-sm font-semibold text-slate-100 tracking-wide">{label}</span>
+    <span className="text-sm font-bold text-foreground tracking-wide">{label}</span>
   </motion.div>
 );
 
 // 3. Stat Item
 const StatItem = ({ icon: Icon, value, label }) => (
-  <div className="flex flex-col items-center text-center group cursor-default">
-    <div className="mb-2 sm:mb-3 p-2 sm:p-3 rounded-xl sm:rounded-2xl bg-slate-900/50 border border-slate-800 group-hover:border-violet-500/30 group-hover:bg-violet-500/10 transition-all">
-      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-slate-400 group-hover:text-violet-400 transition-colors" />
+  <div className="flex flex-col items-center text-center group cursor-default hover-lift transition-smooth">
+    <div className="mb-2 sm:mb-3 p-3 rounded-2xl bg-secondary/50 border border-border backdrop-blur-xl group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:glow-box transition-smooth">
+      <Icon className="w-6 h-6 text-muted-foreground group-hover:text-primary transition-smooth" />
     </div>
-    <div className="font-bold text-xl sm:text-2xl text-foreground mb-1">{value}</div>
-    <div className="text-xs sm:text-sm text-muted-foreground group-hover:text-slate-400 transition-colors">{label}</div>
+    <div className="font-bold text-xl sm:text-2xl text-foreground mb-1 group-hover:text-primary transition-smooth">{value}</div>
+    <div className="text-xs sm:text-sm text-muted-foreground group-hover:text-foreground transition-smooth">{label}</div>
   </div>
 );
 
@@ -134,14 +134,12 @@ export function HomeHero() {
       {/* Floating Elements (Parallax feel) */}
       <div className="absolute inset-0 w-full pointer-events-none overflow-hidden">
         <div className="relative h-full w-full max-w-7xl mx-auto">
-          <FloatingBadge icon={Bot} label="AI Automation" color="bg-emerald-500" delay={0.5} x="-left-4 lg:-left-8 xl:-left-12" y="top-[15%] lg:top-[18%]" />
-          <FloatingBadge icon={Code2} label="Full Stack" color="bg-violet-500" delay={0.7} x="-right-4 lg:-right-8 xl:-right-12" y="top-[15%] lg:top-[18%]" />
-          <FloatingBadge icon={ShoppingCart} label="Digital Products" color="bg-pink-500" delay={0.6} x="left-2 lg:left-12 xl:left-16" y="top-[30%] lg:top-[32%]" />
-          <FloatingBadge icon={Smartphone} label="Android App" color="bg-green-500" delay={0.8} x="right-2 lg:right-12 xl:right-16" y="top-[30%] lg:top-[32%]" />
+          <FloatingBadge icon={Bot} label="AI Automation" color="bg-emerald-500" delay={0.5} x="-left-4 lg:-left-8 xl:-left-12" y="top-[30%] lg:top-[33%]" />
+          <FloatingBadge icon={Code2} label="Web Development" color="bg-violet-500" delay={0.7} x="-right-4 lg:-right-8 xl:-right-12" y="top-[30%] lg:top-[33%]" />
+          <FloatingBadge icon={ShoppingCart} label="Digital Products" color="bg-pink-500" delay={0.6} x="left-2 lg:left-12 xl:left-16" y="top-[45%] lg:top-[47%]" />
+          <FloatingBadge icon={Smartphone} label="App Development" color="bg-blue-500" delay={0.8} x="right-2 lg:right-12 xl:right-16" y="top-[45%] lg:top-[47%]" />
         </div>
-      </div>
-
-      <div className="container mx-auto relative z-10 text-center px-4 sm:px-6">
+      </div>      <div className="container mx-auto relative z-10 text-center px-4 sm:px-6">
         
         {/* Tagline Pill */}
         <motion.div
