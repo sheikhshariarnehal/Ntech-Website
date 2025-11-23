@@ -1,6 +1,9 @@
 import { createServerClient } from '@/lib/supabase/server-client';
 import { NextResponse } from 'next/server';
 
+// Admin routes should always be dynamic
+export const dynamic = 'force-dynamic';
+
 export async function GET(
   request: Request,
   { params }: { params: { id: string } }

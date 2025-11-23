@@ -22,6 +22,9 @@ import {
     Shield
 } from "lucide-react";
 
+// Revalidate service pages every hour
+export const revalidate = 3600;
+
 interface ServicePageProps {
     params: {
         slug: string;

@@ -9,6 +9,9 @@ import Image from "next/image";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 import { FeaturedBlogCarousel } from "@/components/sections/featured-blog-carousel";
 
+// Revalidate blog page every 5 minutes
+export const revalidate = 300;
+
 export const metadata: Metadata = {
     title: "Blog - Latest Insights on Web Development, AI & Technology | Ntech",
     description: "Discover expert insights, tutorials, and updates on web development, mobile apps, AI automation, digital products, and technology trends. Stay ahead with Ntech's blog.",

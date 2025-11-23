@@ -1,6 +1,9 @@
 import { createServerClient } from "@/lib/supabase/server-client";
 import { NextRequest, NextResponse } from "next/server";
 
+// This route requires cookies for authentication
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createServerClient();

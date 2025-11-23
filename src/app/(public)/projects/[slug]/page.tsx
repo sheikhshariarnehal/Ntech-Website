@@ -8,6 +8,9 @@ import { Card } from "@/components/ui/card";
 import { Metadata } from "next";
 import { ExternalLink, Github, ArrowLeft, Calendar, User, CheckCircle2 } from "lucide-react";
 
+// Revalidate project pages every hour
+export const revalidate = 3600;
+
 interface ProjectPageProps {
     params: {
         slug: string;

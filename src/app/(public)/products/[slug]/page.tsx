@@ -19,6 +19,9 @@ import {
 } from "lucide-react";
 import { Metadata } from "next";
 
+// Revalidate product pages every 5 minutes
+export const revalidate = 300;
+
 interface ProductPageProps {
     params: {
         slug: string;
@@ -71,13 +74,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
     ];
 
     return (
-        <div className="min-h-screen bg-background">
-            <div className="container py-8 px-4 sm:px-6 lg:px-8">
-                <Breadcrumbs items={breadcrumbItems} className="mb-8" />
+        <div className="min-h-screen bg-background pt-16">
+            <div className="container py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8">
+                <Breadcrumbs items={breadcrumbItems} className="mb-6 sm:mb-8" />
 
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+                <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-16 items-start">
                     {/* Left Column: Image & Gallery */}
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                         <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-muted border shadow-sm">
                             {product.thumbnail_url ? (
                                 <Image
@@ -103,25 +106,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         </div>
                         
                         {/* Value Props Grid */}
-                        <div className="grid grid-cols-3 gap-4">
-                            <div className="flex flex-col items-center text-center p-4 rounded-xl bg-card border shadow-sm">
-                                <Zap className="h-6 w-6 text-primary mb-2" />
-                                <span className="text-xs font-medium text-muted-foreground">Instant Access</span>
+                        <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                            <div className="flex flex-col items-center text-center p-2 sm:p-4 rounded-xl bg-card border shadow-sm">
+                                <Zap className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-1 sm:mb-2" />
+                                <span className="text-[10px] sm:text-xs font-medium text-muted-foreground">Instant Access</span>
                             </div>
-                            <div className="flex flex-col items-center text-center p-4 rounded-xl bg-card border shadow-sm">
-                                <Shield className="h-6 w-6 text-primary mb-2" />
-                                <span className="text-xs font-medium text-muted-foreground">Secure Payment</span>
+                            <div className="flex flex-col items-center text-center p-2 sm:p-4 rounded-xl bg-card border shadow-sm">
+                                <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-1 sm:mb-2" />
+                                <span className="text-[10px] sm:text-xs font-medium text-muted-foreground">Secure Payment</span>
                             </div>
-                            <div className="flex flex-col items-center text-center p-4 rounded-xl bg-card border shadow-sm">
-                                <Clock className="h-6 w-6 text-primary mb-2" />
-                                <span className="text-xs font-medium text-muted-foreground">24/7 Support</span>
+                            <div className="flex flex-col items-center text-center p-2 sm:p-4 rounded-xl bg-card border shadow-sm">
+                                <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-primary mb-1 sm:mb-2" />
+                                <span className="text-[10px] sm:text-xs font-medium text-muted-foreground">24/7 Support</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Right Column: Product Details */}
-                    <div className="flex flex-col space-y-8">
-                        <div className="space-y-4">
+                    <div className="flex flex-col space-y-6 sm:space-y-8">
+                        <div className="space-y-3 sm:space-y-4">
                             <div className="flex items-center gap-2">
                                 {product.category && (
                                     <Badge variant="secondary" className="text-primary bg-primary/10 hover:bg-primary/20 border-0">
@@ -135,22 +138,22 @@ export default async function ProductPage({ params }: ProductPageProps) {
                                 </div>
                             </div>
                             
-                            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+                            <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
                                 {product.name}
                             </h1>
                             
-                            <p className="text-lg text-muted-foreground leading-relaxed">
+                            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                                 {product.short_description}
                             </p>
                         </div>
 
-                        <Card className="p-6 bg-card/50 backdrop-blur border-primary/10 shadow-lg">
-                            <div className="flex items-baseline gap-2 mb-6">
-                                <span className="text-4xl font-bold text-primary">{displayPrice}</span>
-                                {suffix && <span className="text-lg text-muted-foreground font-medium">{suffix}</span>}
+                        <Card className="p-4 sm:p-6 bg-card/50 backdrop-blur border-primary/10 shadow-lg">
+                            <div className="flex items-baseline gap-2 mb-4 sm:mb-6">
+                                <span className="text-3xl sm:text-4xl font-bold text-primary">{displayPrice}</span>
+                                {suffix && <span className="text-base sm:text-lg text-muted-foreground font-medium">{suffix}</span>}
                             </div>
 
-                            <div className="mb-8">
+                            <div className="mb-6 sm:mb-8">
                                 <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
                                     {product.full_description || product.short_description}
                                 </p>
@@ -160,8 +163,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                         </Card>
 
                         {/* Quick Specs / Additional Info */}
-                        <div className="border-t pt-8">
-                            <h3 className="font-semibold mb-4">Product Highlights</h3>
+                        <div className="border-t pt-6 sm:pt-8">
+                            <h3 className="font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Product Highlights</h3>
                             <div className="grid sm:grid-cols-2 gap-4">
                                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                                     <Globe className="h-4 w-4" />

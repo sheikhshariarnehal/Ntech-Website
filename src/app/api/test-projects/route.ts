@@ -1,6 +1,10 @@
 import { createServerClient } from '@/lib/supabase/server-client';
 import { NextResponse } from 'next/server';
 
+// Force dynamic rendering for this API route
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
     try {
         console.log('=== Test Projects API ===');

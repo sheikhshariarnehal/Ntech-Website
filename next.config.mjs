@@ -13,6 +13,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'nehal.app',
+      },
+      {
+        protocol: 'https',
         hostname: 'example.com',
       },
       {

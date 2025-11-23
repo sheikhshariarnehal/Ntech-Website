@@ -3,6 +3,9 @@ import { TeamMemberList } from "@/features/team/components/team-member-list";
 import { getTeamMembers } from "@/features/team/api/getTeamMembers";
 import { Suspense } from "react";
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60;
+
 export const metadata = {
     title: "Our Team - Meet the Experts",
     description: "Meet the talented individuals driving innovation and excellence at our company. Our diverse team brings expertise across design, development, and AI.",

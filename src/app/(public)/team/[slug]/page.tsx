@@ -5,6 +5,9 @@ import { getTeamMemberBySlug } from "@/features/team/api/getTeamMemberBySlug";
 import { Badge } from "@/components/shared/badge";
 import { Button } from "@/components/ui/button";
 
+// Revalidate team member pages every hour
+export const revalidate = 3600;
+
 interface TeamMemberPageProps {
     params: {
         slug: string;

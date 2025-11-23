@@ -1,5 +1,8 @@
 import { getPosts } from '@/features/blog/api/getPosts';
 
+// Revalidate RSS feed every hour
+export const revalidate = 3600;
+
 export async function GET() {
     const posts = await getPosts();
     

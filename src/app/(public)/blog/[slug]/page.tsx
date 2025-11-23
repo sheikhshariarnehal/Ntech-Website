@@ -10,6 +10,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 
+// Revalidate blog posts every 10 minutes
+export const revalidate = 600;
+
 interface BlogPostPageProps {
     params: {
         slug: string;
