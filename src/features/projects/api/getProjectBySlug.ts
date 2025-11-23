@@ -1,5 +1,5 @@
 import { createServerClient } from '@/lib/supabase/server-client';
-import { Project } from './getProjects';
+import { Project } from '../types';
 
 export async function getProjectBySlug(slug: string): Promise<Project | null> {
     try {
@@ -9,28 +9,24 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
             .from('projects')
             .select('*')
             .eq('slug', slug)
+            .not('published_at', 'is', null)
             .single();
 
-        if (error || !data) {
+        if (error) {
             console.error('Error fetching project:', error);
             return null;
         }
 
-        // Transform the data to match the expected format
-        // Use type assertion to handle the Supabase query result
-        const project = data as any;
+        if (!data) {
+            console.log('No project found with slug:', slug);
+            return null;
+        }
+
+        console.log(`✅ Successfully fetched project: ${data.title}`);
         
-        return {
-            ...project,
-            tags: project.services_used || [],
-            summary: project.short_description || '',
-            client: project.client_name || '',
-            problem: project.full_description || '',
-            solution: project.full_description || '',
-            results: project.full_description || '',
-        };
+        return data as Project;
     } catch (error) {
-        console.error('Failed to fetch project:', error);
+        console.error('Exception in getProjectBySlug:', error);
         return null;
     }
 }

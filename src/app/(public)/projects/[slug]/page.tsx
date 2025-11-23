@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { Badge } from "@/components/shared/badge";
+import { Badge } from "@/components/ui/badge";
 import { getProjectBySlug } from "@/features/projects/api/getProjectBySlug";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -27,7 +27,7 @@ export async function generateMetadata({
 
     return {
         title: project.title,
-        description: project.summary,
+        description: project.short_description || project.full_description,
     };
 }
 
@@ -67,7 +67,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         </h1>
                         
                         <p className="text-xl text-muted-foreground max-w-3xl mb-6">
-                            {project.summary}
+                            {project.short_description}
                         </p>
                         
                         <div className="flex flex-wrap gap-3">
@@ -111,7 +111,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         {project.full_description && (
                             <section>
                                 <h2 className="text-3xl font-bold mb-4">About This Project</h2>
-                                <div className="prose prose-lg max-w-none">
+                                <div className="prose prose-lg max-w-none dark:prose-invert">
                                     <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
                                         {project.full_description}
                                     </p>
@@ -120,57 +120,24 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         )}
 
                         {/* Features/Highlights */}
-                        <section>
-                            <h2 className="text-3xl font-bold mb-6">Key Features</h2>
-                            <div className="grid sm:grid-cols-2 gap-4">
-                                {project.tags && project.tags.map((tag, index) => (
-                                    <Card key={tag} className="p-4 border-l-4 border-l-primary">
-                                        <div className="flex items-start gap-3">
-                                            <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                                            <div>
-                                                <h3 className="font-semibold mb-1">{tag}</h3>
-                                                <p className="text-sm text-muted-foreground">
-                                                    Built with modern {tag} technology
-                                                </p>
+                        {project.services_used && project.services_used.length > 0 && (
+                            <section>
+                                <h2 className="text-3xl font-bold mb-6">Technologies Used</h2>
+                                <div className="grid sm:grid-cols-2 gap-4">
+                                    {project.services_used.map((tech: string, index: number) => (
+                                        <Card key={index} className="p-4 border-l-4 border-l-primary">
+                                            <div className="flex items-start gap-3">
+                                                <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                                                <div>
+                                                    <h3 className="font-semibold mb-1">{tech}</h3>
+                                                    <p className="text-sm text-muted-foreground">
+                                                        Built with modern {tech} technology
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Card>
-                                ))}
-                            </div>
-                        </section>
-
-                        {/* Challenge & Solution */}
-                        {project.problem && project.problem !== project.full_description && (
-                            <section>
-                                <h2 className="text-3xl font-bold mb-4">The Challenge</h2>
-                                <Card className="p-6 bg-muted/50">
-                                    <p className="text-muted-foreground leading-relaxed">
-                                        {project.problem}
-                                    </p>
-                                </Card>
-                            </section>
-                        )}
-
-                        {project.solution && project.solution !== project.full_description && (
-                            <section>
-                                <h2 className="text-3xl font-bold mb-4">Our Solution</h2>
-                                <Card className="p-6 border-2 border-primary/20">
-                                    <p className="text-muted-foreground leading-relaxed">
-                                        {project.solution}
-                                    </p>
-                                </Card>
-                            </section>
-                        )}
-
-                        {/* Results */}
-                        {project.results && project.results !== project.full_description && (
-                            <section>
-                                <h2 className="text-3xl font-bold mb-4">Results & Impact</h2>
-                                <Card className="p-6 bg-primary/5 border-primary/20">
-                                    <p className="text-muted-foreground leading-relaxed">
-                                        {project.results}
-                                    </p>
-                                </Card>
+                                        </Card>
+                                    ))}
+                                </div>
                             </section>
                         )}
                     </div>
@@ -182,13 +149,13 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                             <h3 className="font-bold text-lg mb-4">Project Details</h3>
                             
                             <div className="space-y-4">
-                                {project.client && (
+                                {project.client_name && (
                                     <div>
                                         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
                                             <User className="w-4 h-4" />
                                             <span>Client</span>
                                         </div>
-                                        <p className="font-semibold">{project.client}</p>
+                                        <p className="font-semibold">{project.client_name}</p>
                                     </div>
                                 )}
 
@@ -207,15 +174,15 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                                     </div>
                                 )}
 
-                                {project.tags && project.tags.length > 0 && (
+                                {project.services_used && project.services_used.length > 0 && (
                                     <div>
                                         <div className="text-sm text-muted-foreground mb-2">
                                             Technologies
                                         </div>
                                         <div className="flex flex-wrap gap-2">
-                                            {project.tags.map((tag) => (
-                                                <Badge key={tag} variant="secondary" className="text-xs">
-                                                    {tag}
+                                            {project.services_used.map((tech: string, idx: number) => (
+                                                <Badge key={idx} variant="secondary" className="text-xs">
+                                                    {tech}
                                                 </Badge>
                                             ))}
                                         </div>
@@ -258,7 +225,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         <Card className="p-6 bg-primary text-primary-foreground">
                             <h3 className="font-bold text-lg mb-2">Interested in Similar Work?</h3>
                             <p className="text-sm mb-4 opacity-90">
-                                Let's discuss how we can help bring your project to life.
+                                Let&apos;s discuss how we can help bring your project to life.
                             </p>
                             <Button asChild variant="secondary" className="w-full">
                                 <Link href="/contact">

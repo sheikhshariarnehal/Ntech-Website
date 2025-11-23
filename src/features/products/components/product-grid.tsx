@@ -71,10 +71,10 @@ export function ProductGrid({ initialProducts }: ProductGridProps) {
     <div className="space-y-6 sm:space-y-8 md:space-y-10">
       {/* Search and Filter Section */}
       <div className="space-y-3 sm:space-y-4">
-        {/* Search Bar and Filter Dropdown - Side by Side */}
-        <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 max-w-5xl mx-auto">
+        {/* Search Bar and Filter Dropdown - Right Aligned */}
+        <div className="flex flex-col sm:flex-row sm:justify-end gap-2 sm:gap-3 md:gap-4">
           {/* Search Input */}
-          <div className="relative flex-1">
+          <div className="relative w-full sm:w-auto sm:min-w-[280px] md:min-w-[320px] lg:min-w-[380px]">
             <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 sm:h-5 w-4 sm:w-5 text-muted-foreground pointer-events-none" />
             <Input
               type="text"
@@ -86,7 +86,7 @@ export function ProductGrid({ initialProducts }: ProductGridProps) {
           </div>
 
           {/* Filter Dropdown */}
-          <div className="relative w-auto sm:min-w-[180px] md:min-w-[200px]" ref={dropdownRef}>
+          <div className="relative w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px]" ref={dropdownRef}>
             <button
               onClick={() => setShowFilters(!showFilters)}
               className="h-11 sm:h-12 px-3 sm:px-4 flex items-center justify-between gap-1.5 sm:gap-2 bg-background border border-border rounded-lg hover:border-primary transition-colors text-left whitespace-nowrap"

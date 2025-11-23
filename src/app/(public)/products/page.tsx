@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 
 export default function ProductsPage() {
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen">
             {/* Hero Header */}
-            <div className="relative border-b overflow-hidden bg-gradient-to-b from-primary/5 via-primary/3 to-background">
+            <div className="mt-16 sm:mt-20 md:mt-24">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
                     <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4 max-w-4xl mx-auto">
                         <Badge variant="outline" className="px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm rounded-full border-primary/30 bg-primary/10 text-primary font-medium">
@@ -53,7 +53,7 @@ export default function ProductsPage() {
             </div>
 
             {/* Products Section */}
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-12 lg:py-16">
                 <ProductList />
             </div>
         </div>
