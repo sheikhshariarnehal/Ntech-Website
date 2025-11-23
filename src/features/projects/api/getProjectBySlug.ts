@@ -10,7 +10,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
             .select('*')
             .eq('slug', slug)
             .not('published_at', 'is', null)
-            .single();
+            .single<Project>();
 
         if (error) {
             console.error('Error fetching project:', error);
@@ -24,7 +24,7 @@ export async function getProjectBySlug(slug: string): Promise<Project | null> {
 
         console.log(`✅ Successfully fetched project: ${data.title}`);
         
-        return data as Project;
+        return data;
     } catch (error) {
         console.error('Exception in getProjectBySlug:', error);
         return null;
