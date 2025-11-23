@@ -23,6 +23,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.example.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.icons8.com',
+      },
     ],
   },
 };

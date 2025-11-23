@@ -403,6 +403,7 @@ export type Database = {
       services: {
         Row: {
           created_at: string
+          features: string[] | null
           full_description: string | null
           icon: string | null
           id: string
@@ -418,6 +419,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          features?: string[] | null
           full_description?: string | null
           icon?: string | null
           id?: string
@@ -433,6 +435,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          features?: string[] | null
           full_description?: string | null
           icon?: string | null
           id?: string

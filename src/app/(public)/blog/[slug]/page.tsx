@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     };
 
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen pt-14 md:pt-16">
             {/* Structured Data for SEO */}
             <script
                 type="application/ld+json"
@@ -165,17 +165,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {/* Hero Section with Cover Image */}
             <section className="relative bg-gradient-to-br from-primary/5 via-background to-secondary/5 border-b">
-                <div className="container py-8">
-                    <Link href="/blog">
-                        <Button variant="ghost" size="sm" className="mb-4">
-                            <ArrowLeft className="h-4 w-4 mr-2" />
-                            Back to Blog
-                        </Button>
-                    </Link>
-                </div>
-                
                 {post.coverImageUrl && (
                     <div className="relative w-full h-[400px] md:h-[500px] bg-muted">
+                        <div className="container pt-8 pb-0 relative z-10">
+                            <Link href="/blog">
+                                <Button variant="ghost" size="sm" className="mb-4">
+                                    <ArrowLeft className="h-4 w-4 mr-2" />
+                                    Back to Blog
+                                </Button>
+                            </Link>
+                        </div>
                         <Image
                             src={post.coverImageUrl}
                             alt={post.title}
@@ -188,6 +187,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </div>
                 )}
 
+                {!post.coverImageUrl && (
+                    <div className="container pt-8 pb-0">
+                        <Link href="/blog">
+                            <Button variant="ghost" size="sm" className="mb-4">
+                                <ArrowLeft className="h-4 w-4 mr-2" />
+                                Back to Blog
+                            </Button>
+                        </Link>
+                    </div>
+                )}
+                
                 <div className="container pb-8">
                     <div className="max-w-4xl mx-auto text-center -mt-32 relative z-10">
                         <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-shadow">
