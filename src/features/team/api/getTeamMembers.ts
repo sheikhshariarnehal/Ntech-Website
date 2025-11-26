@@ -1,9 +1,9 @@
-import { createServerClient } from "@/lib/supabase/server-client";
+import { createPublicClient } from "@/lib/supabase/public-client";
 import { TeamMember } from "../types";
 
 export async function getTeamMembers(): Promise<TeamMember[]> {
     try {
-        const supabase = await createServerClient();
+        const supabase = createPublicClient();
         
         const { data, error } = await supabase
             .from('team')

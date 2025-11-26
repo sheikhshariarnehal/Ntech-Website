@@ -6,12 +6,20 @@ import { HomeBlog } from "@/components/sections/home-blog";
 import { HomeAbout } from "@/components/sections/home-about";
 import { HomeCTA } from "@/components/sections/home-cta";
 import { HomeTechnologies } from "@/components/sections/home-technologies";
+import { createClient } from "@/lib/supabase/server";
 
-export default function Home() {
+export default async function Home() {
+    const supabase = await createClient();
+    const { data: companies } = await supabase
+        .from('trusted_companies')
+        .select('*')
+        .eq('is_active', true)
+        .order('created_at', { ascending: false });
+
     return (
         <main className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/30 selection:text-foreground">
             <HomeHero />
-            <HomeClients />
+            <HomeClients companies={companies || []} />
             <HomeServices />
             <HomeProjects />
             <HomeTechnologies />

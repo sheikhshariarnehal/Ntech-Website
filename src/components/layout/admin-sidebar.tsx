@@ -16,6 +16,7 @@ import {
   MessageSquare,
   Settings,
   Globe,
+  Building2,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -31,6 +32,7 @@ const sidebarItems = [
       { href: "/admin/services", label: "Services", icon: Briefcase },
       { href: "/admin/products", label: "Products", icon: Package },
       { href: "/admin/projects", label: "Projects", icon: FolderKanban },
+      { href: "/admin/trusted-companies", label: "Trusted Companies", icon: Building2 },
       { href: "/admin/blog", label: "Blog", icon: FileText },
     ],
   },
