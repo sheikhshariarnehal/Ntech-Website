@@ -12,7 +12,7 @@ export default async function Home() {
     const supabase = await createClient();
     const { data: companies } = await supabase
         .from('trusted_companies')
-        .select('*')
+        .select('id, name, logo_url, website_url')
         .eq('is_active', true)
         .order('created_at', { ascending: false });
 
