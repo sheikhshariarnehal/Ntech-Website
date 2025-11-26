@@ -32,7 +32,6 @@ export async function PUT(
   
   const { data, error } = await supabase
     .from('products')
-    // @ts-expect-error - products table type inference issue
     .update(body)
     .eq('id', params.id)
     .select()

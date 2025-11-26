@@ -711,7 +711,6 @@ export default function SettingsPage() {
 
     const { error } = await supabase
       .from('site_settings')
-      // @ts-expect-error - site_settings table type not in generated types
       .update({
         ...formData,
         updated_at: new Date().toISOString(),

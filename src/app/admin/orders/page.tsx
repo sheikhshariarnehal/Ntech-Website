@@ -106,7 +106,6 @@ export default function OrdersPage() {
   async function updateOrderStatus(id: string, newStatus: string) {
     const { error } = await supabase
       .from('orders')
-      // @ts-expect-error - Supabase type inference issue
       .update({ status: newStatus, updated_at: new Date().toISOString() })
       .eq('id', id);
 

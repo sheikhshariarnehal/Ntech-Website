@@ -8,7 +8,7 @@ export default function NewTrustedCompanyPage() {
     <div className="space-y-6">
       <PageHeader
         title="Add Trusted Company"
-        description="Add a new company to the trusted list."
+        subtitle="Add a new company to the trusted list."
       />
       <TrustedCompanyForm />
     </div>

@@ -53,8 +53,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
         notFound();
     }
 
-    const formatPrice = (price: string, interval: string) => {
-        const numPrice = parseFloat(price);
+    const formatPrice = (price: string | number, interval: string) => {
+        const numPrice = typeof price === 'string' ? parseFloat(price) : price;
         const formattedPrice = new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',

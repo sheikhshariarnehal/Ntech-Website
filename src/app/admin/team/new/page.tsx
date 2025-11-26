@@ -104,7 +104,6 @@ export default function NewTeamMemberPage() {
 
     const { error } = await supabase
       .from('team')
-      // @ts-expect-error - team table type not in generated types
       .insert([{
         ...formData,
         image_url: imageUrl,

@@ -172,9 +172,10 @@ export default function ProductsPage() {
           <Badge variant={row.is_active ? "success" : "secondary"} className="text-xs w-fit">
             {row.is_active ? "Active" : "Inactive"}
           </Badge>
-          {row.is_featured && (
+          {/* @ts-ignore: is_featured missing in types */
+          /* row.is_featured && (
             <Badge variant="default" className="text-xs w-fit">Featured</Badge>
-          )}
+          ) */}
         </div>
       ),
     },

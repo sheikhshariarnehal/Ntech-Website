@@ -114,7 +114,6 @@ export default function TeamPage() {
   async function toggleActive(id: string, currentStatus: boolean) {
     const { error } = await supabase
       .from('team')
-      // @ts-expect-error - team table type not in generated types
       .update({ is_active: !currentStatus, updated_at: new Date().toISOString() })
       .eq('id', id);
 

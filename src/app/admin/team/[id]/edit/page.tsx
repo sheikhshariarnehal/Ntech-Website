@@ -67,7 +67,7 @@ export default function EditTeamMemberPage() {
     const { data, error } = await supabase
       .from('team')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', params.id as string)
       .single();
 
     if (!error && data) {
@@ -172,7 +172,6 @@ export default function EditTeamMemberPage() {
 
     const { error } = await supabase
       .from('team')
-      // @ts-expect-error - team table type not in generated types
       .update({
         ...formData,
         image_url: imageUrl,

@@ -17,8 +17,8 @@ export function ProductCard({ product }: ProductCardProps) {
     return 'One-time';
   };
 
-  const formatPrice = (price: string) => {
-    const numPrice = parseFloat(price);
+  const formatPrice = (price: string | number) => {
+    const numPrice = typeof price === 'string' ? parseFloat(price) : price;
     return new Intl.NumberFormat('en-BD').format(numPrice);
   };
 

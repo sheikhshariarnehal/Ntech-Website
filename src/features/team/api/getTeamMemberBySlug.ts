@@ -5,12 +5,15 @@ export async function getTeamMemberBySlug(slug: string): Promise<TeamMember | nu
     try {
         const supabase = await createServerClient();
         
-        const { data, error } = await supabase
+        // @ts-ignore - Supabase type instantiation is excessively deep
+        const query = supabase
             .from('team')
             .select('*')
             .eq('slug', slug)
             .eq('is_active', true)
             .single();
+
+        const { data, error } = await query;
 
         if (error) {
             console.error('Error fetching team member:', error);

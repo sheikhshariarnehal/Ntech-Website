@@ -30,8 +30,6 @@ interface CustomerWithOrders extends Profile {
   order_count: number;
   total_spent: number;
   last_order_date: string | null;
-  email?: string;
-  phone?: string;
 }
 
 export default function CustomersPage() {

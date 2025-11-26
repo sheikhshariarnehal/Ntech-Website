@@ -47,7 +47,7 @@ export default function EditTrustedCompanyPage({ params }: { params: { id: strin
     <div className="space-y-6">
       <PageHeader
         title="Edit Trusted Company"
-        description={`Edit details for ${company.name}`}
+        subtitle={`Edit details for ${company.name}`}
       />
       <TrustedCompanyForm initialData={company} />
     </div>

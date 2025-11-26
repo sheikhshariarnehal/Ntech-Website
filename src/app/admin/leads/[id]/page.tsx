@@ -69,7 +69,7 @@ export default function LeadDetailPage() {
     const { data, error } = await supabase
       .from('contact_submissions')
       .select('*')
-      .eq('id', params.id)
+      .eq('id', params.id as string)
       .single();
 
     if (!error && data) {
@@ -88,7 +88,6 @@ export default function LeadDetailPage() {
     
     const { error } = await supabase
       .from('contact_submissions')
-      // @ts-expect-error - contact_submissions table type not fully generated in Supabase
       .update({
         status,
         notes,

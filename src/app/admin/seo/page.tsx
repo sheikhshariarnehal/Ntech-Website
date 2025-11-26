@@ -68,7 +68,6 @@ export default function SEOPage() {
 
     const { error } = await supabase
       .from('site_settings')
-      // @ts-expect-error - site_settings table type not in generated types
       .update({
         default_seo_title: formData.default_seo_title || null,
         default_seo_description: formData.default_seo_description || null,

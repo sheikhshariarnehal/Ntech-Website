@@ -16,5 +16,5 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
     return null;
   }
 
-  return data;
+  return data as unknown as Product;
 }

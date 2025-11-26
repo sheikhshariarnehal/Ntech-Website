@@ -4,7 +4,7 @@ export interface Product {
   name: string;
   short_description: string | null;
   full_description: string | null;
-  price: string;
+  price: number;
   billing_interval: 'one_time' | 'monthly' | 'yearly';
   stock: number | null;
   is_active: boolean;
