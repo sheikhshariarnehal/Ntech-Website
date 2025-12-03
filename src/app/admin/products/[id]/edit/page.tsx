@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Button } from "@/components/ui/button";
-import { Button } from "@/components/ui/button";
 import { ProductForm } from "@/components/forms/product-form";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
