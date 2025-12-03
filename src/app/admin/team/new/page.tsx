@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -126,7 +126,7 @@ export default function NewTeamMemberPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <PageHeader 
+          <AdminPageHeader 
             title="Add Team Member" 
             subtitle="Create a new team member profile"
           />

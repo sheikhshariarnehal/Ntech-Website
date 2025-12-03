@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
-import { Card } from "@/components/ui/card";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
+import { Button } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
 import { ProductForm } from "@/components/forms/product-form";
 import { createClient } from "@/lib/supabase/client";
@@ -92,7 +92,7 @@ export default function EditProductPage() {
     return (
       <>
         <div className="flex items-center justify-between mb-6 gap-4">
-          <PageHeader title="Edit Product" subtitle="Loading..." />
+          <AdminPageHeader title="Edit Product" subtitle="Loading..." />
           <Button variant="outline" onClick={() => router.push("/admin/products")} className="gap-2 flex-shrink-0">
             <ArrowLeft className="h-4 w-4" />
             <span className="hidden sm:inline">Back to Products</span>
@@ -109,7 +109,7 @@ export default function EditProductPage() {
   return (
     <>
       <div className="flex items-center justify-between mb-6 gap-4">
-        <PageHeader title="Edit Product" subtitle="Update product information." />
+        <AdminPageHeader title="Edit Product" subtitle="Update product information." />
         <Button variant="outline" onClick={() => router.push("/admin/products")} className="gap-2 flex-shrink-0">
           <ArrowLeft className="h-4 w-4" />
           <span className="hidden sm:inline">Back to Products</span>

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -163,7 +163,7 @@ export default function EditProjectPage() {
   if (fetching) {
     return (
       <>
-        <PageHeader title="Edit Project" subtitle="Loading..." />
+        <AdminPageHeader title="Edit Project" subtitle="Loading..." />
         <Card className="p-8 text-center">
           <p className="text-muted-foreground">Loading project data...</p>
         </Card>
@@ -174,7 +174,7 @@ export default function EditProjectPage() {
   return (
     <>
       <div className="flex items-center justify-between mb-6">
-        <PageHeader title="Edit Project" subtitle="Update project information." />
+        <AdminPageHeader title="Edit Project" subtitle="Update project information." />
         <Button variant="outline" size="sm" asChild className="flex-shrink-0">
           <Link href="/admin/projects" className="flex items-center">
             <ArrowLeft className="h-4 w-4 mr-2" />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -112,7 +112,7 @@ export default function OrderDetailPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Order Details" subtitle="Loading..." />
+        <AdminPageHeader title="Order Details" subtitle="Loading..." />
         <Card className="p-8 text-center">
           <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-2" />
           <p className="text-muted-foreground">Loading order details...</p>
@@ -124,7 +124,7 @@ export default function OrderDetailPage() {
   if (!order) {
     return (
       <>
-        <PageHeader title="Order Not Found" subtitle="This order does not exist." />
+        <AdminPageHeader title="Order Not Found" subtitle="This order does not exist." />
         <Card className="p-8 text-center">
           <p className="text-muted-foreground mb-4">Order not found</p>
           <Button asChild>
@@ -142,7 +142,7 @@ export default function OrderDetailPage() {
     <>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <PageHeader 
+        <AdminPageHeader 
           title={`Order #${order.id.slice(0, 8)}`} 
           subtitle={`Created on ${new Date(order.created_at).toLocaleDateString()}`}
         />

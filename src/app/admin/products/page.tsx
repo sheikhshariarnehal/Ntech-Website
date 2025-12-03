@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/shared/data-table";
@@ -214,7 +214,7 @@ export default function ProductsPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Products" subtitle="Manage your digital products and subscriptions." />
+        <AdminPageHeader title="Products" subtitle="Manage your digital products and subscriptions." />
         
         {/* Stats Skeleton */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -241,7 +241,7 @@ export default function ProductsPage() {
     <>
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <PageHeader 
+        <AdminPageHeader 
           title="Products" 
           subtitle={`Manage your digital products and subscriptions. ${products.length} total products.`} 
         />

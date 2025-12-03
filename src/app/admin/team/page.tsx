@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/shared/data-table";
 import { Badge } from "@/components/ui/badge";
@@ -270,7 +270,7 @@ export default function TeamPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Team Members" subtitle="Manage your team members." />
+        <AdminPageHeader title="Team Members" subtitle="Manage your team members." />
         <Card className="p-8 text-center">
           <div className="flex items-center justify-center gap-2">
             <RefreshCw className="h-5 w-5 animate-spin" />
@@ -286,7 +286,7 @@ export default function TeamPage() {
       {/* Header Section */}
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-          <PageHeader 
+          <AdminPageHeader 
             title="Team Members" 
             subtitle={`Manage your team members. ${teamMembers.length} total members.`} 
           />

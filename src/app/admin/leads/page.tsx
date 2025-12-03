@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/shared/data-table";
 import { Badge } from "@/components/ui/badge";
@@ -313,7 +313,7 @@ export default function LeadsPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Leads" subtitle="Manage contact form submissions." />
+        <AdminPageHeader title="Leads" subtitle="Manage contact form submissions." />
         <Card className="p-8 text-center">
           <div className="flex items-center justify-center gap-2">
             <RefreshCw className="h-5 w-5 animate-spin" />
@@ -328,7 +328,7 @@ export default function LeadsPage() {
     <>
       {/* Header Section */}
       <div className="mb-6">
-        <PageHeader 
+        <AdminPageHeader 
           title="Leads & Contact Submissions" 
           subtitle={`Manage all contact form submissions. ${leads.length} total leads.`} 
         />

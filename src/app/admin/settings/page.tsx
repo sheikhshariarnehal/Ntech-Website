@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -736,7 +736,7 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Site Settings" subtitle="Manage general site settings." />
+        <AdminPageHeader title="Site Settings" subtitle="Manage general site settings." />
         <Card className="p-8 text-center">
           <div className="flex items-center justify-center gap-2">
             <RefreshCw className="h-5 w-5 animate-spin" />
@@ -749,7 +749,7 @@ export default function SettingsPage() {
 
   return (
     <>
-      <PageHeader 
+      <AdminPageHeader 
         title="Site Settings" 
         subtitle="Configure general site information, branding, and features" 
       />

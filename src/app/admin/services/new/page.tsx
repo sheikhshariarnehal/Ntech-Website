@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,7 +78,7 @@ export default function NewServicePage() {
   return (
     <>
       <div className="flex items-center justify-between mb-6 gap-4">
-        <PageHeader title="Add New Service" subtitle="Create a new service offering." />
+        <AdminPageHeader title="Add New Service" subtitle="Create a new service offering." />
         <Button variant="outline" onClick={() => router.push("/admin/services")} className="gap-2 flex-shrink-0">
           <ArrowLeft className="h-4 w-4" />
           <span className="hidden sm:inline">Back to Services</span>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -123,7 +123,7 @@ export default function BlogPage() {
   return (
     <>
       <div className="flex items-center justify-between mb-6">
-        <PageHeader
+        <AdminPageHeader
           title="Blog Posts"
           subtitle="Create and manage your blog content"
         />

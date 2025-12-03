@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -257,7 +257,7 @@ export default function OrdersPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Orders" subtitle="Manage customer orders and payments." />
+        <AdminPageHeader title="Orders" subtitle="Manage customer orders and payments." />
         <Card className="p-8 text-center">
           <div className="flex items-center justify-center gap-2">
             <RefreshCw className="h-5 w-5 animate-spin" />
@@ -272,7 +272,7 @@ export default function OrdersPage() {
     <>
       {/* Header Section */}
       <div className="mb-6">
-        <PageHeader 
+        <AdminPageHeader 
           title="Orders" 
           subtitle={`Manage customer orders and payments. ${orders.length} total orders.`} 
         />

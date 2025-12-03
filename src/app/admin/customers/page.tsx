@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { DataTable } from "@/components/shared/data-table";
 import { Badge } from "@/components/ui/badge";
@@ -239,7 +239,7 @@ export default function CustomersPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Customers" subtitle="Manage your customer base." />
+        <AdminPageHeader title="Customers" subtitle="Manage your customer base." />
         <Card className="p-8 text-center">
           <div className="flex items-center justify-center gap-2">
             <RefreshCw className="h-5 w-5 animate-spin" />
@@ -254,7 +254,7 @@ export default function CustomersPage() {
     <>
       {/* Header Section */}
       <div className="mb-6">
-        <PageHeader 
+        <AdminPageHeader 
           title="Customers" 
           subtitle={`Manage your customer base. ${customers.length} registered users.`} 
         />

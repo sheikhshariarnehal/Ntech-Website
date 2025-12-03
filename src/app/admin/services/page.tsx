@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -184,7 +184,7 @@ export default function ServicesPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Services" subtitle="Manage your service offerings." />
+        <AdminPageHeader title="Services" subtitle="Manage your service offerings." />
         
         {/* Stats Skeleton */}
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -211,7 +211,7 @@ export default function ServicesPage() {
     <>
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <PageHeader 
+        <AdminPageHeader 
           title="Services" 
           subtitle={`Manage your service offerings. ${services.length} total services.`} 
         />

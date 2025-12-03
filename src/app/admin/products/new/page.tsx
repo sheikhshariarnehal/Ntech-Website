@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Button } from "@/components/ui/button";
 import { ProductForm } from "@/components/forms/product-form";
 import { createClient } from "@/lib/supabase/client";
@@ -47,7 +47,7 @@ export default function NewProductPage() {
   return (
     <>
       <div className="flex items-center justify-between mb-6 gap-4">
-        <PageHeader title="Add New Product" subtitle="Create a new digital product." />
+        <AdminPageHeader title="Add New Product" subtitle="Create a new digital product." />
         <Button variant="outline" onClick={() => router.push("/admin/products")} className="gap-2 flex-shrink-0">
           <ArrowLeft className="h-4 w-4" />
           <span className="hidden sm:inline">Back to Products</span>

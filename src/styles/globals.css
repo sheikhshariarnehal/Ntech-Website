@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* Subtle, slow animations for a professional feel */
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
@@ -10,12 +11,12 @@
   
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+    50% { transform: translateY(-10px); } /* Reduced movement */
   }
   
-  @keyframes pulse-glow {
+  @keyframes pulse-subtle {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+    50% { opacity: 0.8; }
   }
   
   @keyframes gradient-shift {
@@ -26,37 +27,44 @@
 }
 
 :root {
-  /* Dark mode by default variables (Slate 950 base) */
-  --background: 222.2 84% 4.9%;
+  /* --- THEME: CORPORATE NAVY (Dark Mode) --- */
+  
+  /* Background: Deep Slate Blue (Professional Dark) */
+  --background: 222 47% 11%;
   --foreground: 210 40% 98%;
 
-  --card: 222.2 84% 4.9%;
+  /* Card: Slightly lighter slate */
+  --card: 217 33% 17%;
   --card-foreground: 210 40% 98%;
 
-  --popover: 222.2 84% 4.9%;
+  --popover: 222 47% 11%;
   --popover-foreground: 210 40% 98%;
 
-  /* Electric Blue / Purple Accents */
-  --primary: 252 87% 67%; /* Violet-ish Blue */
+  /* Primary: Trustworthy Royal Blue */
+  --primary: 221 83% 53%; 
   --primary-foreground: 210 40% 98%;
 
-  --secondary: 217.2 32.6% 17.5%;
+  /* Secondary: Neutral cool grey */
+  --secondary: 217 32% 25%;
   --secondary-foreground: 210 40% 98%;
 
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
+  --muted: 217 32% 17%;
+  --muted-foreground: 215 20% 65%;
 
-  --accent: 217.2 32.6% 17.5%;
+  --accent: 217 32% 25%;
   --accent-foreground: 210 40% 98%;
 
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 252 87% 67%;
+  --border: 217 32% 25%;
+  --input: 217 32% 25%;
+  
+  /* Ring matches Primary, but subtle */
+  --ring: 224 76% 48%; 
 
-  --radius: 0.5rem;
+  /* Sharper corners imply precision/professionalism */
+  --radius: 0.3rem; 
 }
 
 @layer base {
@@ -68,76 +76,69 @@
     scroll-behavior: smooth;
   }
   
-  /* Force dark mode styles since we want dark mode default */
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased font-sans;
+    /* Improved font rendering for text-heavy pages */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
   }
 
+  /* Formal Typography */
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', sans-serif;
-    letter-spacing: -0.025em;
+    @apply tracking-tight font-medium; /* Less bold, more refined */
   }
   
-  /* Enhanced focus states */
+  /* Professional Selection Color */
+  ::selection {
+    @apply bg-primary/40 text-white;
+  }
+
   *:focus-visible {
     @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
   }
 }
 
 @layer utilities {
-  /* Glow effects */
-  .glow-text {
-    text-shadow: 0 0 20px hsla(252, 87%, 67%, 0.5);
+  /* --- REFINED UTILITIES --- */
+
+  /* Subtle Shadow (Replacing Glow) */
+  .shadow-pro {
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
   }
 
-  .glow-box {
-    box-shadow: 0 0 40px -10px hsla(252, 87%, 67%, 0.2);
-  }
-  
-  /* Glass morphism */
+  /* Professional Glass - Matte finish */
   .glass {
-    @apply bg-slate-900/50 backdrop-blur-xl border border-slate-800/50;
+    @apply bg-slate-900/70 backdrop-blur-md border border-slate-700/50;
   }
   
   .glass-strong {
-    @apply bg-slate-900/80 backdrop-blur-2xl border border-slate-700/50;
+    @apply bg-slate-800/90 backdrop-blur-xl border border-slate-600/50;
   }
   
-  /* Gradient text */
+  /* Elegant Gradient Text (Silver/Blue) */
   .gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-400 to-pink-400;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400;
   }
   
-  /* Hover lift effect */
+  /* Hover lift effect - Subtle */
   .hover-lift {
-    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl;
+    @apply transition-transform duration-300 hover:-translate-y-1;
   }
   
-  /* Smooth transitions */
   .transition-smooth {
     @apply transition-all duration-300 ease-in-out;
   }
   
   /* Animations */
   .animate-float {
-    animation: float 6s ease-in-out infinite;
+    animation: float 8s ease-in-out infinite; /* Slower */
   }
   
-  .animate-pulse-glow {
-    animation: pulse-glow 3s ease-in-out infinite;
+  .animate-pulse-subtle {
+    animation: pulse-subtle 4s ease-in-out infinite;
   }
   
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
-  }
-  
-  /* Hide scrollbar but keep functionality */
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

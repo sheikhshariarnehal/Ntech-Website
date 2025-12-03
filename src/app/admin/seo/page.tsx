@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -96,7 +96,7 @@ export default function SEOPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="SEO Settings" subtitle="Manage your site's SEO." />
+        <AdminPageHeader title="SEO Settings" subtitle="Manage your site's SEO." />
         <Card className="p-8 text-center">
           <p className="text-muted-foreground">Loading...</p>
         </Card>
@@ -106,7 +106,7 @@ export default function SEOPage() {
 
   return (
     <>
-      <PageHeader 
+      <AdminPageHeader 
         title="SEO Settings" 
         subtitle="Configure global SEO defaults and schema" 
       />

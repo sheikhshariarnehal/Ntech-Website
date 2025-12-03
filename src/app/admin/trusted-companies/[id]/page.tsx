@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { TrustedCompanyForm } from "@/components/forms/trusted-company-form";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
@@ -45,7 +45,7 @@ export default function EditTrustedCompanyPage({ params }: { params: { id: strin
 
   return (
     <div className="space-y-6">
-      <PageHeader
+      <AdminPageHeader
         title="Edit Trusted Company"
         subtitle={`Edit details for ${company.name}`}
       />

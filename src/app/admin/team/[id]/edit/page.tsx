@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { useRouter, useParams } from "next/navigation";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -216,7 +216,7 @@ export default function EditTeamMemberPage() {
   if (!member) {
     return (
       <>
-        <PageHeader title="Team Member Not Found" subtitle="The requested team member could not be found." />
+        <AdminPageHeader title="Team Member Not Found" subtitle="The requested team member could not be found." />
         <Card className="p-8 text-center">
           <p className="text-muted-foreground mb-4">This team member may have been deleted or does not exist.</p>
           <Button asChild>
@@ -235,7 +235,7 @@ export default function EditTeamMemberPage() {
       {/* Header */}
       <div className="mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <PageHeader 
+          <AdminPageHeader 
             title={`Edit: ${member.name}`}
             subtitle="Update team member information"
           />

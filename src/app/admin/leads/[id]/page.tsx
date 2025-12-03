@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -122,7 +122,7 @@ export default function LeadDetailPage() {
   if (!lead) {
     return (
       <>
-        <PageHeader title="Lead Not Found" subtitle="The requested lead could not be found." />
+        <AdminPageHeader title="Lead Not Found" subtitle="The requested lead could not be found." />
         <Card className="p-8 text-center">
           <p className="text-muted-foreground mb-4">This lead may have been deleted or does not exist.</p>
           <Button asChild>
@@ -152,7 +152,7 @@ export default function LeadDetailPage() {
         
         <div className="flex items-start justify-between">
           <div>
-            <PageHeader 
+            <AdminPageHeader 
               title={lead.name}
               subtitle={lead.company ? `From ${lead.company}` : "Contact Submission"}
             />

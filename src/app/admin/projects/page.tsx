@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -95,7 +95,7 @@ export default function ProjectsPage() {
     if (loading) {
         return (
             <>
-                <PageHeader title="Projects" subtitle="Manage your portfolio projects." />
+                <AdminPageHeader title="Projects" subtitle="Manage your portfolio projects." />
                 <Card className="p-8 text-center">
                     <div className="flex items-center justify-center gap-2">
                         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
@@ -109,7 +109,7 @@ export default function ProjectsPage() {
     return (
         <>
             <div className="flex items-center justify-between mb-6">
-                <PageHeader title="Projects" subtitle="Manage your portfolio projects." />
+                <AdminPageHeader title="Projects" subtitle="Manage your portfolio projects." />
                 <Button asChild>
                     <Link href="/admin/projects/new" className="flex items-center">
                         <Plus className="h-4 w-4 mr-2" />

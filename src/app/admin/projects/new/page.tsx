@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -139,7 +139,7 @@ export default function NewProjectPage() {
   return (
     <>
       <div className="flex items-center justify-between mb-6">
-        <PageHeader title="Add New Project" subtitle="Create a new portfolio project." />
+        <AdminPageHeader title="Add New Project" subtitle="Create a new portfolio project." />
         <Button variant="outline" size="sm" asChild className="flex-shrink-0">
           <Link href="/admin/projects" className="flex items-center">
             <ArrowLeft className="h-4 w-4 mr-2" />

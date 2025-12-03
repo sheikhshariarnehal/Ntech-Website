@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -132,7 +132,7 @@ export default function CustomerDetailPage() {
   if (loading) {
     return (
       <>
-        <PageHeader title="Customer Details" subtitle="Loading..." />
+        <AdminPageHeader title="Customer Details" subtitle="Loading..." />
         <Card className="p-8 text-center">
           <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-2" />
           <p className="text-muted-foreground">Loading customer data...</p>
@@ -144,7 +144,7 @@ export default function CustomerDetailPage() {
   if (!customer) {
     return (
       <>
-        <PageHeader title="Customer Not Found" subtitle="This customer does not exist." />
+        <AdminPageHeader title="Customer Not Found" subtitle="This customer does not exist." />
         <Card className="p-8 text-center">
           <p className="text-muted-foreground mb-4">Customer not found</p>
           <Button asChild>
@@ -161,7 +161,7 @@ export default function CustomerDetailPage() {
     <>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <PageHeader 
+        <AdminPageHeader 
           title={customer.full_name || 'Customer Details'} 
           subtitle={customer.email || ''}
         />

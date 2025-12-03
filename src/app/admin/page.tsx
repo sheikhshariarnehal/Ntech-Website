@@ -1,5 +1,5 @@
 
-import { PageHeader } from "@/components/shared/page-header";
+import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Metadata } from "next";
 import { createServerClient } from "@/lib/supabase/server-client";
 import {
@@ -145,9 +145,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div className="flex items-center justify-between">
-        <PageHeader title="Dashboard" subtitle="Welcome back! Here's an overview of your business." />
-      </div>
+      <AdminPageHeader title="Dashboard" subtitle="Welcome back! Here's an overview of your business." />
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
