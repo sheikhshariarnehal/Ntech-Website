@@ -6,8 +6,8 @@ import { CheckCircle2 } from "lucide-react";
 
 export function HomeAbout() {
     return (
-        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background relative overflow-hidden px-4 sm:px-6">
-            <div className="container mx-auto">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background relative overflow-hidden">
+            <div className="container">
                 <div className="flex flex-col lg:flex-row items-center gap-8 sm:gap-12 lg:gap-16">
                     
                     {/* Text Content */}

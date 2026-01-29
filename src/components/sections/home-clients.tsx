@@ -14,7 +14,7 @@ export function HomeClients({ companies }: HomeClientsProps) {
 
     return (
         <section className="py-8 sm:py-10 md:py-12 bg-background border-y border-border overflow-hidden" aria-label="Trusted Companies">
-            <div className="container mx-auto text-center mb-6 sm:mb-8 px-4 sm:px-6">
+            <div className="container text-center mb-6 sm:mb-8">
                 <p className="text-sm font-medium text-muted-foreground/70 uppercase tracking-widest">Trusted by innovative companies</p>
             </div>
             

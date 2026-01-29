@@ -17,7 +17,7 @@ export default async function Home() {
         .order('created_at', { ascending: false });
 
     return (
-        <main className="min-h-screen bg-background text-foreground overflow-x-hidden font-sans selection:bg-primary/30 selection:text-foreground">
+        <>
             <HomeHero />
             <HomeClients companies={companies || []} />
             <HomeServices />
@@ -26,6 +26,6 @@ export default async function Home() {
             <HomeAbout />
             <HomeBlog />
             <HomeCTA />
-        </main>
+        </>
     );
 }

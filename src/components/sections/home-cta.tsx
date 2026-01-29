@@ -7,12 +7,12 @@ import { ArrowRight } from "lucide-react";
 
 export function HomeCTA() {
     return (
-        <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-background relative overflow-hidden px-4 sm:px-6">
+        <section className="py-16 sm:py-20 md:py-24 lg:py-32 bg-background relative overflow-hidden">
             {/* Background Gradients */}
             <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background pointer-events-none" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] bg-primary/10 rounded-full blur-[100px] mix-blend-screen pointer-events-none" />
 
-            <div className="container mx-auto relative z-10 text-center">
+            <div className="container relative z-10 text-center">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

@@ -33,7 +33,7 @@ export function HomeBlogClient({ posts }: HomeBlogClientProps) {
 
     return (
         <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background border-t border-border">
-            <div className="container mx-auto px-4 sm:px-6">
+            <div className="container">
                 <div className="flex items-end justify-between mb-8 sm:mb-10 md:mb-12">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground">Latest Insights</h2>
                     <Button variant="link" className="text-primary hidden md:flex" asChild>

@@ -20,8 +20,8 @@ interface HomeProjectsClientProps {
 
 export function HomeProjectsClient({ projects }: HomeProjectsClientProps) {
     return (
-        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background border-t border-border px-4 sm:px-6">
-            <div className="container mx-auto">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background border-t border-border">
+            <div className="container">
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 md:mb-16 gap-4 sm:gap-6">
                     <div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground mb-3 sm:mb-4">Featured Projects</h2>

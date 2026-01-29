@@ -55,8 +55,8 @@ const SERVICE_STYLES: Record<string, { color: string; gradient: string; icon: an
 
 export function HomeServicesClient({ services }: HomeServicesClientProps) {
     return (
-        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background relative px-4 sm:px-6" id="services">
-            <div className="container mx-auto">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background relative" id="services">
+            <div className="container">
                 <div className="text-center mb-10 sm:mb-12 md:mb-16">
                     <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold font-display text-foreground mb-3 sm:mb-4">Our Expertise</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base md:text-lg px-4">
