@@ -11,12 +11,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const formatBillingType = (interval: string) => {
-    if (interval === 'monthly') return 'Monthly';
-    if (interval === 'yearly') return 'Yearly';
-    return 'One-time';
-  };
-
   const formatPrice = (price: string | number) => {
     const numPrice = typeof price === 'string' ? parseFloat(price) : price;
     return new Intl.NumberFormat('en-BD').format(numPrice);

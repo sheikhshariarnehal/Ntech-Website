@@ -19,7 +19,7 @@ interface BlogFormDialogProps {
   post?: PostWithAuthor;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSave: (post: any) => Promise<void>;
+  onSave: (post: Partial<PostWithAuthor> & { title: string; content: string; slug: string }) => Promise<void>;
 }
 
 export function BlogFormDialog({

@@ -7,12 +7,9 @@ import {
   Package,
   ShoppingCart,
   FileText,
-  TrendingUp,
   Users,
   Plus,
-  ArrowUpRight,
-  Activity,
-  CreditCard
+  ArrowUpRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -37,8 +34,7 @@ async function getDashboardStats() {
   const { data: paidOrders } = await supabase
     .from('orders')
     .select('total_amount, created_at')
-    .eq('status', 'paid')
-    .returns<any[]>();
+    .eq('status', 'paid');
 
   const totalRevenue = paidOrders?.reduce((sum, order) => sum + Number(order.total_amount), 0) || 0;
 
@@ -189,8 +185,8 @@ export default async function AdminDashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-8">
-              {stats.recentOrders.map((order: any) => (
-                <div key={order.id} className="flex items-center">
+              {stats.recentOrders.map((order) => (
+                <div key={order.id} className="flex items-center">)
                   <div className="ml-4 space-y-1">
                     <p className="text-sm font-medium leading-none">
                       {order.customer?.full_name || order.customer?.email || 'Unknown Customer'}
@@ -202,7 +198,7 @@ export default async function AdminDashboardPage() {
                   <div className="ml-auto font-medium">
                     +${Number(order.total_amount).toFixed(2)}
                   </div>
-                  <Badge variant={getStatusColor(order.status) as any} className="ml-4">
+                  <Badge variant={getStatusColor(order.status) as "default" | "secondary" | "destructive" | "outline"} className="ml-4">
                     {order.status}
                   </Badge>
                 </div>

@@ -5,13 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { 
     Menu, X, Sparkles, ChevronDown, Code, Bot, ShoppingBag, 
-    Briefcase, Users, Info, Mail, Zap, Rocket, CreditCard,
-    Smartphone, Palette, LineChart, Globe, Wand2, Shield,
-    Video, Image as ImageIcon, FileText, Star, ArrowRight
+    Briefcase, Zap, Rocket,
+    Smartphone, Palette, LineChart, Wand2,
+    Video, Image as ImageIcon, ArrowRight
 } from "lucide-react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { ThemeToggle, ThemeToggleCompact } from "@/components/ui/theme-toggle";
 
 // --- Utility Functions ---
 function cn(...inputs: ClassValue[]) {
@@ -20,7 +21,7 @@ function cn(...inputs: ClassValue[]) {
 
 // --- Types ---
 interface MegaMenuItem {
-    icon: any;
+    icon: React.ComponentType<{ className?: string }>;
     label: string;
     href: string;
     description: string;
@@ -38,7 +39,7 @@ interface MegaMenuCTA {
     description: string;
     buttonText: string;
     buttonHref: string;
-    icon: any;
+    icon: React.ComponentType<{ className?: string }>;
 }
 
 interface MegaMenuData {
@@ -354,6 +355,7 @@ export function MainHeader() {
 
                     {/* Desktop CTA */}
                     <div className="hidden lg:flex items-center gap-3 relative z-50">
+                        <ThemeToggle />
                         <Link href="/auth/login">
                             <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground font-medium">
                                 Login
@@ -367,18 +369,21 @@ export function MainHeader() {
                     </div>
 
                     {/* Mobile Menu Toggle */}
-                    <motion.button
-                        whileTap={{ scale: 0.95 }}
-                        className="flex items-center justify-center p-2 lg:hidden hover:bg-secondary/50 rounded-full transition-colors relative z-50"
-                        onClick={toggleMenu}
-                        aria-label="Toggle menu"
-                    >
-                        {isMenuOpen ? (
-                            <X className="h-5 w-5 text-foreground" />
-                        ) : (
-                            <Menu className="h-5 w-5 text-foreground" />
-                        )}
-                    </motion.button>
+                    <div className="flex items-center gap-2 lg:hidden">
+                        <ThemeToggleCompact />
+                        <motion.button
+                            whileTap={{ scale: 0.95 }}
+                            className="flex items-center justify-center p-2 hover:bg-secondary/50 rounded-full transition-colors relative z-50"
+                            onClick={toggleMenu}
+                            aria-label="Toggle menu"
+                        >
+                            {isMenuOpen ? (
+                                <X className="h-5 w-5 text-foreground" />
+                            ) : (
+                                <Menu className="h-5 w-5 text-foreground" />
+                            )}
+                        </motion.button>
+                    </div>
                 </div>
 
                 {/* Mega Menu Dropdown */}

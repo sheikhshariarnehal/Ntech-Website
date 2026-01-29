@@ -36,12 +36,13 @@ export async function GET() {
             count: data?.length || 0,
             projects: data 
         });
-    } catch (err: any) {
-        console.error('Exception in test-projects:', err);
+    } catch (err: unknown) {
+        const error = err as Error;
+        console.error('Exception in test-projects:', error);
         return NextResponse.json({ 
             success: false, 
-            error: err.message,
-            stack: err.stack 
+            error: error.message,
+            stack: error.stack 
         }, { status: 500 });
     }
 }

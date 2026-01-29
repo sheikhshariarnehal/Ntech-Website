@@ -20,7 +20,7 @@ interface HomeServicesClientProps {
 }
 
 // Map slugs to colors and gradients
-const SERVICE_STYLES: Record<string, { color: string; gradient: string; icon: any }> = {
+const SERVICE_STYLES: Record<string, { color: string; gradient: string; icon: React.ComponentType<{ className?: string }> }> = {
     'web-development': {
         color: 'text-blue-400',
         gradient: 'from-blue-500/20 to-transparent',

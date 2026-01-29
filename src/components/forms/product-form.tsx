@@ -9,7 +9,6 @@ import { Select } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { createClient } from "@/lib/supabase/client";
 import { Upload, X, Image as ImageIcon } from "lucide-react";
-import Link from "next/link";
 
 interface ProductFormData {
   name: string;
@@ -101,7 +100,7 @@ export function ProductForm({ initialData, onSubmit, submitLabel, loading }: Pro
       const filePath = `products/${fileName}`;
 
       // Upload to Supabase Storage
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('product-images')
         .upload(filePath, file, {
           cacheControl: '3600',
@@ -117,9 +116,10 @@ export function ProductForm({ initialData, onSubmit, submitLabel, loading }: Pro
 
       setFormData({ ...formData, thumbnail_url: publicUrl });
       setUploadProgress(100);
-    } catch (error: any) {
-      console.error('Upload error:', error);
-      alert('Failed to upload image: ' + error.message);
+    } catch (error: unknown) {
+      const err = error as Error;
+      console.error('Upload error:', err);
+      alert('Failed to upload image: ' + err.message);
     } finally {
       setUploading(false);
       setTimeout(() => setUploadProgress(0), 2000);

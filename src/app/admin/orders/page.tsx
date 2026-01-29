@@ -13,14 +13,12 @@ import { Database } from "@/types/supabase";
 import { 
   ShoppingCart, 
   DollarSign, 
-  TrendingUp, 
   Search, 
   Eye, 
   CheckCircle,
   XCircle,
   Clock,
   RefreshCw,
-  Download,
   Package
 } from "lucide-react";
 import Link from "next/link";

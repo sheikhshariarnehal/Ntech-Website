@@ -71,21 +71,20 @@ export default function EditTeamMemberPage() {
       .single();
 
     if (!error && data) {
-      const memberData = data as any; // team table type inference issue
-      setMember(memberData);
-      setImagePreview(memberData.image_url || "");
+      setMember(data);
+      setImagePreview(data.image_url || "");
       setFormData({
-        name: memberData.name,
-        designation: memberData.designation,
-        bio: memberData.bio || "",
-        email: memberData.email || "",
-        phone: memberData.phone || "",
-        linkedin_url: memberData.linkedin_url || "",
-        twitter_url: memberData.twitter_url || "",
-        github_url: memberData.github_url || "",
-        image_url: memberData.image_url || "",
-        order_position: memberData.order_position,
-        is_active: memberData.is_active,
+        name: data.name,
+        designation: data.designation,
+        bio: data.bio || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        linkedin_url: data.linkedin_url || "",
+        twitter_url: data.twitter_url || "",
+        github_url: data.github_url || "",
+        image_url: data.image_url || "",
+        order_position: data.order_position,
+        is_active: data.is_active,
       });
     }
     setLoading(false);
@@ -124,7 +123,7 @@ export default function EditTeamMemberPage() {
     const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
     const filePath = `${fileName}`;
 
-    const { error: uploadError, data } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from('team-images')
       .upload(filePath, imageFile);
 

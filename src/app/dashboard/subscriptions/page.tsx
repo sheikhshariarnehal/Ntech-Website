@@ -11,7 +11,14 @@ export const metadata: Metadata = {
     description: "Manage your subscriptions.",
 };
 
-const subscriptions = [
+type Subscription = {
+    name: string;
+    status: string;
+    price: string;
+    nextBilling: string;
+};
+
+const subscriptions: Subscription[] = [
     {
         name: "ChatGPT Pro",
         status: "Active",
@@ -28,7 +35,7 @@ export default function SubscriptionsPage() {
         },
         {
             header: "Status",
-            accessor: (row: any) => (
+            accessor: (row: Subscription) => (
                 <Badge variant={row.status === "Active" ? "default" : "secondary"}>
                     {row.status}
                 </Badge>
@@ -44,7 +51,7 @@ export default function SubscriptionsPage() {
         },
         {
             header: "Actions",
-            accessor: (row: any) => (
+            accessor: () => (
                 <Button variant="outline" size="sm">
                     Manage
                 </Button>

@@ -63,7 +63,7 @@ export async function PATCH(
         .eq('id', id)
         .single();
 
-      if (existing && !(existing as any).published_at) {
+      if (existing && !existing.published_at) {
         body.published_at = new Date().toISOString();
       }
     }
@@ -71,8 +71,8 @@ export async function PATCH(
     // Update updated_at
     body.updated_at = new Date().toISOString();
 
-    const { data: post, error } = await (supabase
-      .from('posts') as any)
+    const { data: post, error } = await supabase
+      .from('posts')
       .update(body)
       .eq('id', id)
       .select(`

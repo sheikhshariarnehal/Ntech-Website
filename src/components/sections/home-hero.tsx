@@ -7,21 +7,18 @@ import dynamic from 'next/dynamic';
 import { 
   ArrowRight, 
   Code2, 
-  Zap,
   Shield,
   Globe,
   Cloud,
   Database,
   Cpu,
   Layers,
-  Workflow,
   LucideIcon,
   ChevronRight,
   Star,
   Award,
   Users
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 // Lazy load heavy components
 const DotLottieReact = dynamic(
@@ -38,16 +35,8 @@ const fadeInUp = {
   visible: (delay: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, delay, ease: [0.25, 0.46, 0.45, 0.94] } // Reduced from 0.6
+    transition: { duration: 0.4, delay, ease: [0.25, 0.46, 0.45, 0.94] as const } // Reduced from 0.6
   })
-};
-
-const stagger = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08, delayChildren: 0.2 } // Reduced stagger
-  }
 };
 
 const scaleIn = {
@@ -55,7 +44,7 @@ const scaleIn = {
   visible: (delay: number = 0) => ({
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.3, delay, ease: "easeOut" } // Reduced from 0.5
+    transition: { duration: 0.3, delay, ease: "easeOut" as const } // Reduced from 0.5
   })
 };
 

@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
-import { ArrowLeft, Upload, X, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft, Upload, X } from "lucide-react";
 import Link from "next/link";
 
 export default function NewProjectPage() {
@@ -69,7 +69,7 @@ export default function NewProjectPage() {
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = `projects/${fileName}`;
 
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('product-images')
         .upload(filePath, file, {
           cacheControl: '3600',
@@ -83,9 +83,10 @@ export default function NewProjectPage() {
         .getPublicUrl(filePath);
 
       setFormData({ ...formData, thumbnail_url: publicUrl });
-    } catch (error: any) {
-      console.error('Upload error:', error);
-      alert('Failed to upload image: ' + error.message);
+    } catch (error: unknown) {
+      const err = error as Error;
+      console.error('Upload error:', err);
+      alert('Failed to upload image: ' + err.message);
     } finally {
       setUploading(false);
     }
@@ -125,7 +126,7 @@ export default function NewProjectPage() {
       published_at: formData.published_at ? new Date(formData.published_at).toISOString() : null,
     };
 
-    const { error } = await (supabase as any).from("projects").insert([insertData]);
+    const { error } = await supabase.from("projects").insert([insertData]);
 
     setLoading(false);
 

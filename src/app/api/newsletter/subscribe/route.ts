@@ -17,16 +17,13 @@ export async function POST(request: NextRequest) {
 
         const supabase = await createServerClient();
 
-        // @ts-ignore - Newsletter subscribers table type not fully synced
         const { data: existing } = await supabase
             .from('newsletter_subscribers')
             .select('id, status')
             .eq('email', email.toLowerCase())
             .single();
 
-        // @ts-ignore
         if (existing) {
-            // @ts-ignore
             if (existing.status === 'active') {
                 return NextResponse.json(
                     { message: 'You are already subscribed!' },
@@ -34,16 +31,13 @@ export async function POST(request: NextRequest) {
                 );
             } else {
                 // Reactivate subscription
-                // @ts-ignore
                 const { error } = await supabase
                     .from('newsletter_subscribers')
-                    // @ts-ignore
                     .update({ 
                         status: 'active', 
                         subscribed_at: new Date().toISOString(),
                         unsubscribed_at: null 
                     })
-                    // @ts-ignore
                     .eq('id', existing.id);
 
                 if (error) throw error;
@@ -56,10 +50,8 @@ export async function POST(request: NextRequest) {
         }
 
         // Insert new subscriber
-        // @ts-ignore
         const { error } = await supabase
             .from('newsletter_subscribers')
-            // @ts-ignore
             .insert([{ email: email.toLowerCase() }]);
 
         if (error) throw error;

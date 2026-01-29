@@ -1,4 +1,3 @@
-import { PageHeader } from "@/components/shared/page-header";
 import { Metadata } from "next";
 import { Code2, Zap, Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -100,7 +99,7 @@ export default function AboutPage() {
                                     <li className="flex items-start gap-3">
                                         <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                                         <span className="text-sm">
-                                            <strong className="font-semibold">Gemini Pro:</strong> Google's powerful AI assistant
+                                            <strong className="font-semibold">Gemini Pro:</strong> Google&apos;s powerful AI assistant
                                         </span>
                                     </li>
                                     <li className="flex items-start gap-3">
@@ -255,7 +254,7 @@ export default function AboutPage() {
                             Ready to Transform Your Business?
                         </h2>
                         <p className="text-lg text-muted-foreground mb-8">
-                            Let's discuss how our technical services and premium digital products 
+                            Let&apos;s discuss how our technical services and premium digital products 
                             can help you achieve your goals.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">

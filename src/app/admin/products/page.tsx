@@ -8,7 +8,7 @@ import { DataTable } from "@/components/shared/data-table";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { Plus, Edit, Trash2, Eye, Search, Filter, Package, TrendingUp, DollarSign, Archive } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, Search, Package, TrendingUp, DollarSign, Archive } from "lucide-react";
 import Link from "next/link";
 import { Database } from "@/types/supabase";
 import { createClient } from "@/lib/supabase/client";
@@ -172,8 +172,7 @@ export default function ProductsPage() {
           <Badge variant={row.is_active ? "success" : "secondary"} className="text-xs w-fit">
             {row.is_active ? "Active" : "Inactive"}
           </Badge>
-          {/* @ts-ignore: is_featured missing in types */
-          /* row.is_featured && (
+          {/* row.is_featured && (
             <Badge variant="default" className="text-xs w-fit">Featured</Badge>
           ) */}
         </div>

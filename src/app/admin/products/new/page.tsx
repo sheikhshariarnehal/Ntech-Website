@@ -8,14 +8,13 @@ import { ProductForm } from "@/components/forms/product-form";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 
 export default function NewProductPage() {
   const router = useRouter();
   const supabase = createClient();
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: { name: string; slug: string; short_description: string; full_description?: string; price: string; billing_interval: string; stock?: string; is_active: boolean; thumbnail_url?: string; seo_title?: string; seo_description?: string; seo_keywords?: string }) => {
     setLoading(true);
 
     const insertData: Database['public']['Tables']['products']['Insert'] = {
@@ -33,7 +32,7 @@ export default function NewProductPage() {
       seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map((k: string) => k.trim()).filter((k: string) => k) : null,
     };
 
-    const { error } = await (supabase as any).from("products").insert([insertData]);
+    const { error } = await supabase.from("products").insert([insertData]);
 
     setLoading(false);
 

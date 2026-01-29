@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Code, Smartphone, Bot, Globe, Database, Cloud, Shield, Zap, Palette, LineChart, Sparkles, Check, Laptop, ShoppingCart } from "lucide-react";
+import { ArrowRight, Code, Smartphone, Bot, Database, Cloud, Shield, Zap, Palette, LineChart, Sparkles, Check, Laptop, ShoppingCart } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Service } from "../types";
 
@@ -7,7 +7,7 @@ interface ServiceCardProps {
   service: Service;
 }
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "web-development": Laptop,
   "mobile-app-development": Smartphone,
   "app-development": Smartphone,

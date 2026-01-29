@@ -1,11 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { PageHeader } from "@/components/shared/page-header";
-import { LoadingSpinner } from "@/components/shared/loading-spinner";
 import { getServiceBySlug } from "@/features/services/api/getServiceBySlug";
 import { Metadata } from "next";
 import { 
@@ -31,7 +27,7 @@ interface ServicePageProps {
     };
 }
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ComponentType> = {
   "web-development": Code,
   "mobile-app-development": Smartphone,
   "app-development": Smartphone,
@@ -165,7 +161,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                 <div className="max-w-4xl space-y-12">
                     {/* Features Grid */}
                     <section>
-                        <h2 className="text-2xl sm:text-3xl font-bold mb-6">What's Included</h2>
+                        <h2 className="text-2xl sm:text-3xl font-bold mb-6">What&apos;s Included</h2>
                         <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
                             {getServiceFeatures(service.slug).map((feature, idx) => (
                                 <Card key={idx} className="border-muted/60 hover:border-primary/50 transition-colors">
@@ -189,7 +185,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
                     <section className="rounded-2xl bg-gradient-to-br from-muted/80 to-muted/40 p-8 sm:p-12 text-center space-y-6">
                         <h2 className="text-2xl sm:text-3xl font-bold">Ready to Get Started?</h2>
                         <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-                            Let's discuss your project and create a custom solution that fits your needs and budget.
+                            Let&apos;s discuss your project and create a custom solution that fits your needs and budget.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
                             <Link href="/contact">

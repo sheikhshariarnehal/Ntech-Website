@@ -34,7 +34,7 @@ export default function ServicesPage() {
             <div className="rounded-2xl bg-muted/50 p-8 md:p-12 text-center space-y-6">
                 <h2 className="text-2xl md:text-3xl font-bold">Need a Custom Solution?</h2>
                 <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-                    Don't see exactly what you're looking for? We specialize in building custom solutions for unique business challenges.
+                    Don&apos;t see exactly what you&apos;re looking for? We specialize in building custom solutions for unique business challenges.
                 </p>
                 <Link href="/contact">
                     <Button size="lg" className="font-semibold">

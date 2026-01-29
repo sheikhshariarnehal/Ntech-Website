@@ -51,7 +51,7 @@ export default function OrdersPage() {
         },
         {
             header: "Actions",
-            accessor: (row: any) => (
+            accessor: () => (
                 <Button variant="outline" size="sm">
                     Invoice
                 </Button>

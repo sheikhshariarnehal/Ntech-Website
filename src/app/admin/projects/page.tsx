@@ -27,7 +27,7 @@ export default function ProjectsPage() {
 
     const fetchProjects = async () => {
         setLoading(true);
-        const { data, error } = await (supabase as any)
+        const { data, error } = await supabase
             .from('projects')
             .select('*')
             .order('created_at', { ascending: false });
@@ -41,7 +41,7 @@ export default function ProjectsPage() {
     const handleDelete = async (id: string) => {
         if (!confirm("Are you sure you want to delete this project?")) return;
 
-        const { error } = await (supabase as any)
+        const { error } = await supabase
             .from('projects')
             .delete()
             .eq('id', id);
@@ -54,9 +54,9 @@ export default function ProjectsPage() {
     };
 
     const toggleFeatured = async (project: Project) => {
-        const { error } = await (supabase as any)
+        const { error } = await supabase
             .from('projects')
-            .update({ is_featured: !project.is_featured })
+            .update({ is_featured: !project.is_featured } as Database['public']['Tables']['projects']['Update'])
             .eq('id', project.id);
 
         if (!error) {

@@ -18,19 +18,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { PRODUCT_CATEGORIES, BILLING_INTERVALS } from '../types';
+import { PRODUCT_CATEGORIES, BILLING_INTERVALS, ProductFilters as ProductFiltersType } from '../types';
 
 interface ProductFiltersProps {
-  onFilterChange: (filters: {
-    category?: string;
-    billing_interval?: string;
-    search?: string;
-  }) => void;
-  currentFilters: {
-    category?: string;
-    billing_interval?: string;
-    search?: string;
-  };
+  onFilterChange: (filters: ProductFiltersType) => void;
+  currentFilters: ProductFiltersType;
 }
 
 export function ProductFilters({ onFilterChange, currentFilters }: ProductFiltersProps) {
@@ -166,7 +158,7 @@ function FilterContent({
   onCategoryChange,
   onBillingChange,
 }: {
-  currentFilters: any;
+  currentFilters: ProductFiltersType;
   onCategoryChange: (category: string) => void;
   onBillingChange: (interval: string) => void;
 }) {

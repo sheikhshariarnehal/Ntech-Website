@@ -8,11 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 
 type Service = Database['public']['Tables']['services']['Row'];
 
@@ -83,7 +81,7 @@ export default function EditServicePage() {
       seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map(k => k.trim()).filter(k => k) : null,
     };
 
-    const { error } = await (supabase as any)
+    const { error } = await supabase
       .from("services")
       .update(updateData)
       .eq("id", serviceId);

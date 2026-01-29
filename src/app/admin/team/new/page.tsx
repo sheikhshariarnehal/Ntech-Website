@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
@@ -66,7 +66,7 @@ export default function NewTeamMemberPage() {
     const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
     const filePath = `${fileName}`;
 
-    const { error: uploadError, data } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from('team-images')
       .upload(filePath, imageFile);
 

@@ -60,7 +60,7 @@ export default async function TeamPage() {
             <div className="mt-20 rounded-2xl border bg-gradient-to-br from-primary/5 via-primary/10 to-background p-8 text-center md:p-12">
                 <h2 className="text-3xl font-bold tracking-tight">Want to Join Our Team?</h2>
                 <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-                    We're always looking for talented individuals who are passionate about technology and innovation.
+                    We&apos;re always looking for talented individuals who are passionate about technology and innovation.
                 </p>
                 <a
                     href="/contact"

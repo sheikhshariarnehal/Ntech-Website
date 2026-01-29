@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
-import { Loader2, Upload, X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import Image from "next/image";
 
 type TrustedCompany = Database['public']['Tables']['trusted_companies']['Row'];
@@ -55,8 +55,9 @@ export function TrustedCompanyForm({ initialData }: TrustedCompanyFormProps) {
         .getPublicUrl(filePath);
 
       setFormData({ ...formData, logo_url: publicUrl });
-    } catch (error: any) {
-      alert('Error uploading image: ' + error.message);
+    } catch (error: unknown) {
+      const err = error as Error;
+      alert('Error uploading image: ' + err.message);
     } finally {
       setUploading(false);
     }
@@ -81,8 +82,9 @@ export function TrustedCompanyForm({ initialData }: TrustedCompanyFormProps) {
       }
       router.push("/admin/trusted-companies");
       router.refresh();
-    } catch (error: any) {
-      alert('Error saving company: ' + error.message);
+    } catch (error: unknown) {
+      const err = error as Error;
+      alert('Error saving company: ' + err.message);
     } finally {
       setLoading(false);
     }

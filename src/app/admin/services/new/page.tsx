@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
@@ -8,11 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Select } from "@/components/ui/select";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 
 export default function NewServicePage() {
   const router = useRouter();
@@ -64,7 +62,7 @@ export default function NewServicePage() {
       seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map(k => k.trim()) : null,
     };
 
-    const { error } = await (supabase as any).from("services").insert([insertData]);
+    const { error } = await supabase.from("services").insert([insertData]);
 
     setLoading(false);
 

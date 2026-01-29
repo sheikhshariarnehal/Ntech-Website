@@ -5,7 +5,7 @@ export async function getTeamMemberBySlug(slug: string): Promise<TeamMember | nu
     try {
         const supabase = await createServerClient();
         
-        // @ts-ignore - Supabase type instantiation is excessively deep
+        // @ts-expect-error - Supabase type instantiation is excessively deep
         const query = supabase
             .from('team')
             .select('*')

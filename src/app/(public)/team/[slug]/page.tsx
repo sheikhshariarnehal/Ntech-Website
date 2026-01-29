@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Mail, Linkedin, Twitter, Github, ArrowLeft, Calendar } from "lucide-react";
 import { getTeamMemberBySlug } from "@/features/team/api/getTeamMemberBySlug";
-import { Badge } from "@/components/shared/badge";
 import { Button } from "@/components/ui/button";
 
 // Revalidate team member pages every hour

@@ -12,7 +12,7 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
                 <div className="text-6xl mb-4">📁</div>
                 <h3 className="text-2xl font-bold mb-2">No Projects Found</h3>
                 <p className="text-muted-foreground">
-                    We're working on exciting projects. Check back soon!
+                    We&apos;re working on exciting projects. Check back soon!
                 </p>
             </div>
         );

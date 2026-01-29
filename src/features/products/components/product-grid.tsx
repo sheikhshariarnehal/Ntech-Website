@@ -6,7 +6,6 @@ import { Product } from '../types';
 import { PackageOpen, Search, SlidersHorizontal, X, ChevronDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
 interface ProductGridProps {
   initialProducts: Product[];
@@ -143,7 +142,7 @@ export function ProductGrid({ initialProducts }: ProductGridProps) {
             </div>
             <h3 className="text-base sm:text-lg font-semibold mb-1">No products found</h3>
             <p className="text-sm sm:text-base text-muted-foreground max-w-sm mb-3 sm:mb-4">
-              We couldn't find any products matching your search criteria. Try adjusting your filters or search terms.
+              We couldn&apos;t find any products matching your search criteria. Try adjusting your filters or search terms.
             </p>
             <Button onClick={clearAllFilters} variant="outline" size="sm">
               <X className="h-4 w-4 mr-2" />

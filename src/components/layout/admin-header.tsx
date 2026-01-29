@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/auth";
 import { LogOut, User } from "lucide-react";
-import Link from "next/link";
 import { MobileNav } from "@/components/layout/mobile-nav";
 
 export async function AdminHeader() {
@@ -16,7 +15,7 @@ export async function AdminHeader() {
           <div className="flex items-center gap-2 text-sm">
             <User className="h-4 w-4 text-muted-foreground" />
             <span className="text-muted-foreground">
-              {((currentUser.profile as any)?.full_name) || currentUser.user?.email || 'User'}
+              {(currentUser.profile as { full_name?: string })?.full_name || currentUser.user?.email || 'User'}
             </span>
           </div>
         )}

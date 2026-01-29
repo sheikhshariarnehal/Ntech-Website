@@ -9,12 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { createClient } from "@/lib/supabase/client";
+import type { Database } from "@/types/supabase";
 
 export default function SEOPage() {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [settings, setSettings] = useState<any>(null);
+  const [settings, setSettings] = useState<Database['public']['Tables']['site_settings']['Row'] | null>(null);
   const [formData, setFormData] = useState({
     default_seo_title: "",
     default_seo_description: "",
@@ -42,21 +43,20 @@ export default function SEOPage() {
       .single();
 
     if (data) {
-      const seoData = data as any; // site_settings table type not in generated types
-      setSettings(seoData);
+      setSettings(data);
       setFormData({
-        default_seo_title: seoData.default_seo_title || "",
-        default_seo_description: seoData.default_seo_description || "",
-        default_og_image_url: seoData.default_og_image_url || "",
-        robots_noindex: seoData.robots_noindex || false,
-        organization_name: seoData.organization_name || "",
-        organization_logo_url: seoData.organization_logo_url || "",
-        organization_contact_email: seoData.organization_contact_email || "",
-        organization_url: seoData.organization_url || "",
-        social_facebook: seoData.social_facebook || "",
-        social_twitter: seoData.social_twitter || "",
-        social_linkedin: seoData.social_linkedin || "",
-        social_github: seoData.social_github || "",
+        default_seo_title: data.default_seo_title || "",
+        default_seo_description: data.default_seo_description || "",
+        default_og_image_url: data.default_seo_image || "",
+        robots_noindex: false,
+        organization_name: "",
+        organization_logo_url: "",
+        organization_contact_email: "",
+        organization_url: "",
+        social_facebook: "",
+        social_twitter: "",
+        social_linkedin: "",
+        social_github: "",
       });
     }
     setLoading(false);
@@ -71,16 +71,7 @@ export default function SEOPage() {
       .update({
         default_seo_title: formData.default_seo_title || null,
         default_seo_description: formData.default_seo_description || null,
-        default_og_image_url: formData.default_og_image_url || null,
-        robots_noindex: formData.robots_noindex,
-        organization_name: formData.organization_name || null,
-        organization_logo_url: formData.organization_logo_url || null,
-        organization_contact_email: formData.organization_contact_email || null,
-        organization_url: formData.organization_url || null,
-        social_facebook: formData.social_facebook || null,
-        social_twitter: formData.social_twitter || null,
-        social_linkedin: formData.social_linkedin || null,
-        social_github: formData.social_github || null,
+        default_seo_image: formData.default_og_image_url || null,
       })
       .eq('id', settings?.id);
 
@@ -116,7 +107,7 @@ export default function SEOPage() {
         <Card className="p-6 space-y-4">
           <h3 className="text-lg font-semibold">Default SEO Settings</h3>
           <p className="text-sm text-muted-foreground">
-            These defaults are used when specific pages don't have their own SEO data.
+            These defaults are used when specific pages don&apos;t have their own SEO data.
           </p>
 
           <div className="space-y-2">
@@ -165,7 +156,7 @@ export default function SEOPage() {
               <option value="true">Disable Indexing (Staging/Dev)</option>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Set to "Disable" for staging environments to prevent search engine indexing
+              Set to &quot;Disable&quot; for staging environments to prevent search engine indexing
             </p>
           </div>
         </Card>

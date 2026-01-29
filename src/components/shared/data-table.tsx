@@ -25,7 +25,7 @@ interface DataTableProps<T> {
   };
 }
 
-export function DataTable<T extends Record<string, any>>({
+export function DataTable<T>({
   data,
   columns,
   searchable = false,
@@ -87,7 +87,7 @@ export function DataTable<T extends Record<string, any>>({
                       <TableCell key={colIndex} className={column.className}>
                         {typeof column.accessor === "function"
                           ? column.accessor(row)
-                          : row[column.accessor]}
+                          : (row[column.accessor] as React.ReactNode)}
                       </TableCell>
                     ))}
                   </TableRow>

@@ -9,7 +9,6 @@ import { ProductForm } from "@/components/forms/product-form";
 import { createClient } from "@/lib/supabase/client";
 import { Database } from "@/types/supabase";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
 
 type Product = Database['public']['Tables']['products']['Row'];
 
@@ -20,7 +19,23 @@ export default function EditProductPage() {
   const supabase = createClient();
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
-  const [initialData, setInitialData] = useState<any>(null);
+  const [initialData, setInitialData] = useState<Partial<{
+    name: string;
+    slug: string;
+    short_description: string;
+    full_description: string;
+    price: string;
+    billing_interval: string;
+    stock: string;
+    is_active: boolean;
+    is_featured: boolean;
+    download_url: string;
+    thumbnail_url: string;
+    demo_url: string;
+    seo_title: string;
+    seo_description: string;
+    seo_keywords: string;
+  }> | null>(null);
 
   useEffect(() => {
     fetchProduct();
@@ -56,7 +71,7 @@ export default function EditProductPage() {
     setFetching(false);
   };
 
-  const handleSubmit = async (formData: any) => {
+  const handleSubmit = async (formData: { name?: string; slug?: string; short_description?: string; full_description?: string; price?: string; billing_interval?: string; stock?: string; is_active?: boolean; thumbnail_url?: string; seo_title?: string; seo_description?: string; seo_keywords?: string }) => {
     setLoading(true);
 
     const updateData: Database['public']['Tables']['products']['Update'] = {
@@ -64,7 +79,7 @@ export default function EditProductPage() {
       slug: formData.slug,
       short_description: formData.short_description,
       full_description: formData.full_description || null,
-      price: parseFloat(formData.price),
+      price: formData.price ? parseFloat(formData.price) : undefined,
       billing_interval: formData.billing_interval,
       stock: formData.stock ? parseInt(formData.stock) : null,
       is_active: formData.is_active,
@@ -74,7 +89,7 @@ export default function EditProductPage() {
       seo_keywords: formData.seo_keywords ? formData.seo_keywords.split(',').map((k: string) => k.trim()).filter((k: string) => k) : null,
     };
 
-    const { error } = await (supabase as any)
+    const { error } = await supabase
       .from("products")
       .update(updateData)
       .eq("id", productId);

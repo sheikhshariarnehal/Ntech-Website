@@ -12,7 +12,6 @@ import {
   Eye, 
   Search, 
   Users, 
-  ShoppingCart, 
   DollarSign, 
   TrendingUp,
   RefreshCw,

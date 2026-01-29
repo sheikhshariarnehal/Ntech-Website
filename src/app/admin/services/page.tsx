@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { DataTable } from "@/components/shared/data-table";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Edit, Trash2, Eye, Search, Briefcase, TrendingUp, DollarSign, Star } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, Search, Briefcase, TrendingUp, DollarSign } from "lucide-react";
 import Link from "next/link";
 import { Database } from "@/types/supabase";
 import { createClient } from "@/lib/supabase/client";

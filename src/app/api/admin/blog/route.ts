@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const dynamic = 'force-dynamic';
 
 // GET - Fetch all blog posts
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const supabase = await createServerClient();
     
@@ -70,8 +70,8 @@ export async function POST(request: NextRequest) {
       seo_keywords: body.seo_keywords || null,
     };
 
-    const { data: post, error } = await (supabase
-      .from('posts') as any)
+    const { data: post, error } = await supabase
+      .from('posts')
       .insert(postData)
       .select(`
         *,

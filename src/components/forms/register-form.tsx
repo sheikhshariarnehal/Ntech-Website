@@ -53,7 +53,7 @@ export function RegisterForm() {
                 router.push('/dashboard');
                 router.refresh();
             }
-        } catch (err) {
+        } catch {
             setError('An unexpected error occurred');
             setIsLoading(false);
         }

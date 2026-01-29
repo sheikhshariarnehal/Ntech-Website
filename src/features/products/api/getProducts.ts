@@ -37,18 +37,17 @@ export async function getProducts(filters?: ProductFilters): Promise<Product[]> 
   }
 
   // Apply price filters in memory (since we can't directly filter on numeric type in text format)
-  // Use type assertion for the query result
-  let products: any[] = data as any[];
+  let products: Product[] = data as Product[];
   
   if (filters?.min_price !== undefined) {
-    products = products.filter((p: any) => parseFloat(p.price) >= filters.min_price!);
+    products = products.filter((p) => p.price >= filters.min_price!);
   }
   
   if (filters?.max_price !== undefined) {
-    products = products.filter((p: any) => parseFloat(p.price) <= filters.max_price!);
+    products = products.filter((p) => p.price <= filters.max_price!);
   }
 
-  return products as Product[];
+  return products;
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
@@ -83,7 +82,7 @@ export async function getProductCategories(): Promise<string[]> {
     return [];
   }
 
-  // Get unique categories - use type assertion for the complex query result
-  const categories = Array.from(new Set((data as any[]).map(p => p.category).filter(Boolean)));
+  // Get unique categories
+  const categories = Array.from(new Set((data as Product[]).map(p => p.category).filter(Boolean)));
   return categories as string[];
 }

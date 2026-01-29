@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
-import { Github, Twitter, Linkedin, Sparkles, Mail, MapPin, Phone, Send, Facebook, Instagram, Youtube } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, MapPin, Phone, Send, Facebook, Instagram, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";

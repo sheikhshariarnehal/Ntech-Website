@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getPosts } from "@/features/blog/api/getPosts";
 import { Metadata } from "next";
-import { Calendar, Clock, ArrowRight, User, BookOpen, Tag } from "lucide-react";
+import { Calendar, Clock, ArrowRight, User, BookOpen } from "lucide-react";
 import Image from "next/image";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 import { FeaturedBlogCarousel } from "@/components/sections/featured-blog-carousel";

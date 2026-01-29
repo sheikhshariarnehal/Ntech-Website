@@ -23,6 +23,7 @@ import {
   Paintbrush
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import type { Database } from "@/types/supabase";
 
 // Theme Preset Definitions
 const THEME_PRESETS = {
@@ -332,7 +333,7 @@ const THEME_PRESETS = {
 };
 
 // Helper component for color inputs
-const ColorInput = ({ label, id, value, onChange }: { label: string; id: string; value: string; onChange: (field: string, value: any) => void }) => {
+const ColorInput = ({ label, id, value, onChange }: { label: string; id: string; value: string; onChange: (field: string, value: string) => void }) => {
   const hslToHex = (hsl: string): string => {
     const parts = hsl.trim().split(/\s+/);
     if (parts.length !== 3) return '#000000';
@@ -368,7 +369,8 @@ const ColorInput = ({ label, id, value, onChange }: { label: string; id: string;
     
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    let h = 0, s = 0, l = (max + min) / 2;
+    const l = (max + min) / 2;
+    let h = 0, s = 0;
     
     if (max !== min) {
       const d = max - min;
@@ -411,7 +413,7 @@ export default function SettingsPage() {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [settings, setSettings] = useState<any>(null);
+  const [settings, setSettings] = useState<Database['public']['Tables']['site_settings']['Row'] | null>(null);
   const [activeTab, setActiveTab] = useState("general");
   const [selectedPreset, setSelectedPreset] = useState("custom");
   const [formData, setFormData] = useState({
@@ -605,7 +607,8 @@ export default function SettingsPage() {
     
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    let h = 0, s = 0, l = (max + min) / 2;
+    const l = (max + min) / 2;
+    let h = 0, s = 0;
     
     if (max !== min) {
       const d = max - min;
@@ -643,63 +646,62 @@ export default function SettingsPage() {
       .single();
 
     if (data) {
-      const settingsData = data as any; // site_settings table type not in generated types
-      setSettings(settingsData);
+      setSettings(data);
       setFormData({
-        site_name: settingsData.site_name || "",
-        tagline: settingsData.tagline || "",
-        support_email: settingsData.support_email || "",
-        phone: settingsData.phone || "",
-        address: settingsData.address || "",
-        office_hours: settingsData.office_hours || "",
-        logo_url: settingsData.logo_url || "",
-        favicon_url: settingsData.favicon_url || "",
-        primary_color: settingsData.primary_color || "",
-        theme_mode: settingsData.theme_mode || "dark",
-        enable_custom_theme: settingsData.enable_custom_theme ?? false,
-        theme_background: settingsData.theme_background || "222.2 84% 4.9%",
-        theme_foreground: settingsData.theme_foreground || "210 40% 98%",
-        theme_card: settingsData.theme_card || "222.2 84% 4.9%",
-        theme_card_foreground: settingsData.theme_card_foreground || "210 40% 98%",
-        theme_popover: settingsData.theme_popover || "222.2 84% 4.9%",
-        theme_popover_foreground: settingsData.theme_popover_foreground || "210 40% 98%",
-        theme_primary: settingsData.theme_primary || "210 40% 98%",
-        theme_primary_foreground: settingsData.theme_primary_foreground || "222.2 47.4% 11.2%",
-        theme_secondary: settingsData.theme_secondary || "217.2 32.6% 17.5%",
-        theme_secondary_foreground: settingsData.theme_secondary_foreground || "210 40% 98%",
-        theme_muted: settingsData.theme_muted || "217.2 32.6% 17.5%",
-        theme_muted_foreground: settingsData.theme_muted_foreground || "215 20.2% 65.1%",
-        theme_accent: settingsData.theme_accent || "217.2 32.6% 17.5%",
-        theme_accent_foreground: settingsData.theme_accent_foreground || "210 40% 98%",
-        theme_destructive: settingsData.theme_destructive || "0 62.8% 30.6%",
-        theme_destructive_foreground: settingsData.theme_destructive_foreground || "210 40% 98%",
-        theme_border: settingsData.theme_border || "217.2 32.6% 17.5%",
-        theme_input: settingsData.theme_input || "217.2 32.6% 17.5%",
-        theme_ring: settingsData.theme_ring || "212.7 26.8% 83.9%",
-        theme_radius: settingsData.theme_radius || "0.5rem",
-        social_facebook: settingsData.social_facebook || "",
-        social_twitter: settingsData.social_twitter || "",
-        social_linkedin: settingsData.social_linkedin || "",
-        social_github: settingsData.social_github || "",
-        social_instagram: settingsData.social_instagram || "",
-        social_youtube: settingsData.social_youtube || "",
-        meta_description: settingsData.meta_description || "",
-        meta_keywords: settingsData.meta_keywords || "",
-        default_seo_title: settingsData.default_seo_title || "",
-        default_seo_description: settingsData.default_seo_description || "",
-        default_seo_image: settingsData.default_seo_image || "",
-        google_analytics_id: settingsData.google_analytics_id || "",
-        facebook_pixel_id: settingsData.facebook_pixel_id || "",
-        enable_blog: settingsData.enable_blog ?? true,
-        enable_shop: settingsData.enable_shop ?? true,
-        enable_newsletter: settingsData.enable_newsletter ?? true,
-        smtp_host: settingsData.smtp_host || "",
-        smtp_port: settingsData.smtp_port || 587,
-        smtp_user: settingsData.smtp_user || "",
-        smtp_from_email: settingsData.smtp_from_email || "",
-        smtp_from_name: settingsData.smtp_from_name || "",
-        maintenance_mode: settingsData.maintenance_mode ?? false,
-        maintenance_message: settingsData.maintenance_message || "",
+        site_name: data.site_name || "",
+        tagline: data.tagline || "",
+        support_email: data.support_email || "",
+        phone: data.phone || "",
+        address: data.address || "",
+        office_hours: data.office_hours || "",
+        logo_url: data.logo_url || "",
+        favicon_url: data.favicon_url || "",
+        primary_color: data.primary_color || "",
+        theme_mode: data.theme_mode || "dark",
+        enable_custom_theme: data.enable_custom_theme ?? false,
+        theme_background: data.theme_background || "222.2 84% 4.9%",
+        theme_foreground: data.theme_foreground || "210 40% 98%",
+        theme_card: data.theme_card || "222.2 84% 4.9%",
+        theme_card_foreground: data.theme_card_foreground || "210 40% 98%",
+        theme_popover: data.theme_popover || "222.2 84% 4.9%",
+        theme_popover_foreground: data.theme_popover_foreground || "210 40% 98%",
+        theme_primary: data.theme_primary || "210 40% 98%",
+        theme_primary_foreground: data.theme_primary_foreground || "222.2 47.4% 11.2%",
+        theme_secondary: data.theme_secondary || "217.2 32.6% 17.5%",
+        theme_secondary_foreground: data.theme_secondary_foreground || "210 40% 98%",
+        theme_muted: data.theme_muted || "217.2 32.6% 17.5%",
+        theme_muted_foreground: data.theme_muted_foreground || "215 20.2% 65.1%",
+        theme_accent: data.theme_accent || "217.2 32.6% 17.5%",
+        theme_accent_foreground: data.theme_accent_foreground || "210 40% 98%",
+        theme_destructive: data.theme_destructive || "0 62.8% 30.6%",
+        theme_destructive_foreground: data.theme_destructive_foreground || "210 40% 98%",
+        theme_border: data.theme_border || "217.2 32.6% 17.5%",
+        theme_input: data.theme_input || "217.2 32.6% 17.5%",
+        theme_ring: data.theme_ring || "212.7 26.8% 83.9%",
+        theme_radius: data.theme_radius || "0.5rem",
+        social_facebook: data.social_facebook || "",
+        social_twitter: data.social_twitter || "",
+        social_linkedin: data.social_linkedin || "",
+        social_github: data.social_github || "",
+        social_instagram: data.social_instagram || "",
+        social_youtube: data.social_youtube || "",
+        meta_description: data.meta_description || "",
+        meta_keywords: data.meta_keywords || "",
+        default_seo_title: data.default_seo_title || "",
+        default_seo_description: data.default_seo_description || "",
+        default_seo_image: data.default_seo_image || "",
+        google_analytics_id: data.google_analytics_id || "",
+        facebook_pixel_id: data.facebook_pixel_id || "",
+        enable_blog: data.enable_blog ?? true,
+        enable_shop: data.enable_shop ?? true,
+        enable_newsletter: data.enable_newsletter ?? true,
+        smtp_host: data.smtp_host || "",
+        smtp_port: data.smtp_port || 587,
+        smtp_user: data.smtp_user || "",
+        smtp_from_email: data.smtp_from_email || "",
+        smtp_from_name: data.smtp_from_name || "",
+        maintenance_mode: data.maintenance_mode ?? false,
+        maintenance_message: data.maintenance_message || "",
       });
     }
     setLoading(false);
@@ -729,7 +731,7 @@ export default function SettingsPage() {
     }
   }
 
-  const handleChange = (field: string, value: any) => {
+  const handleChange = (field: string, value: string | boolean | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -1007,10 +1009,10 @@ export default function SettingsPage() {
                     </div>
                     {preset.colors && 'theme_background' in preset.colors && (
                       <div className="flex gap-1">
-                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_background})` }}></div>
-                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_primary})` }}></div>
-                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_secondary})` }}></div>
-                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${(preset.colors as any).theme_accent})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${preset.colors.theme_background})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${preset.colors.theme_primary})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${preset.colors.theme_secondary})` }}></div>
+                        <div className="w-5 h-5 rounded border border-border/50" style={{ backgroundColor: `hsl(${preset.colors.theme_accent})` }}></div>
                       </div>
                     )}
                   </button>

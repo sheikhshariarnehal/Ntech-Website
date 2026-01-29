@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { AdminPageHeader } from "@/components/layout/admin-page-header";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,6 @@ import {
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { LoadingSpinner } from "@/components/shared/loading-spinner";
-import { Database } from "@/types/supabase";
 
 interface ContactSubmission {
   id: string;
@@ -50,7 +49,6 @@ interface ContactSubmission {
 
 export default function LeadDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const [lead, setLead] = useState<ContactSubmission | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
