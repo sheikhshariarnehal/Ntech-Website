@@ -1,9 +1,9 @@
 "use client";
 
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { 
   ArrowRight, 
   Code2, 
@@ -23,13 +23,22 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Animation Variants
+// Lazy load heavy components
+const DotLottieReact = dynamic(
+  () => import('@lottiefiles/dotlottie-react').then(mod => ({ default: mod.DotLottieReact })),
+  { 
+    ssr: false,
+    loading: () => <div className="w-full aspect-square bg-primary/5 animate-pulse rounded-full" />
+  }
+);
+
+// Animation Variants - Optimized
 const fadeInUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 }, // Reduced from 30
   visible: (delay: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, delay, ease: [0.25, 0.46, 0.45, 0.94] }
+    transition: { duration: 0.4, delay, ease: [0.25, 0.46, 0.45, 0.94] } // Reduced from 0.6
   })
 };
 
@@ -37,26 +46,33 @@ const stagger = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.3 }
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 } // Reduced stagger
   }
 };
 
 const scaleIn = {
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0.95 }, // Reduced scale difference
   visible: (delay: number = 0) => ({
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, delay, ease: "easeOut" }
+    transition: { duration: 0.3, delay, ease: "easeOut" } // Reduced from 0.5
   })
 };
 
-// Typewriter Effect Hook
-function useTypewriter(words: string[], typingSpeed = 100, deletingSpeed = 50, pauseTime = 2000) {
-  const [text, setText] = useState('');
+// Optimized Typewriter Effect Hook - Prevents layout shifts
+function useTypewriter(words: string[], typingSpeed = 100, deletingSpeed = 50, pauseTime = 2500) {
+  const [text, setText] = useState(words[0]); // Start with first word to prevent shift
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    // Skip animation for users who prefer reduced motion
+    if (shouldReduceMotion) {
+      setText(words[0]);
+      return;
+    }
+
     const currentWord = words[wordIndex];
     
     const timeout = setTimeout(() => {
@@ -75,69 +91,77 @@ function useTypewriter(words: string[], typingSpeed = 100, deletingSpeed = 50, p
     }, isDeleting ? deletingSpeed : typingSpeed);
 
     return () => clearTimeout(timeout);
-  }, [text, wordIndex, isDeleting, words, typingSpeed, deletingSpeed, pauseTime]);
+  }, [text, wordIndex, isDeleting, words, typingSpeed, deletingSpeed, pauseTime, shouldReduceMotion]);
 
   return text;
 }
 
-// Animated Counter Component
+// Optimized Animated Counter Component with IntersectionObserver
 const AnimatedCounter = memo(({ end, duration = 2, suffix = '' }: { end: number; duration?: number; suffix?: string }) => {
   const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    let startTime: number;
-    let animationFrame: number;
+    if (hasAnimated) return;
 
-    const animate = (timestamp: number) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
-      setCount(Math.floor(progress * end));
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      }
-    };
+    const element = document.getElementById('stats-section');
+    if (!element) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          animationFrame = requestAnimationFrame(animate);
+        if (entries[0].isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+          
+          // Skip animation for reduced motion preference
+          if (shouldReduceMotion) {
+            setCount(end);
+            return;
+          }
+
+          let startTime: number;
+          const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+            setCount(Math.floor(progress * end));
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
+          };
+          requestAnimationFrame(animate);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.3, rootMargin: '50px' }
     );
 
-    const element = document.getElementById('stats-section');
-    if (element) observer.observe(element);
-
-    return () => {
-      if (animationFrame) cancelAnimationFrame(animationFrame);
-      if (element) observer.unobserve(element);
-    };
-  }, [end, duration]);
+    observer.observe(element);
+    return () => observer.unobserve(element);
+  }, [end, duration, hasAnimated, shouldReduceMotion]);
 
   return <span>{count}{suffix}</span>;
 });
 AnimatedCounter.displayName = 'AnimatedCounter';
 
-// Tech Icon Grid Component
+// Optimized Tech Icon Grid - Reduced animation complexity
 const TechIconGrid = memo(() => {
-  const icons = [
+  const shouldReduceMotion = useReducedMotion();
+  const icons = useMemo(() => [
     { Icon: Code2, label: 'Development', delay: 0 },
-    { Icon: Cloud, label: 'Cloud', delay: 0.1 },
-    { Icon: Database, label: 'Database', delay: 0.2 },
-    { Icon: Shield, label: 'Security', delay: 0.3 },
-    { Icon: Cpu, label: 'AI/ML', delay: 0.4 },
-    { Icon: Globe, label: 'Web', delay: 0.5 },
-  ];
+    { Icon: Cloud, label: 'Cloud', delay: 0.05 },
+    { Icon: Database, label: 'Database', delay: 0.1 },
+    { Icon: Shield, label: 'Security', delay: 0.15 },
+    { Icon: Cpu, label: 'AI/ML', delay: 0.2 },
+    { Icon: Globe, label: 'Web', delay: 0.25 },
+  ], []);
 
   return (
     <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
       {icons.map(({ Icon, label, delay }) => (
         <motion.div
           key={label}
-          initial={{ opacity: 0, scale: 0 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: delay + 0.5, duration: 0.4, type: "spring" }}
+          transition={{ delay: delay + 0.3, duration: 0.3, type: "spring", stiffness: 200 }}
           className="group relative"
         >
           <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 flex items-center justify-center hover:scale-110 hover:border-primary/40 transition-all duration-300 cursor-pointer">
@@ -153,45 +177,11 @@ const TechIconGrid = memo(() => {
 });
 TechIconGrid.displayName = 'TechIconGrid';
 
-// Floating Tech Card
-const FloatingTechCard = memo(({ icon: Icon, title, value, className, delay = 0 }: {
-  icon: LucideIcon;
-  title: string;
-  value: string;
-  className?: string;
-  delay?: number;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20, scale: 0.9 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ delay, duration: 0.5, ease: "easeOut" }}
-    className={cn(
-      "absolute px-4 py-3 rounded-2xl bg-background/90 backdrop-blur-xl border border-border/50 shadow-2xl shadow-black/10",
-      "hover:border-primary/30 transition-all duration-300",
-      className
-    )}
-  >
-    <motion.div
-      animate={{ y: [0, -5, 0] }}
-      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay }}
-    >
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-          <Icon className="w-5 h-5 text-primary" />
-        </div>
-        <div>
-          <p className="text-xs text-muted-foreground">{title}</p>
-          <p className="text-sm font-bold text-foreground">{value}</p>
-        </div>
-      </div>
-    </motion.div>
-  </motion.div>
-));
-FloatingTechCard.displayName = 'FloatingTechCard';
+// Removed FloatingTechCard - not used in current implementation
 
-// 3D Hexagon Grid Background
+// Simplified Hexagon Grid - Static to reduce CPU
 const HexagonGrid = memo(() => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+  <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
     <svg className="absolute w-full h-full" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
@@ -210,71 +200,67 @@ const HexagonGrid = memo(() => (
 ));
 HexagonGrid.displayName = 'HexagonGrid';
 
-// Gradient Orbs
-const GradientOrbs = memo(() => (
-  <>
-    <motion.div
-      animate={{ 
-        scale: [1, 1.2, 1],
-        opacity: [0.3, 0.5, 0.3]
-      }}
-      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-br from-primary/30 via-violet-500/20 to-transparent rounded-full blur-3xl"
-    />
-    <motion.div
-      animate={{ 
-        scale: [1, 1.15, 1],
-        opacity: [0.2, 0.4, 0.2]
-      }}
-      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-gradient-to-tr from-cyan-500/20 via-primary/20 to-transparent rounded-full blur-3xl"
-    />
-    <motion.div
-      animate={{ 
-        scale: [1, 1.1, 1],
-        opacity: [0.15, 0.3, 0.15]
-      }}
-      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-violet-500/10 via-transparent to-primary/10 rounded-full blur-3xl"
-    />
-  </>
-));
+// Optimized Gradient Orbs - CSS-only animations, reduced complexity
+const GradientOrbs = memo(() => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  if (shouldReduceMotion) {
+    return (
+      <>
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-br from-primary/20 via-violet-500/15 to-transparent rounded-full blur-3xl opacity-40" />
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-gradient-to-tr from-cyan-500/15 via-primary/15 to-transparent rounded-full blur-3xl opacity-30" />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gradient-to-br from-primary/20 via-violet-500/15 to-transparent rounded-full blur-3xl animate-pulse-slow opacity-40" />
+      <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-gradient-to-tr from-cyan-500/15 via-primary/15 to-transparent rounded-full blur-3xl animate-pulse-slower opacity-30" />
+    </>
+  );
+});
 GradientOrbs.displayName = 'GradientOrbs';
 
-// Stats Card
+// Optimized Stats Card
 const StatCard = memo(({ icon: Icon, value, label, suffix = '', delay = 0 }: {
   icon: LucideIcon;
   value: number;
   label: string;
   suffix?: string;
   delay?: number;
-}) => (
-  <motion.div
-    variants={scaleIn}
-    initial="hidden"
-    animate="visible"
-    custom={delay}
-    className="group relative p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
-  >
-    <div className="flex items-center gap-3 sm:gap-4">
-      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-        <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
-      </div>
-      <div>
-        <div className="text-xl sm:text-2xl font-bold text-foreground">
-          <AnimatedCounter end={value} suffix={suffix} />
+}) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      variants={scaleIn}
+      initial={shouldReduceMotion ? false : "hidden"}
+      animate="visible"
+      custom={delay}
+      className="group relative p-3 sm:p-4 md:p-5 rounded-xl sm:rounded-2xl bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5"
+    >
+      <div className="flex items-center gap-3 sm:gap-4">
+        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary" />
         </div>
-        <p className="text-xs sm:text-sm text-muted-foreground leading-tight">{label}</p>
+        <div>
+          <div className="text-xl sm:text-2xl font-bold text-foreground">
+            <AnimatedCounter end={value} suffix={suffix} />
+          </div>
+          <p className="text-xs sm:text-sm text-muted-foreground leading-tight">{label}</p>
+        </div>
       </div>
-    </div>
-  </motion.div>
-));
+    </motion.div>
+  );
+});
 StatCard.displayName = 'StatCard';
 
 // --- Main Component ---
 export function HomeHero() {
   const typewriterWords = ['Digital Transformation', 'AI Solutions', 'Cloud Architecture', 'Cybersecurity'];
   const currentWord = useTypewriter(typewriterWords, 80, 40, 2500);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section 
@@ -285,7 +271,7 @@ export function HomeHero() {
       <HexagonGrid />
       <GradientOrbs />
       
-      {/* Grid Pattern */}
+      {/* Grid Pattern - Static */}
       <div 
         className="absolute inset-0 opacity-[0.015]"
         style={{
@@ -305,14 +291,14 @@ export function HomeHero() {
             {/* Left Content - 7 columns */}
             <motion.div 
               className="lg:col-span-7 space-y-6 sm:space-y-7 md:space-y-8"
-              initial={{ opacity: 0 }}
+              initial={shouldReduceMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.4 }}
             >
               {/* Top Badge */}
               <motion.div
                 variants={fadeInUp}
-                initial="hidden"
+                initial={shouldReduceMotion ? false : "hidden"}
                 animate="visible"
                 className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-primary/10 to-violet-500/10 border border-primary/20"
               >
@@ -324,10 +310,10 @@ export function HomeHero() {
                 <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
               </motion.div>
 
-              {/* Main Heading */}
+              {/* Main Heading - Fixed width to prevent layout shift */}
               <motion.div
                 variants={fadeInUp}
-                initial="hidden"
+                initial={shouldReduceMotion ? false : "hidden"}
                 animate="visible"
                 custom={0.1}
                 className="space-y-4"
@@ -335,7 +321,8 @@ export function HomeHero() {
                 <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1] sm:leading-[1.1]">
                   <span className="text-foreground">We Engineer</span>
                   <br />
-                  <span className="relative">
+                  {/* Fixed width container to prevent layout shifts */}
+                  <span className="relative inline-block min-w-[280px] xs:min-w-[320px] sm:min-w-[400px] md:min-w-[500px]">
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-violet-500 to-cyan-500">
                       {currentWord}
                     </span>
@@ -351,7 +338,7 @@ export function HomeHero() {
               {/* Tech Stack Icons */}
               <motion.div
                 variants={fadeInUp}
-                initial="hidden"
+                initial={shouldReduceMotion ? false : "hidden"}
                 animate="visible"
                 custom={0.2}
                 className="pt-2"
@@ -359,21 +346,12 @@ export function HomeHero() {
                 <TechIconGrid />
               </motion.div>
 
-              {/* Key Features */}
-              <motion.div
-                variants={stagger}
-                initial="hidden"
-                animate="visible"
-                className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2"
-              >
-              </motion.div>
-
               {/* CTA Buttons */}
               <motion.div
                 variants={fadeInUp}
-                initial="hidden"
+                initial={shouldReduceMotion ? false : "hidden"}
                 animate="visible"
-                custom={0.4}
+                custom={0.3}
                 className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4"
               >
                 <Link 
@@ -384,7 +362,6 @@ export function HomeHero() {
                     Start Your Project
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary via-violet-500 to-primary bg-[length:200%_100%] animate-gradient opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
                 
                 <Link 
@@ -399,9 +376,9 @@ export function HomeHero() {
               {/* Trust Indicators */}
               <motion.div
                 variants={fadeInUp}
-                initial="hidden"
+                initial={shouldReduceMotion ? false : "hidden"}
                 animate="visible"
-                custom={0.5}
+                custom={0.4}
                 className="flex flex-wrap items-center gap-4 sm:gap-6 pt-2 sm:pt-4 text-xs sm:text-sm text-muted-foreground"
               >
                 <div className="flex items-center gap-2">
@@ -427,13 +404,13 @@ export function HomeHero() {
 
             {/* Right Side - Visual Elements - 5 columns */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:col-span-5 relative"
             >
               <div className="relative flex items-center justify-center overflow-hidden">
-                {/* Hero Lottie Animation */}
+                {/* Hero Lottie Animation - Lazy loaded */}
                 <div className="relative w-full aspect-square">
                   <div className="absolute inset-0 flex items-center justify-center scale-150">
                     <DotLottieReact
@@ -450,15 +427,15 @@ export function HomeHero() {
           {/* Bottom Stats Section */}
           <motion.div
             id="stats-section"
-            initial={{ opacity: 0, y: 30 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
+            transition={{ delay: 0.5, duration: 0.4 }}
             className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16 lg:mt-20 xl:mt-24"
           >
-            <StatCard icon={Layers} value={150} suffix="+" label="Projects Delivered" delay={0.9} />
-            <StatCard icon={Users} value={500} suffix="+" label="Happy Clients" delay={1} />
-            <StatCard icon={Globe} value={25} suffix="+" label="Countries Served" delay={1.1} />
-            <StatCard icon={Award} value={99} suffix="%" label="Client Satisfaction" delay={1.2} />
+            <StatCard icon={Layers} value={150} suffix="+" label="Projects Delivered" delay={0.6} />
+            <StatCard icon={Users} value={500} suffix="+" label="Happy Clients" delay={0.65} />
+            <StatCard icon={Globe} value={25} suffix="+" label="Countries Served" delay={0.7} />
+            <StatCard icon={Award} value={99} suffix="%" label="Client Satisfaction" delay={0.75} />
           </motion.div>
         </div>
       </div>
@@ -467,12 +444,19 @@ export function HomeHero() {
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 
       <style jsx global>{`
-        @keyframes gradient {
-          0%, 100% { background-position: 0% center; }
-          50% { background-position: 100% center; }
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.05); }
         }
-        .animate-gradient {
-          animation: gradient 3s ease infinite;
+        @keyframes pulse-slower {
+          0%, 100% { opacity: 0.2; transform: scale(1); }
+          50% { opacity: 0.4; transform: scale(1.03); }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 8s ease-in-out infinite;
+        }
+        .animate-pulse-slower {
+          animation: pulse-slower 10s ease-in-out infinite;
         }
       `}</style>
     </section>
