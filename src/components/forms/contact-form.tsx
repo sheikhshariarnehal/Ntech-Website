@@ -143,7 +143,7 @@ export function ContactForm() {
                     Send us a Message
                 </h2>
                 <p className="text-muted-foreground">
-                    Fill out the form below and we'll get back to you as soon as possible.
+                    Fill out the form below and we&apos;ll get back to you as soon as possible.
                 </p>
             </div>
 
@@ -154,7 +154,7 @@ export function ContactForm() {
                         <CheckCircle2 className="w-5 h-5 text-green-500" />
                         <div>
                             <p className="font-medium text-green-600 dark:text-green-400">Message sent successfully!</p>
-                            <p className="text-sm text-muted-foreground">We'll respond within 24 hours.</p>
+                            <p className="text-sm text-muted-foreground">We&apos;ll respond within 24 hours.</p>
                         </div>
                     </div>
                 </div>

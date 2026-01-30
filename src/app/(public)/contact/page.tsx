@@ -1,6 +1,6 @@
 import { ContactForm } from "@/components/forms/contact-form";
 import { Metadata } from "next";
-import { Mail, Phone, MapPin, Clock, Send, Headphones, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Headphones, Globe } from "lucide-react";
 
 export const metadata: Metadata = {
     title: "Contact Us | Get In Touch",
@@ -64,8 +64,8 @@ export default function ContactPage() {
                             Get in Touch
                         </h1>
                         <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                            Have a question or want to work together? We'd love to hear from you. 
-                            Send us a message and we'll respond as soon as possible.
+                            Have a question or want to work together? We&apos;d love to hear from you. 
+                            Send us a message and we&apos;ll respond as soon as possible.
                         </p>
                     </div>
                 </div>
@@ -188,7 +188,7 @@ export default function ContactPage() {
                                 Visit Our Office
                             </h2>
                             <p className="text-muted-foreground">
-                                We'd love to meet you in person. Drop by our office anytime during business hours.
+                                We&apos;d love to meet you in person. Drop by our office anytime during business hours.
                             </p>
                         </div>
                         <div className="aspect-[21/9] rounded-2xl overflow-hidden bg-muted border border-border">

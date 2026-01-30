@@ -530,7 +530,6 @@ export function MainHeader() {
             <AnimatePresence>
                 {isMenuOpen && (
                     <MobileSidebar 
-                        isOpen={isMenuOpen}
                         onClose={() => setIsMenuOpen(false)}
                         navLinks={navLinks}
                         megaMenuData={megaMenuData}
@@ -693,7 +692,7 @@ const MobileNavItem = React.memo(function MobileNavItem({
     );
 });
 
-function MobileSidebar({ isOpen, onClose, navLinks, megaMenuData }: MobileSidebarProps) {
+function MobileSidebar({ onClose, navLinks, megaMenuData }: Omit<MobileSidebarProps, 'isOpen'>) {
     const [expandedMenu, setExpandedMenu] = React.useState<string | null>(null);
     const sidebarRef = React.useRef<HTMLDivElement>(null);
     const startXRef = React.useRef<number>(0);

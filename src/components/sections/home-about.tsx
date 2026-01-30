@@ -75,8 +75,6 @@ export function HomeAbout() {
                                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 448px"
                                     priority
                                 />
-                                    priority
-                                />
                                 
                                 {/* Overlay Stats Card */}
                                 <div className="absolute bottom-6 left-6 right-6 p-4 bg-background/80 backdrop-blur-md border border-border rounded-xl flex items-center justify-between">
