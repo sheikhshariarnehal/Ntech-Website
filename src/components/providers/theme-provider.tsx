@@ -5,13 +5,36 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes";
 import { createClient } from "@/lib/supabase/client";
 
+// Cache for theme data to prevent duplicate fetches
+let themeCache: {
+  data: Record<string, string | boolean | null> | null;
+  timestamp: number;
+} = { data: null, timestamp: 0 };
+
+const CACHE_DURATION = 60000; // 1 minute cache
+
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  const hasLoadedRef = React.useRef(false);
+
   React.useEffect(() => {
-    loadAndApplyCustomTheme();
+    // Prevent duplicate loading on mount
+    if (hasLoadedRef.current) return;
+    hasLoadedRef.current = true;
+    
+    // Use requestIdleCallback to load theme when browser is idle
+    const loadTheme = () => loadAndApplyCustomTheme();
+    
+    if ('requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(loadTheme, { timeout: 2000 });
+    } else {
+      // Fallback: delay slightly to not block initial render
+      setTimeout(loadTheme, 100);
+    }
 
     // Listen for theme updates from settings page
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'theme-updated') {
+        themeCache = { data: null, timestamp: 0 }; // Invalidate cache
         loadAndApplyCustomTheme();
       }
     };
@@ -20,6 +43,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     
     // Also listen for theme updates in the same tab
     const handleLocalUpdate = () => {
+      themeCache = { data: null, timestamp: 0 }; // Invalidate cache
       loadAndApplyCustomTheme();
     };
     
@@ -32,17 +56,30 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   }, []);
 
   async function loadAndApplyCustomTheme() {
+    // Check cache first
+    const now = Date.now();
+    if (themeCache.data && (now - themeCache.timestamp) < CACHE_DURATION) {
+      applyThemeData(themeCache.data);
+      return;
+    }
+    
     const supabase = createClient();
     const { data } = await supabase
       .from('site_settings')
       .select('enable_custom_theme, theme_background, theme_foreground, theme_card, theme_card_foreground, theme_popover, theme_popover_foreground, theme_primary, theme_primary_foreground, theme_secondary, theme_secondary_foreground, theme_muted, theme_muted_foreground, theme_accent, theme_accent_foreground, theme_destructive, theme_destructive_foreground, theme_border, theme_input, theme_ring, theme_radius')
       .single();
-
+    
     if (data) {
-      const root = document.documentElement;
-      
-      // Check if custom theme is enabled
-      if (data.enable_custom_theme) {
+      themeCache = { data, timestamp: now };
+      applyThemeData(data);
+    }
+  }
+  
+  function applyThemeData(data: Record<string, string | boolean | null>) {
+    const root = document.documentElement;
+    
+    // Check if custom theme is enabled
+    if (data.enable_custom_theme) {
         // Apply custom theme colors to CSS variables
         if (data.theme_background) root.style.setProperty('--background', data.theme_background);
         if (data.theme_foreground) root.style.setProperty('--foreground', data.theme_foreground);
@@ -87,7 +124,6 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
         root.style.removeProperty('--ring');
         root.style.removeProperty('--radius');
       }
-    }
   }
 
   return (

@@ -270,6 +270,7 @@ export function MainHeader() {
                                 alt="Ntech Solutions Logo" 
                                 fill
                                 className="object-contain drop-shadow-lg"
+                                sizes="(max-width: 640px) 28px, 36px"
                                 priority
                             />
                             {/* Animated glow effect */}
@@ -369,7 +370,10 @@ export function MainHeader() {
                     </div>
 
                     {/* Mobile Menu Toggle */}
-                    <div className="flex items-center gap-2 lg:hidden">
+                    <div className={cn(
+                        "flex items-center gap-2 lg:hidden transition-opacity duration-200",
+                        isMenuOpen && "opacity-0 pointer-events-none"
+                    )}>
                         <ThemeToggleCompact />
                         <motion.button
                             whileTap={{ scale: 0.95 }}
@@ -377,11 +381,7 @@ export function MainHeader() {
                             onClick={toggleMenu}
                             aria-label="Toggle menu"
                         >
-                            {isMenuOpen ? (
-                                <X className="h-5 w-5 text-foreground" />
-                            ) : (
-                                <Menu className="h-5 w-5 text-foreground" />
-                            )}
+                            <Menu className="h-5 w-5 text-foreground" />
                         </motion.button>
                     </div>
                 </div>
@@ -518,67 +518,305 @@ export function MainHeader() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+                        transition={{ duration: 0.15, ease: "easeOut" }}
+                        className="fixed inset-0 z-[45] bg-black/70 backdrop-blur-sm lg:hidden"
                         onClick={() => setIsMenuOpen(false)}
                         aria-hidden="true"
                     />
                 )}
             </AnimatePresence>
 
-            {/* Mobile Slide-in Sidebar */}
+            {/* Mobile Slide-in Sidebar - Professional & Touch-Optimized */}
             <AnimatePresence>
                 {isMenuOpen && (
-                    <motion.aside
-                        initial={{ x: "100%" }}
-                        animate={{ x: 0 }}
-                        exit={{ x: "100%" }}
-                        transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                        className="fixed top-0 right-0 bottom-0 z-50 w-[85vw] max-w-sm bg-background/95 backdrop-blur-2xl border-l border-border shadow-2xl lg:hidden"
-                    >
-                        <div className="flex flex-col h-full pt-20">
-                            {/* Sidebar Navigation */}
-                            <nav className="flex-1 overflow-y-auto px-6 py-4">
-                                <ul className="space-y-2">
-                                    {navLinks.map((link, index) => (
-                                        <motion.li
-                                            key={link.href}
-                                            initial={{ x: 20, opacity: 0 }}
-                                            animate={{ x: 0, opacity: 1 }}
-                                            transition={{ delay: 0.1 + index * 0.05 }}
-                                        >
-                                            <Link
-                                                href={link.href}
-                                                className="flex items-center justify-between px-5 py-4 text-lg font-medium text-muted-foreground rounded-2xl transition-all hover:bg-secondary/50 hover:text-foreground active:scale-95 group"
-                                                onClick={() => setIsMenuOpen(false)}
-                                            >
-                                                <span>{link.label}</span>
-                                                {link.hasMega && (
-                                                    <ChevronDown className="w-5 h-5 text-muted-foreground/50" />
-                                                )}
-                                            </Link>
-                                        </motion.li>
-                                    ))}
-                                </ul>
-                            </nav>
-
-                            {/* Sidebar Footer - CTA Buttons */}
-                            <div className="p-6 border-t border-border/50 bg-muted/30 space-y-4">
-                                <Link href="/auth/login" onClick={() => setIsMenuOpen(false)} className="block">
-                                    <Button variant="outline" size="lg" className="w-full rounded-xl h-12 text-base">
-                                        Login
-                                    </Button>
-                                </Link>
-                                <Link href="/contact" onClick={() => setIsMenuOpen(false)} className="block">
-                                    <Button size="lg" className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 text-white font-medium shadow-lg shadow-primary/25 rounded-xl h-12 text-base">
-                                        Get Started
-                                    </Button>
-                                </Link>
-                            </div>
-                        </div>
-                    </motion.aside>
+                    <MobileSidebar 
+                        isOpen={isMenuOpen}
+                        onClose={() => setIsMenuOpen(false)}
+                        navLinks={navLinks}
+                        megaMenuData={megaMenuData}
+                    />
                 )}
             </AnimatePresence>
         </>
+    );
+}
+
+// Professional Mobile Sidebar Component - Performance Optimized
+interface MobileSidebarProps {
+    isOpen: boolean;
+    onClose: () => void;
+    navLinks: { href: string; label: string; hasMega?: boolean }[];
+    megaMenuData: Record<string, MegaMenuData>;
+}
+
+// Pre-computed icon mapping to avoid runtime lookups
+const NAV_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+    Home: Sparkles,
+    Services: Briefcase,
+    Shop: ShoppingBag,
+    Projects: Rocket,
+    Team: Bot,
+    About: Zap,
+    Contact: Code,
+};
+
+// Memoized menu item to prevent unnecessary re-renders
+const MobileNavItem = React.memo(function MobileNavItem({ 
+    link, 
+    index, 
+    isExpanded, 
+    menuData, 
+    onToggle, 
+    onClose 
+}: {
+    link: { href: string; label: string; hasMega?: boolean };
+    index: number;
+    isExpanded: boolean;
+    menuData: MegaMenuSection[] | null;
+    onToggle: () => void;
+    onClose: () => void;
+}) {
+    const IconComponent = NAV_ICONS[link.label] || Sparkles;
+    
+    if (link.hasMega) {
+        return (
+            <li 
+                className="transform transition-all duration-200"
+                style={{ 
+                    animationDelay: `${index * 30}ms`,
+                    animation: 'slideInLeft 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards'
+                }}
+            >
+                <button
+                    onClick={onToggle}
+                    className={cn(
+                        "w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-150 touch-manipulation",
+                        "active:scale-[0.98] min-h-[48px]",
+                        isExpanded 
+                            ? "bg-primary/8 text-primary" 
+                            : "text-foreground hover:bg-secondary/50 active:bg-secondary/70"
+                    )}
+                >
+                    <div className={cn(
+                        "flex items-center justify-center w-9 h-9 rounded-lg transition-all duration-150",
+                        isExpanded ? "bg-primary/15 text-primary" : "bg-secondary/60 text-muted-foreground"
+                    )}>
+                        <IconComponent className="w-[18px] h-[18px]" />
+                    </div>
+                    <span className="flex-1 text-left text-sm font-medium">
+                        {link.label}
+                    </span>
+                    <ChevronDown className={cn(
+                        "w-4 h-4 transition-transform duration-200",
+                        isExpanded ? "rotate-180 text-primary" : "text-muted-foreground/40"
+                    )} />
+                </button>
+                
+                {/* Submenu with CSS transitions instead of Framer Motion */}
+                <div 
+                    className={cn(
+                        "overflow-hidden transition-all duration-250 ease-out",
+                        isExpanded ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                    )}
+                >
+                    {menuData && (
+                        <div className="pt-1.5 pb-1 pl-3 pr-1.5">
+                            {menuData.map((section, sectionIndex) => (
+                                <div key={sectionIndex} className="mb-2 last:mb-0">
+                                    <p className="text-[9px] uppercase tracking-widest font-semibold text-muted-foreground/60 px-2.5 py-1.5">
+                                        {section.title}
+                                    </p>
+                                    <div className="space-y-0.5">
+                                        {section.items.map((item, itemIndex) => {
+                                            const ItemIcon = item.icon;
+                                            return (
+                                                <Link
+                                                    key={itemIndex}
+                                                    href={item.href}
+                                                    onClick={onClose}
+                                                    className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/40 active:bg-secondary/60 transition-colors duration-100 touch-manipulation active:scale-[0.98] min-h-[40px]"
+                                                >
+                                                    <div className="flex items-center justify-center w-7 h-7 rounded-md bg-primary/8">
+                                                        <ItemIcon className="w-3.5 h-3.5 text-primary/70" />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="flex items-center gap-1.5">
+                                                            <span className="text-[13px] font-medium truncate">
+                                                                {item.label}
+                                                            </span>
+                                                            {item.badge && (
+                                                                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-primary/12 text-primary">
+                                                                    {item.badge}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            ))}
+                            <Link
+                                href={link.href}
+                                onClick={onClose}
+                                className="flex items-center justify-center gap-1.5 px-2.5 py-2 mt-1.5 rounded-lg bg-secondary/30 hover:bg-secondary/50 text-[13px] font-medium text-primary transition-colors duration-100 touch-manipulation active:scale-[0.98]"
+                            >
+                                View All
+                                <ArrowRight className="w-3.5 h-3.5" />
+                            </Link>
+                        </div>
+                    )}
+                </div>
+            </li>
+        );
+    }
+    
+    return (
+        <li 
+            style={{ 
+                animationDelay: `${index * 40}ms`,
+                animation: 'slideInLeft 0.25s ease-out forwards'
+            }}
+        >
+            <Link
+                href={link.href}
+                onClick={onClose}
+                className="flex items-center gap-3 px-3 py-3 rounded-xl text-foreground hover:bg-secondary/50 active:bg-secondary/70 transition-colors duration-150 touch-manipulation active:scale-[0.98] min-h-[48px]"
+            >
+                <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-secondary/60">
+                    <IconComponent className="w-[18px] h-[18px] text-muted-foreground" />
+                </div>
+                <span className="text-sm font-medium">{link.label}</span>
+            </Link>
+        </li>
+    );
+});
+
+function MobileSidebar({ isOpen, onClose, navLinks, megaMenuData }: MobileSidebarProps) {
+    const [expandedMenu, setExpandedMenu] = React.useState<string | null>(null);
+    const sidebarRef = React.useRef<HTMLDivElement>(null);
+    const startXRef = React.useRef<number>(0);
+    const currentXRef = React.useRef<number>(0);
+
+    // Handle swipe to close with passive event handling
+    const handleTouchStart = React.useCallback((e: React.TouchEvent) => {
+        startXRef.current = e.touches[0].clientX;
+    }, []);
+
+    const handleTouchMove = React.useCallback((e: React.TouchEvent) => {
+        currentXRef.current = e.touches[0].clientX;
+    }, []);
+
+    const handleTouchEnd = React.useCallback(() => {
+        const diff = currentXRef.current - startXRef.current;
+        // Swipe LEFT to close (negative diff)
+        if (diff < -80) {
+            onClose();
+        }
+    }, [onClose]);
+
+    const toggleSubmenu = React.useCallback((menuKey: string) => {
+        setExpandedMenu(prev => prev === menuKey ? null : menuKey);
+    }, []);
+
+    return (
+        <motion.aside
+            ref={sidebarRef}
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ type: "tween", duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            className="fixed top-0 left-0 bottom-0 z-[60] w-[85vw] max-w-[340px] bg-background/95 backdrop-blur-xl border-r border-border/50 shadow-2xl shadow-black/25 lg:hidden flex flex-col will-change-transform"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-border/30">
+                <div className="flex items-center gap-3">
+                    <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-primary/10 to-purple-600/10 p-1.5">
+                        <Image 
+                            src="/icons/LOGO.webp" 
+                            alt="Ntech Solutions" 
+                            fill
+                            className="object-contain"
+                            sizes="36px"
+                        />
+                    </div>
+                    <div>
+                        <span className="font-bold text-base text-foreground">Ntech</span>
+                        <p className="text-[10px] text-muted-foreground -mt-0.5">Solutions</p>
+                    </div>
+                </div>
+                <button
+                    onClick={onClose}
+                    className="flex items-center justify-center w-9 h-9 rounded-xl bg-secondary/50 hover:bg-secondary/80 transition-colors duration-100 touch-manipulation active:scale-95"
+                    aria-label="Close menu"
+                >
+                    <X className="w-4.5 h-4.5 text-muted-foreground" />
+                </button>
+            </div>
+
+            {/* Scrollable Navigation Area */}
+            <nav className="flex-1 overflow-y-auto overscroll-contain py-4 px-3 scrollbar-hide">
+                <ul className="space-y-0.5">
+                    {navLinks.map((link, index) => {
+                        const menuSections = link.hasMega 
+                            ? megaMenuData[link.label.toLowerCase() as keyof typeof megaMenuData]?.sections 
+                            : null;
+                        
+                        return (
+                            <MobileNavItem
+                                key={link.href}
+                                link={link}
+                                index={index}
+                                isExpanded={expandedMenu === link.label.toLowerCase()}
+                                menuData={menuSections}
+                                onToggle={() => toggleSubmenu(link.label.toLowerCase())}
+                                onClose={onClose}
+                            />
+                        );
+                    })}
+                </ul>
+            </nav>
+
+            {/* Footer */}
+            <div className="px-4 py-3 border-t border-border/40 bg-gradient-to-b from-background to-muted/20 space-y-2.5 pb-safe">
+                <div className="grid grid-cols-2 gap-2.5">
+                    <Link href="/auth/login" onClick={onClose}>
+                        <button className="w-full flex items-center justify-center h-11 rounded-lg border border-border/60 bg-background hover:bg-muted/50 text-foreground font-medium text-[13px] transition-all duration-150 touch-manipulation active:scale-[0.97] shadow-sm hover:shadow">
+                            Login
+                        </button>
+                    </Link>
+                    <Link href="/contact" onClick={onClose}>
+                        <button className="w-full flex items-center justify-center gap-1.5 h-11 rounded-lg bg-gradient-to-r from-primary to-primary/90 hover:from-primary/95 hover:to-primary/85 text-primary-foreground font-semibold text-[13px] shadow-lg shadow-primary/30 hover:shadow-primary/40 transition-all duration-150 touch-manipulation active:scale-[0.97]">
+                            <Rocket className="w-3.5 h-3.5" />
+                            Get Started
+                        </button>
+                    </Link>
+                </div>
+
+                <div className="pt-2 border-t border-border/20">
+                    <p className="text-center text-[9px] text-muted-foreground/35 font-medium">
+                        © 2026 Ntech Solutions
+                    </p>
+                </div>
+            </div>
+            
+            {/* CSS Keyframes for lightweight animations */}
+            <style jsx global>{`
+                @keyframes slideInLeft {
+                    from {
+                        opacity: 0;
+                        transform: translate3d(-12px, 0, 0);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translate3d(0, 0, 0);
+                    }
+                }
+            `}</style>
+        </motion.aside>
     );
 }

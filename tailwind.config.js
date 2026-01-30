@@ -89,6 +89,9 @@ module.exports = {
                 sans: ['Inter', 'sans-serif'],
                 display: ['Outfit', 'sans-serif'],
             },
+            screens: {
+                'xs': '375px',
+            },
         },
     },
     plugins: [require("tailwindcss-animate")],

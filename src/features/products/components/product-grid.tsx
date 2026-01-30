@@ -71,9 +71,9 @@ export function ProductGrid({ initialProducts }: ProductGridProps) {
       {/* Search and Filter Section */}
       <div className="space-y-3 sm:space-y-4">
         {/* Search Bar and Filter Dropdown - Right Aligned */}
-        <div className="flex flex-col sm:flex-row sm:justify-end gap-2 sm:gap-3 md:gap-4">
+        <div className="flex flex-row sm:justify-end gap-2 sm:gap-3 md:gap-4">
           {/* Search Input */}
-          <div className="relative w-full sm:w-auto sm:min-w-[280px] md:min-w-[320px] lg:min-w-[380px]">
+          <div className="relative flex-1 sm:flex-none sm:w-auto sm:min-w-[280px] md:min-w-[320px] lg:min-w-[380px]">
             <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 h-4 sm:h-5 w-4 sm:w-5 text-muted-foreground pointer-events-none" />
             <Input
               type="text"
@@ -85,10 +85,10 @@ export function ProductGrid({ initialProducts }: ProductGridProps) {
           </div>
 
           {/* Filter Dropdown */}
-          <div className="relative w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px]" ref={dropdownRef}>
+          <div className="relative w-auto sm:w-auto sm:min-w-[180px] md:min-w-[200px]" ref={dropdownRef}>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="h-11 sm:h-12 px-3 sm:px-4 flex items-center justify-between gap-1.5 sm:gap-2 bg-background border border-border rounded-lg hover:border-primary transition-colors text-left whitespace-nowrap"
+              className="w-full h-11 sm:h-12 px-3 sm:px-4 flex items-center justify-between gap-1.5 sm:gap-2 bg-background border border-border rounded-lg hover:border-primary transition-colors text-left whitespace-nowrap"
             >
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-muted-foreground flex-shrink-0" />
@@ -150,7 +150,7 @@ export function ProductGrid({ initialProducts }: ProductGridProps) {
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5 md:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5 xs:gap-3 sm:gap-4 md:gap-5 lg:gap-6">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

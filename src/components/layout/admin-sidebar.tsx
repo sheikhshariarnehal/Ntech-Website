@@ -62,7 +62,7 @@ export function SidebarContent({ onLinkClick }: { onLinkClick?: () => void }) {
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px]">
         <Link href="/admin" className="flex items-center gap-2 font-semibold" onClick={onLinkClick}>
           <div className="relative h-6 w-6">
-             <Image src="/icons/LOGO.webp" alt="Logo" fill className="object-contain" />
+             <Image src="/icons/LOGO.webp" alt="Logo" fill className="object-contain" sizes="24px" />
           </div>
           <span>{siteConfig.name} Admin</span>
         </Link>

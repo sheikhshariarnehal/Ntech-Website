@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 
 export function HomeAbout() {
     return (
@@ -65,11 +66,16 @@ export function HomeAbout() {
                             <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-600/30 rounded-full blur-[80px] mix-blend-screen animate-pulse" style={{ animationDelay: "2s" }} />
                             
                             {/* Image Container */}
-                            <div className="relative z-10 rounded-2xl overflow-hidden border border-border shadow-2xl bg-card/50 backdrop-blur-sm">
-                                <img 
+                            <div className="relative z-10 rounded-2xl overflow-hidden border border-border shadow-2xl bg-card/50 backdrop-blur-sm aspect-square">
+                                <Image 
                                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2670&auto=format&fit=crop" 
                                     alt="Team working on AI" 
-                                    className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                                    fill
+                                    className="object-cover opacity-80 hover:opacity-100 transition-opacity duration-500"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 448px"
+                                    priority
+                                />
+                                    priority
                                 />
                                 
                                 {/* Overlay Stats Card */}

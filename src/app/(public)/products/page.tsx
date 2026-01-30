@@ -2,14 +2,63 @@ import { ProductList } from "@/features/products/components/product-list";
 import { Metadata } from "next";
 import { CheckCircle2, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { generatePageSEO } from "@/config/seo";
 
-export const metadata: Metadata = {
-    title: "Products | Ntech",
-    description: "Premium digital products, AI tools, and subscription services.",
-};
+export const metadata: Metadata = generatePageSEO({
+    title: "Premium Digital Products & AI Tools",
+    description: "Access premium digital products including ChatGPT Pro, Gemini Pro, Canva Pro, Veo3, and more at up to 95% off retail prices. Instant access, 100% satisfaction guaranteed, and free updates.",
+    path: "/products",
+});
 
 export default function ProductsPage() {
+    // Structured data for SEO
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Premium Digital Products & AI Tools",
+        "description": "Access premium digital products including ChatGPT Pro, Gemini Pro, Canva Pro, Veo3, and more at competitive prices.",
+        "url": "https://ntech.com/products",
+        "mainEntity": {
+            "@type": "ItemList",
+            "name": "Premium Tools Collection",
+            "description": "Professional-grade software for creators, marketers, and businesses",
+            "itemListElement": [
+                {
+                    "@type": "Product",
+                    "name": "ChatGPT Pro",
+                    "description": "Advanced AI conversations and content generation"
+                },
+                {
+                    "@type": "Product",
+                    "name": "Gemini Pro",
+                    "description": "Google's powerful AI assistant"
+                },
+                {
+                    "@type": "Product",
+                    "name": "Canva Pro",
+                    "description": "Professional design tools for everyone"
+                },
+                {
+                    "@type": "Product",
+                    "name": "Veo3",
+                    "description": "Next-generation video creation and editing"
+                }
+            ]
+        },
+        "provider": {
+            "@type": "Organization",
+            "name": "Ntech",
+            "url": "https://ntech.com"
+        }
+    };
+
     return (
+        <>
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
         <div className="min-h-screen">
             {/* Hero Header */}
             <div className="mt-16 sm:mt-20 md:mt-24">
@@ -57,5 +106,6 @@ export default function ProductsPage() {
                 <ProductList />
             </div>
         </div>
+        </>
     );
 }

@@ -71,9 +71,23 @@ export default function RootLayout({
                         `,
                     }}
                 />
+                {/* Critical preconnects for third-party origins */}
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+                <link rel="preconnect" href="https://lottie.host" />
+                <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+                <link rel="preconnect" href="https://xrpgyotzqminukdmmxoq.supabase.co" />
+                <link rel="preconnect" href="https://images.unsplash.com" />
+                
+                {/* DNS prefetch for additional origins */}
+                <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+                <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+                
+                {/* Fonts with display=swap for faster text rendering */}
+                <link 
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" 
+                    rel="stylesheet"
+                />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
