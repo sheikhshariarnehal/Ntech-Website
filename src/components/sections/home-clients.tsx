@@ -47,7 +47,7 @@ function CompanyItem({ company }: { company: Pick<TrustedCompany, 'name' | 'logo
             href={company.website_url || "#"} 
             target={company.website_url ? "_blank" : "_self"}
             rel={company.website_url ? "noopener noreferrer" : ""}
-            className="flex items-center gap-3 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer group/item"
+            className="flex items-center gap-3 opacity-100 hover:opacity-100 transition-all duration-500 cursor-pointer group/item"
             tabIndex={company.website_url ? 0 : -1}
         >
             {company.logo_url && (

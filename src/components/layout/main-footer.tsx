@@ -74,8 +74,8 @@ export function MainFooter() {
                                     src={siteConfig.logo} 
                                     alt="Ntech Solutions Logo" 
                                     fill 
-                                    className="object-contain rounded-lg" 
-                                    priority 
+                                    className="object-contain rounded-lg"
+                                    sizes="36px"
                                 />
                             </div>
                             <span className="text-lg font-bold font-display tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
