@@ -9,7 +9,8 @@ export async function HomeServices() {
         .from('services')
         .select('id, name, short_description, icon, features, slug')
         .eq('is_active', true)
-        .order('created_at', { ascending: true });
+        .order('created_at', { ascending: true })
+        .limit(3);
 
     if (error) {
         console.error('Error fetching services:', error);
