@@ -84,20 +84,36 @@ export async function POST(request: Request) {
             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
         );
 
-        // Find the session that starts with this short ID
+        console.log("Looking for session starting with:", shortSessionId);
+
+        // Get recent active sessions and find one matching the short ID prefix
         const { data: sessions, error: sessionError } = await supabase
             .from("chat_sessions")
             .select("id")
-            .ilike("id", `${shortSessionId}%`)
             .eq("status", "active")
-            .limit(1);
+            .order("created_at", { ascending: false })
+            .limit(50);
+
+        console.log("Found sessions:", sessions?.length, "Error:", sessionError);
 
         if (sessionError || !sessions || sessions.length === 0) {
-            console.error("Session not found for shortId:", shortSessionId);
+            console.error("No active sessions found. Error:", sessionError);
             return NextResponse.json({ ok: true });
         }
 
-        const sessionId = sessions[0].id;
+        // Find session that starts with the short ID
+        const matchingSession = sessions.find(s =>
+            s.id.toLowerCase().startsWith(shortSessionId.toLowerCase())
+        );
+
+        if (!matchingSession) {
+            console.error("No matching session for shortId:", shortSessionId, "Available:", sessions.map(s => s.id.substring(0, 8)));
+            return NextResponse.json({ ok: true });
+        }
+
+        console.log("Found matching session:", matchingSession.id);
+
+        const sessionId = matchingSession.id;
 
         // Save admin reply to database
         const { error: messageError } = await supabase
