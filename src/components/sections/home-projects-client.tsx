@@ -46,11 +46,11 @@ export function HomeProjectsClient({ projects }: HomeProjectsClientProps) {
                         >
                             <Link href={`/projects/${project.slug}`}>
                                 <div className="relative overflow-hidden rounded-lg sm:rounded-xl aspect-[16/9] mb-4 sm:mb-6">
-                                    <div className="absolute inset-0 bg-background/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
+                                    <div className="absolute inset-0 bg-black/5 dark:bg-black/20 group-hover:bg-transparent transition-colors duration-300 z-10" />
                                     {project.thumbnail_url ? (
-                                        <Image 
-                                            src={project.thumbnail_url} 
-                                            alt={project.title} 
+                                        <Image
+                                            src={project.thumbnail_url}
+                                            alt={project.title}
                                             fill
                                             className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                                         />
@@ -59,17 +59,17 @@ export function HomeProjectsClient({ projects }: HomeProjectsClientProps) {
                                             <span className="text-muted-foreground">No image</span>
                                         </div>
                                     )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80" />
-                                    
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent dark:from-black/80 dark:via-black/30" />
+
                                     <div className="absolute bottom-0 left-0 p-4 sm:p-6 z-20 translate-y-2 sm:translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                                         {project.services_used && project.services_used.length > 0 && (
-                                            <span className="text-primary text-xs sm:text-sm font-medium mb-1 sm:mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                                            <span className="text-primary-foreground dark:text-primary text-xs sm:text-sm font-medium mb-1 sm:mb-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                                                 {project.services_used[0].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
                                             </span>
                                         )}
-                                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2">{project.title}</h3>
+                                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">{project.title}</h3>
                                         {project.short_description && (
-                                            <p className="text-muted-foreground text-xs sm:text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 hidden md:block">
+                                            <p className="text-white/80 text-xs sm:text-sm max-w-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 hidden md:block">
                                                 {project.short_description}
                                             </p>
                                         )}
