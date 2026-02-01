@@ -6,8 +6,9 @@ import { defaultSEO } from "@/config/seo";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { ChatWidget } from "@/components/ui/ChatWidget";
 
-const inter = Inter({ 
+const inter = Inter({
     subsets: ["latin"],
     variable: "--font-sans",
 });
@@ -78,14 +79,14 @@ export default function RootLayout({
                 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
                 <link rel="preconnect" href="https://xrpgyotzqminukdmmxoq.supabase.co" />
                 <link rel="preconnect" href="https://images.unsplash.com" />
-                
+
                 {/* DNS prefetch for additional origins */}
                 <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
                 <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-                
+
                 {/* Fonts with display=swap for faster text rendering */}
-                <link 
-                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" 
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
                     rel="stylesheet"
                 />
                 <script
@@ -102,6 +103,7 @@ export default function RootLayout({
                 <ThemeProvider defaultTheme="light">
                     {children}
                     <Toaster />
+                    <ChatWidget />
                 </ThemeProvider>
             </body>
         </html>
