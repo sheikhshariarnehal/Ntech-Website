@@ -20,10 +20,10 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     // Prevent duplicate loading on mount
     if (hasLoadedRef.current) return;
     hasLoadedRef.current = true;
-    
+
     // Use requestIdleCallback to load theme when browser is idle
     const loadTheme = () => loadAndApplyCustomTheme();
-    
+
     if ('requestIdleCallback' in window) {
       (window as Window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(loadTheme, { timeout: 2000 });
     } else {
@@ -40,19 +40,20 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
     };
 
     window.addEventListener('storage', handleStorageChange);
-    
+
     // Also listen for theme updates in the same tab
     const handleLocalUpdate = () => {
       themeCache = { data: null, timestamp: 0 }; // Invalidate cache
       loadAndApplyCustomTheme();
     };
-    
+
     window.addEventListener('theme-update', handleLocalUpdate as EventListener);
 
     return () => {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('theme-update', handleLocalUpdate as EventListener);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function loadAndApplyCustomTheme() {
@@ -62,68 +63,68 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       applyThemeData(themeCache.data);
       return;
     }
-    
+
     const supabase = createClient();
     const { data } = await supabase
       .from('site_settings')
       .select('enable_custom_theme, theme_background, theme_foreground, theme_card, theme_card_foreground, theme_popover, theme_popover_foreground, theme_primary, theme_primary_foreground, theme_secondary, theme_secondary_foreground, theme_muted, theme_muted_foreground, theme_accent, theme_accent_foreground, theme_destructive, theme_destructive_foreground, theme_border, theme_input, theme_ring, theme_radius')
       .single();
-    
+
     if (data) {
       themeCache = { data, timestamp: now };
       applyThemeData(data);
     }
   }
-  
+
   function applyThemeData(data: Record<string, string | boolean | null>) {
     const root = document.documentElement;
-    
+
     // Check if custom theme is enabled
     if (data.enable_custom_theme) {
-        // Apply custom theme colors to CSS variables
-        if (data.theme_background && typeof data.theme_background === 'string') root.style.setProperty('--background', data.theme_background);
-        if (data.theme_foreground && typeof data.theme_foreground === 'string') root.style.setProperty('--foreground', data.theme_foreground);
-        if (data.theme_card && typeof data.theme_card === 'string') root.style.setProperty('--card', data.theme_card);
-        if (data.theme_card_foreground && typeof data.theme_card_foreground === 'string') root.style.setProperty('--card-foreground', data.theme_card_foreground);
-        if (data.theme_popover && typeof data.theme_popover === 'string') root.style.setProperty('--popover', data.theme_popover);
-        if (data.theme_popover_foreground && typeof data.theme_popover_foreground === 'string') root.style.setProperty('--popover-foreground', data.theme_popover_foreground);
-        if (data.theme_primary && typeof data.theme_primary === 'string') root.style.setProperty('--primary', data.theme_primary);
-        if (data.theme_primary_foreground && typeof data.theme_primary_foreground === 'string') root.style.setProperty('--primary-foreground', data.theme_primary_foreground);
-        if (data.theme_secondary && typeof data.theme_secondary === 'string') root.style.setProperty('--secondary', data.theme_secondary);
-        if (data.theme_secondary_foreground && typeof data.theme_secondary_foreground === 'string') root.style.setProperty('--secondary-foreground', data.theme_secondary_foreground);
-        if (data.theme_muted && typeof data.theme_muted === 'string') root.style.setProperty('--muted', data.theme_muted);
-        if (data.theme_muted_foreground && typeof data.theme_muted_foreground === 'string') root.style.setProperty('--muted-foreground', data.theme_muted_foreground);
-        if (data.theme_accent && typeof data.theme_accent === 'string') root.style.setProperty('--accent', data.theme_accent);
-        if (data.theme_accent_foreground && typeof data.theme_accent_foreground === 'string') root.style.setProperty('--accent-foreground', data.theme_accent_foreground);
-        if (data.theme_destructive && typeof data.theme_destructive === 'string') root.style.setProperty('--destructive', data.theme_destructive);
-        if (data.theme_destructive_foreground && typeof data.theme_destructive_foreground === 'string') root.style.setProperty('--destructive-foreground', data.theme_destructive_foreground);
-        if (data.theme_border && typeof data.theme_border === 'string') root.style.setProperty('--border', data.theme_border);
-        if (data.theme_input && typeof data.theme_input === 'string') root.style.setProperty('--input', data.theme_input);
-        if (data.theme_ring && typeof data.theme_ring === 'string') root.style.setProperty('--ring', data.theme_ring);
-        if (data.theme_radius && typeof data.theme_radius === 'string') root.style.setProperty('--radius', data.theme_radius);
-      } else {
-        // Remove custom theme properties to revert to globals.css defaults
-        root.style.removeProperty('--background');
-        root.style.removeProperty('--foreground');
-        root.style.removeProperty('--card');
-        root.style.removeProperty('--card-foreground');
-        root.style.removeProperty('--popover');
-        root.style.removeProperty('--popover-foreground');
-        root.style.removeProperty('--primary');
-        root.style.removeProperty('--primary-foreground');
-        root.style.removeProperty('--secondary');
-        root.style.removeProperty('--secondary-foreground');
-        root.style.removeProperty('--muted');
-        root.style.removeProperty('--muted-foreground');
-        root.style.removeProperty('--accent');
-        root.style.removeProperty('--accent-foreground');
-        root.style.removeProperty('--destructive');
-        root.style.removeProperty('--destructive-foreground');
-        root.style.removeProperty('--border');
-        root.style.removeProperty('--input');
-        root.style.removeProperty('--ring');
-        root.style.removeProperty('--radius');
-      }
+      // Apply custom theme colors to CSS variables
+      if (data.theme_background && typeof data.theme_background === 'string') root.style.setProperty('--background', data.theme_background);
+      if (data.theme_foreground && typeof data.theme_foreground === 'string') root.style.setProperty('--foreground', data.theme_foreground);
+      if (data.theme_card && typeof data.theme_card === 'string') root.style.setProperty('--card', data.theme_card);
+      if (data.theme_card_foreground && typeof data.theme_card_foreground === 'string') root.style.setProperty('--card-foreground', data.theme_card_foreground);
+      if (data.theme_popover && typeof data.theme_popover === 'string') root.style.setProperty('--popover', data.theme_popover);
+      if (data.theme_popover_foreground && typeof data.theme_popover_foreground === 'string') root.style.setProperty('--popover-foreground', data.theme_popover_foreground);
+      if (data.theme_primary && typeof data.theme_primary === 'string') root.style.setProperty('--primary', data.theme_primary);
+      if (data.theme_primary_foreground && typeof data.theme_primary_foreground === 'string') root.style.setProperty('--primary-foreground', data.theme_primary_foreground);
+      if (data.theme_secondary && typeof data.theme_secondary === 'string') root.style.setProperty('--secondary', data.theme_secondary);
+      if (data.theme_secondary_foreground && typeof data.theme_secondary_foreground === 'string') root.style.setProperty('--secondary-foreground', data.theme_secondary_foreground);
+      if (data.theme_muted && typeof data.theme_muted === 'string') root.style.setProperty('--muted', data.theme_muted);
+      if (data.theme_muted_foreground && typeof data.theme_muted_foreground === 'string') root.style.setProperty('--muted-foreground', data.theme_muted_foreground);
+      if (data.theme_accent && typeof data.theme_accent === 'string') root.style.setProperty('--accent', data.theme_accent);
+      if (data.theme_accent_foreground && typeof data.theme_accent_foreground === 'string') root.style.setProperty('--accent-foreground', data.theme_accent_foreground);
+      if (data.theme_destructive && typeof data.theme_destructive === 'string') root.style.setProperty('--destructive', data.theme_destructive);
+      if (data.theme_destructive_foreground && typeof data.theme_destructive_foreground === 'string') root.style.setProperty('--destructive-foreground', data.theme_destructive_foreground);
+      if (data.theme_border && typeof data.theme_border === 'string') root.style.setProperty('--border', data.theme_border);
+      if (data.theme_input && typeof data.theme_input === 'string') root.style.setProperty('--input', data.theme_input);
+      if (data.theme_ring && typeof data.theme_ring === 'string') root.style.setProperty('--ring', data.theme_ring);
+      if (data.theme_radius && typeof data.theme_radius === 'string') root.style.setProperty('--radius', data.theme_radius);
+    } else {
+      // Remove custom theme properties to revert to globals.css defaults
+      root.style.removeProperty('--background');
+      root.style.removeProperty('--foreground');
+      root.style.removeProperty('--card');
+      root.style.removeProperty('--card-foreground');
+      root.style.removeProperty('--popover');
+      root.style.removeProperty('--popover-foreground');
+      root.style.removeProperty('--primary');
+      root.style.removeProperty('--primary-foreground');
+      root.style.removeProperty('--secondary');
+      root.style.removeProperty('--secondary-foreground');
+      root.style.removeProperty('--muted');
+      root.style.removeProperty('--muted-foreground');
+      root.style.removeProperty('--accent');
+      root.style.removeProperty('--accent-foreground');
+      root.style.removeProperty('--destructive');
+      root.style.removeProperty('--destructive-foreground');
+      root.style.removeProperty('--border');
+      root.style.removeProperty('--input');
+      root.style.removeProperty('--ring');
+      root.style.removeProperty('--radius');
+    }
   }
 
   return (

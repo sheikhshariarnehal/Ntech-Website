@@ -50,6 +50,7 @@ export function BlogForm({ postId }: BlogFormProps) {
     if (postId) {
       fetchPost();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [postId]);
 
   const fetchPost = async () => {
@@ -174,12 +175,12 @@ export function BlogForm({ postId }: BlogFormProps) {
       if (!response.ok) {
         throw new Error(data.error || 'Upload failed');
       }
-      
+
       setFormData((prev) => ({
         ...prev,
         cover_image_url: data.url,
       }));
-      
+
       alert('Image uploaded successfully!');
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -232,7 +233,7 @@ export function BlogForm({ postId }: BlogFormProps) {
           <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">Post Details</h3>
-              
+
               <div className="space-y-4">
                 <div className="grid gap-2">
                   <Label htmlFor="title">Title *</Label>
@@ -292,7 +293,7 @@ export function BlogForm({ postId }: BlogFormProps) {
             {/* SEO Settings */}
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">SEO Settings</h3>
-              
+
               <div className="space-y-4">
                 <div className="grid gap-2">
                   <Label htmlFor="seo_title">SEO Title</Label>
@@ -338,7 +339,7 @@ export function BlogForm({ postId }: BlogFormProps) {
           <div className="space-y-6 order-1 lg:order-2">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">Publishing</h3>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   <input
@@ -378,11 +379,12 @@ export function BlogForm({ postId }: BlogFormProps) {
 
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">Cover Image</h3>
-              
+
               <div className="space-y-4">
                 {formData.cover_image_url ? (
                   <div className="space-y-3">
                     <div className="relative group">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={formData.cover_image_url}
                         alt="Cover preview"
@@ -411,7 +413,7 @@ export function BlogForm({ postId }: BlogFormProps) {
                   </div>
                 ) : (
                   <div className="space-y-3">
-                    <div 
+                    <div
                       onClick={() => document.getElementById('cover_image_upload')?.click()}
                       className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center cursor-pointer hover:border-gray-400 transition-colors"
                     >
@@ -425,7 +427,7 @@ export function BlogForm({ postId }: BlogFormProps) {
                     </div>
                   </div>
                 )}
-                
+
                 <input
                   id="cover_image_upload"
                   type="file"
@@ -451,7 +453,7 @@ export function BlogForm({ postId }: BlogFormProps) {
 
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-4">Categories</h3>
-              
+
               <div className="grid gap-2">
                 <Label htmlFor="tags">Tags (comma separated)</Label>
                 <Input

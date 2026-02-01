@@ -85,6 +85,7 @@ export default function RootLayout({
                 <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
                 {/* Fonts with display=swap for faster text rendering */}
+                {/* eslint-disable-next-line @next/next/no-page-custom-font, @next/next/google-font-preconnect */}
                 <link
                     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
                     rel="stylesheet"

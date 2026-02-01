@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-
 interface TelegramUpdate {
     update_id: number;
     message?: {
@@ -33,8 +31,12 @@ function extractSessionId(text: string): string | null {
 
 export async function POST(request: Request) {
     try {
-        // Verify the request is from Telegram (simple token check via custom header)
-        const authHeader = request.headers.get("X-Telegram-Bot-Api-Secret-Token");
+        // Optional: Verify the request is from Telegram using secret token
+        // const secretToken = process.env.TELEGRAM_WEBHOOK_SECRET;
+        // const authHeader = request.headers.get("X-Telegram-Bot-Api-Secret-Token");
+        // if (secretToken && authHeader !== secretToken) {
+        //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        // }
 
         const body: TelegramUpdate = await request.json();
 
