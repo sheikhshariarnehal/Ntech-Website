@@ -206,7 +206,7 @@ export function ChatWidget() {
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`
-                    fixed bottom-6 left-6 z-50 
+                    fixed bottom-6 right-6 z-50 
                     w-14 h-14 rounded-full 
                     bg-gradient-to-r from-blue-600 to-purple-600 
                     text-white shadow-lg 
@@ -227,7 +227,7 @@ export function ChatWidget() {
             {/* Chat Panel */}
             <div
                 className={`
-                    fixed bottom-24 left-6 z-50
+                    fixed bottom-24 right-6 z-50
                     w-[360px] max-w-[calc(100vw-48px)]
                     bg-white dark:bg-gray-900
                     rounded-2xl shadow-2xl
