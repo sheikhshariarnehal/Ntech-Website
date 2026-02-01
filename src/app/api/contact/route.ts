@@ -1,11 +1,13 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { sendTelegramNotification } from "@/lib/telegram";
 
 interface ContactSubmission {
     name: string;
     email: string;
     phone?: string;
     company?: string;
+    subject?: string;
     message: string;
     source_page?: string;
 }
@@ -37,16 +39,27 @@ export async function POST(request: Request) {
             process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
         );
 
-        // Insert contact submission into database
+        // Prepare sanitized data for Telegram
+        const sanitizedData = {
+            name: body.name.trim(),
+            email: body.email.trim().toLowerCase(),
+            phone: body.phone?.trim() || null,
+            company: body.company?.trim() || null,
+            subject: body.subject?.trim() || null,
+            message: body.message.trim(),
+            source_page: body.source_page || "contact",
+        };
+
+        // Insert contact submission into database (excluding subject as it's not in the table)
         const { data, error } = await supabase
             .from("contact_submissions")
             .insert([{
-                name: body.name.trim(),
-                email: body.email.trim().toLowerCase(),
-                phone: body.phone?.trim() || null,
-                company: body.company?.trim() || null,
-                message: body.message.trim(),
-                source_page: body.source_page || "contact",
+                name: sanitizedData.name,
+                email: sanitizedData.email,
+                phone: sanitizedData.phone,
+                company: sanitizedData.company,
+                message: sanitizedData.message,
+                source_page: sanitizedData.source_page,
                 status: "new",
             }])
             .select()
@@ -62,10 +75,23 @@ export async function POST(request: Request) {
 
         console.log("Contact submission saved:", data.id);
 
+        // Send Telegram notification (non-blocking)
+        sendTelegramNotification({
+            name: sanitizedData.name,
+            email: sanitizedData.email,
+            phone: sanitizedData.phone || undefined,
+            company: sanitizedData.company || undefined,
+            subject: sanitizedData.subject || undefined,
+            message: sanitizedData.message,
+            source_page: sanitizedData.source_page,
+        }).catch((err) => {
+            console.error("Telegram notification failed:", err);
+        });
+
         return NextResponse.json(
-            { 
+            {
                 message: "Message sent successfully",
-                id: data.id 
+                id: data.id
             },
             { status: 200 }
         );
@@ -77,3 +103,4 @@ export async function POST(request: Request) {
         );
     }
 }
+
