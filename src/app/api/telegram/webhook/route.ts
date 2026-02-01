@@ -24,9 +24,32 @@ interface TelegramUpdate {
  * Extract session ID from the original message text
  */
 function extractSessionId(text: string): string | null {
-    // Look for "Session: `XXXXXXXX`" pattern
-    const match = text.match(/Session:\s*`([a-f0-9-]+)`/i);
-    return match ? match[1] : null;
+    console.log("Extracting session ID from:", text);
+
+    // Try multiple patterns to handle different markdown formats
+    // Pattern 1: Escaped backticks (MarkdownV2 raw text)
+    let match = text.match(/Session:\s*\\?`([a-f0-9]+)\\?`/i);
+    if (match) {
+        console.log("Found session ID with pattern 1:", match[1]);
+        return match[1];
+    }
+
+    // Pattern 2: Plain text without backticks
+    match = text.match(/Session:\s*([a-f0-9]{8})/i);
+    if (match) {
+        console.log("Found session ID with pattern 2:", match[1]);
+        return match[1];
+    }
+
+    // Pattern 3: With asterisks from markdown
+    match = text.match(/Session:\*?\s*\\?`?([a-f0-9]{8})\\?`?/i);
+    if (match) {
+        console.log("Found session ID with pattern 3:", match[1]);
+        return match[1];
+    }
+
+    console.log("No session ID found");
+    return null;
 }
 
 export async function POST(request: Request) {
